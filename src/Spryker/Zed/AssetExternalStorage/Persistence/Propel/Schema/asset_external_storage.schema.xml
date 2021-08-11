@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<database xmlns="spryker:schema-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:schemaLocation="spryker:schema-01 https://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\AssetExternalStorage\Persistence" package="src.Orm.Zed.AssetExternalStorage.Persistence">
+    <table name="spy_asset_external_cms_slot_storage" identifierQuoting="true" idMethod="native" allowPkInsert="true">
+        <column name="id_asset_external_cms_slot_storage" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_cms_slot" required="true" type="INTEGER"/>
+        <column name="cms_slot_key" type="VARCHAR" size="1024" required="true"/>
+        <column name="data" type="LONGVARCHAR" required="false"/>
+
+        <index name="spy_asset_external_cms_slot_storage-cms_slot_key">
+            <index-column name="cms_slot_key"/>
+        </index>
+
+        <unique name="spy_asset_external_cms_slot_storage-unique-fk_cms_slot-store">
+            <unique-column name="fk_cms_slot"/>
+            <unique-column name="store"/>
+        </unique>
+
+        <id-method-parameter value="spy_asset_external_cms_slot_storage_pk_seq"/>
+
+        <behavior name="synchronization">
+            <parameter name="resource" value="asset_external_cms_slot"/>
+            <parameter name="key_suffix_column" value="cms_slot_key"/>
+            <parameter name="store" required="true"/>
+            <parameter name="queue_group" value="sync.storage.cms"/>
+        </behavior>
+
+        <behavior name="timestampable"/>
+    </table>
+</database>
