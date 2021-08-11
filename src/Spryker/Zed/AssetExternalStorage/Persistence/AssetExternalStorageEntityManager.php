@@ -1,17 +1,14 @@
 <?php
 
 /**
-* Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
-* Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
-*/
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
-use Generated\Shared\Transfer\AssetExternalTransfer;
-use Generated\Shared\Transfer\CmsSlotTransfer;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
 use Propel\Runtime\Collection\ObjectCollection;
-use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
@@ -24,10 +21,6 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
      * @param string $storeName
      * @param string $cmsSlotKey
      * @param int $cmsSlotId
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
-     *
-     * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return void
      */

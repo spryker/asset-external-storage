@@ -2,7 +2,7 @@
 
 /**
  * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
- * Use of this software requires acceptance of the Spryker Marketplace License Agreement. See LICENSE file.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace Spryker\Client\AssetExternalStorage\Reader;
@@ -10,11 +10,9 @@ namespace Spryker\Client\AssetExternalStorage\Reader;
 use Generated\Shared\Transfer\AssetExternalStorageCollectionCriteriaTransfer;
 use Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer;
 use Generated\Shared\Transfer\AssetExternalStorageTransfer;
-use Generated\Shared\Transfer\AssetExternalTransfer;
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Spryker\Client\AssetExternalStorage\Dependency\Client\AssetExternalStorageToStorageClientInterface;
 use Spryker\Client\AssetExternalStorage\Dependency\Service\AssetExternalStorageToSynchronizationServiceInterface;
-use Spryker\Client\AssetExternalStorage\Dependency\Service\AssetExternalStorageToUtilEncodingServiceInterface;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 
 class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
@@ -48,8 +46,9 @@ class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
      *
      * @return \Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer
      */
-    public function getAssetExternals(AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer): AssetExternalStorageCollectionTransfer
-    {
+    public function getAssetExternals(
+        AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
+    ): AssetExternalStorageCollectionTransfer {
         $assetExternalStorageKey = $this->generateKey(
             $assetExternalStorageCollectionCriteriaTransfer->getSlotKeyOrFail(),
             $assetExternalStorageCollectionCriteriaTransfer->getStoreNameOrFail()

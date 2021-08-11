@@ -1,15 +1,14 @@
 <?php
 
 /**
-* Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
-* Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
-*/
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
 
 namespace Spryker\Client\AssetExternalStorage;
 
 use Spryker\Client\AssetExternalStorage\Dependency\Client\AssetExternalStorageToStorageClientInterface;
 use Spryker\Client\AssetExternalStorage\Dependency\Service\AssetExternalStorageToSynchronizationServiceInterface;
-use Spryker\Client\AssetExternalStorage\Dependency\Service\AssetExternalStorageToUtilEncodingServiceInterface;
 use Spryker\Client\AssetExternalStorage\Reader\AssetExternalStorageReader;
 use Spryker\Client\AssetExternalStorage\Reader\AssetExternalStorageReaderInterface;
 use Spryker\Client\Kernel\AbstractFactory;

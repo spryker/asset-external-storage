@@ -1,13 +1,12 @@
 <?php
 
 /**
-* Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
-* Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
-*/
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
-use Generated\Shared\Transfer\AssetExternalStorageTransfer;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -27,6 +26,8 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     }
 
     /**
+     * @param int[] $ids
+     *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
      */
     public function findAllAssetExternalStorageByAssetExternalId(array $ids): array

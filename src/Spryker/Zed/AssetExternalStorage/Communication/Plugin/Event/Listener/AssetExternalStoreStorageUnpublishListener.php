@@ -15,6 +15,7 @@ use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
 /**
  * @method \Spryker\Zed\AssetExternalStorage\Communication\AssetExternalStorageCommunicationFactory getFactory()
  * @method \Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacadeInterface getFacade()
+ * @method \Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig getConfig()
  */
 class AssetExternalStoreStorageUnpublishListener extends AbstractPlugin implements EventBulkHandlerInterface
 {
@@ -26,13 +27,12 @@ class AssetExternalStoreStorageUnpublishListener extends AbstractPlugin implemen
      *
      * @return void
      */
-    public function handleBulk(array $eventEntityTransfers, $eventName): void
+    public function handleBulk(array $eventEntityTransfers, $eventName)
     {
         $this->preventTransaction();
         $assetExternalIds = $this->getFactory()
             ->getEventBehaviorFacade()
             ->getEventTransferForeignKeys($eventEntityTransfers, SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL);
-
 
         foreach ($assetExternalIds as $assetExternalId) {
             $this->getFacade()->unpublish($assetExternalId);

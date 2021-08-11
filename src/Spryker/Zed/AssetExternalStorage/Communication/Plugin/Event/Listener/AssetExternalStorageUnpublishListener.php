@@ -8,7 +8,6 @@
 namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener;
 
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
-use Spryker\Zed\Event\Dependency\Plugin\EventBulkHandlerInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
@@ -16,6 +15,7 @@ use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
 /**
  * @method \Spryker\Zed\AssetExternalStorage\Communication\AssetExternalStorageCommunicationFactory getFactory()
  * @method \Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacadeInterface getFacade()
+ * @method \Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig getConfig()
  */
 class AssetExternalStorageUnpublishListener extends AbstractPlugin implements EventHandlerInterface
 {

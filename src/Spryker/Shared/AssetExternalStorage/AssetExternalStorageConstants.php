@@ -9,6 +9,9 @@ namespace Spryker\Shared\AssetExternalStorage;
 
 use Spryker\Shared\Kernel\AbstractBundleConfig;
 
+/**
+ * Declares global environment configuration keys. Do not use it for other class constants.
+ */
 class AssetExternalStorageConstants extends AbstractBundleConfig
 {
     /**

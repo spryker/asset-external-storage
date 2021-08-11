@@ -2,7 +2,7 @@
 
 /**
  * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
- * Use of this software requires acceptance of the Spryker Marketplace License Agreement. See LICENSE file.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace Spryker\Client\AssetExternalStorage\Reader;
@@ -17,5 +17,7 @@ interface AssetExternalStorageReaderInterface
      *
      * @return \Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer
      */
-    public function getAssetExternals(AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer): AssetExternalStorageCollectionTransfer;
+    public function getAssetExternals(
+        AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
+    ): AssetExternalStorageCollectionTransfer;
 }

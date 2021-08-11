@@ -1,25 +1,17 @@
 <?php
 
 /**
-* Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
-* Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
-*/
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
 
 namespace Spryker\Zed\AssetExternalStorage;
 
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalQuery;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
-use Orm\Zed\Content\Persistence\SpyContentQuery;
-use Orm\Zed\Payment\Persistence\SpyPaymentMethodQuery;
 use Orm\Zed\Store\Persistence\SpyStoreQuery;
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeBridge;
-use Spryker\Zed\AssetExternalStorage\Dependency\Service\AssetExternalStorageToSynchronizationServiceBridge;
-use Spryker\Zed\ContentStorage\ContentStorageDependencyProvider;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAssetExternalBridge;
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\ProductDiscontinuedStorageToLocaleFacadeBridge;
 
 /**
  * @method \Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig getConfig()
@@ -45,6 +37,11 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     public function providePersistenceLayerDependencies(Container $container)
     {
         parent::providePersistenceLayerDependencies($container);

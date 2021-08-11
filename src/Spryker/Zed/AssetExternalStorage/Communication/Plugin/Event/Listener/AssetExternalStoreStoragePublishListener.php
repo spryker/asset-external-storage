@@ -8,7 +8,6 @@
 namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener;
 
 use Orm\Zed\AssetExternal\Persistence\Map\SpyAssetExternalStoreTableMap;
-use Spryker\Shared\Kernel\Transfer\TransferInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventBulkHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
@@ -16,6 +15,7 @@ use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
 /**
  * @method \Spryker\Zed\AssetExternalStorage\Communication\AssetExternalStorageCommunicationFactory getFactory()
  * @method \Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacadeInterface getFacade()
+ * @method \Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig getConfig()
  */
 class AssetExternalStoreStoragePublishListener extends AbstractPlugin implements EventBulkHandlerInterface
 {
@@ -27,13 +27,12 @@ class AssetExternalStoreStoragePublishListener extends AbstractPlugin implements
      *
      * @return void
      */
-    public function handleBulk(array $eventEntityTransfers, $eventName): void
+    public function handleBulk(array $eventEntityTransfers, $eventName)
     {
         $this->preventTransaction();
         $assetExternalIds = $this->getFactory()
             ->getEventBehaviorFacade()
             ->getEventTransferForeignKeys($eventEntityTransfers, SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL);
-
 
         foreach ($assetExternalIds as $assetExternalId) {
             $this->getFacade()->publish($assetExternalId);

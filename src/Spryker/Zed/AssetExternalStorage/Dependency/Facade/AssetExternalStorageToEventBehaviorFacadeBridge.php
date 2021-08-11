@@ -7,8 +7,6 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Dependency\Facade;
 
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeInterface;
-
 class AssetExternalStorageToEventBehaviorFacadeBridge implements AssetExternalStorageToEventBehaviorFacadeInterface
 {
     /**

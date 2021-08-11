@@ -15,12 +15,11 @@ use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetEx
 use Spryker\Zed\Event\Dependency\EventCollectionInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventSubscriberInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use Spryker\Zed\Product\Dependency\ProductEvents;
-use Spryker\Zed\Tax\Dependency\TaxEvents;
-use Spryker\Zed\TaxStorage\Communication\Plugin\Event\Listener\TaxSetStoragePublishListener;
 
 /**
  * @method \Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig getConfig()
+ * @method \Spryker\Zed\AssetExternalStorage\Communication\AssetExternalStorageCommunicationFactory getFactory()
+ * @method \Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacadeInterface getFacade()
  */
 class AssetExternalStorageEventSubscriber extends AbstractPlugin implements EventSubscriberInterface
 {
@@ -31,7 +30,7 @@ class AssetExternalStorageEventSubscriber extends AbstractPlugin implements Even
      *
      * @return \Spryker\Zed\Event\Dependency\EventCollectionInterface
      */
-    public function getSubscribedEvents(EventCollectionInterface $eventCollection)
+    public function getSubscribedEvents(EventCollectionInterface $eventCollection): EventCollectionInterface
     {
         $this->addAssetExternalCreateStorageListener($eventCollection);
         $this->addAssetExternalUpdateStorageListener($eventCollection);

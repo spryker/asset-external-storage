@@ -10,7 +10,6 @@ namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Synchronization;
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConstants;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataRepositoryPluginInterface;
 
