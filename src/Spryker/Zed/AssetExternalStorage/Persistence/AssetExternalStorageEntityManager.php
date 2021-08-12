@@ -34,7 +34,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
                 'assetContent' => $assetExternalEntity->getAssetContent(),
             ];
         }
-        $assetExternalCmsSlotStorage = new SpyAssetExternalCmsSlotStorage();
+        $assetExternalCmsSlotStorage = $this->getSpyAssetExternalCmsSlotStorage();
 
         $assetExternalCmsSlotStorage
             ->setStore($storeName)
@@ -43,5 +43,13 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
             ->setData($data);
 
         $assetExternalCmsSlotStorage->save();
+    }
+
+    /**
+     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
+     */
+    protected function getSpyAssetExternalCmsSlotStorage(): SpyAssetExternalCmsSlotStorage
+    {
+        return new SpyAssetExternalCmsSlotStorage();
     }
 }

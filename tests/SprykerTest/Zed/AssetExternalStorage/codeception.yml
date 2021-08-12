@@ -10,3 +10,12 @@ coverage:
     enabled: true
     remote: false
     whitelist: { include: ['../../../../src/*'] }
+
+suites:
+    Communication:
+        path: Communication
+        class_name: AssetExternalStorageCommunicationTester
+        modules:
+            enabled:
+                - Asserts
+                - \SprykerTest\Shared\Propel\Helper\ConnectionHelper
