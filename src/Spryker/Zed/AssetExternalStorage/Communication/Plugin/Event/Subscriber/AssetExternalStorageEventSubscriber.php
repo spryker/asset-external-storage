@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Subscriber;
 
+use Spryker\Zed\AssetExternal\Dependency\AssetExternalEvents;
 use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetExternalStoragePublishListener;
 use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetExternalStorageUnpublishListener;
 use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetExternalStoreStoragePublishListener;
@@ -47,7 +48,7 @@ class AssetExternalStorageEventSubscriber extends AbstractPlugin implements Even
      */
     protected function addAssetExternalCreateStorageListener(EventCollectionInterface $eventCollection): EventCollectionInterface
     {
-        return $eventCollection->addListenerQueued('Entity.spy_asset_external.create', new AssetExternalStoragePublishListener(), 0, null, $this->getConfig()->getEventQueueName());
+        return $eventCollection->addListenerQueued(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_CREATE, new AssetExternalStoragePublishListener(), 0, null, $this->getConfig()->getEventQueueName());
     }
 
     /**
@@ -57,7 +58,7 @@ class AssetExternalStorageEventSubscriber extends AbstractPlugin implements Even
      */
     protected function addAssetExternalUpdateStorageListener(EventCollectionInterface $eventCollection): EventCollectionInterface
     {
-        return $eventCollection->addListenerQueued('Entity.spy_asset_external.update', new AssetExternalStoragePublishListener(), 0, null, $this->getConfig()->getEventQueueName());
+        return $eventCollection->addListenerQueued(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_UPDATE, new AssetExternalStoragePublishListener(), 0, null, $this->getConfig()->getEventQueueName());
     }
 
     /**
@@ -67,7 +68,7 @@ class AssetExternalStorageEventSubscriber extends AbstractPlugin implements Even
      */
     protected function addAssetExternalDeleteStorageListener(EventCollectionInterface $eventCollection): EventCollectionInterface
     {
-        return $eventCollection->addListenerQueued('Entity.spy_asset_external.delete', new AssetExternalStorageUnpublishListener(), 0, null, $this->getConfig()->getEventQueueName());
+        return $eventCollection->addListenerQueued(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_DELETE, new AssetExternalStorageUnpublishListener(), 0, null, $this->getConfig()->getEventQueueName());
     }
 
     /**
@@ -77,7 +78,7 @@ class AssetExternalStorageEventSubscriber extends AbstractPlugin implements Even
      */
     protected function addAssetExternalStoreCreateStorageListener(EventCollectionInterface $eventCollection): EventCollectionInterface
     {
-        return $eventCollection->addListenerQueued('Entity.spy_asset_external_store.create', new AssetExternalStoreStoragePublishListener(), 0, null, $this->getConfig()->getEventQueueName());
+        return $eventCollection->addListenerQueued(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE, new AssetExternalStoreStoragePublishListener(), 0, null, $this->getConfig()->getEventQueueName());
     }
 
     /**
@@ -87,6 +88,6 @@ class AssetExternalStorageEventSubscriber extends AbstractPlugin implements Even
      */
     protected function addAssetExternalStoreDeleteStorageListener(EventCollectionInterface $eventCollection): EventCollectionInterface
     {
-        return $eventCollection->addListenerQueued('Entity.spy_asset_external_store.delete', new AssetExternalStoreStorageUnpublishListener(), 0, null, $this->getConfig()->getEventQueueName());
+        return $eventCollection->addListenerQueued(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_DELETE, new AssetExternalStoreStorageUnpublishListener(), 0, null, $this->getConfig()->getEventQueueName());
     }
 }

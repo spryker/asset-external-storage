@@ -16,6 +16,7 @@ use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalStore;
 use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalStoreQuery;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
+use Spryker\Zed\AssetExternal\Dependency\AssetExternalEvents;
 use Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageBusinessFactory;
 use Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacade;
 use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetExternalStoragePublishListener;
@@ -88,7 +89,7 @@ class AssetExternalStorageListenerTest extends Unit
         $eventTransfer = (new EventEntityTransfer())->setId($assetExternalId);
 
         // Act
-        $assetExternalStorageListener->handle($eventTransfer, 'Entity.spy_asset_external.update');
+        $assetExternalStorageListener->handle($eventTransfer, AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_UPDATE);
 
         // Assert
         $assetExternalStorageCount = SpyAssetExternalCmsSlotStorageQuery::create()->count();
@@ -133,7 +134,7 @@ class AssetExternalStorageListenerTest extends Unit
         ];
 
         // Act
-        $assetExternalStoreStorageListener->handleBulk($eventTransfers, 'Entity.spy_asset_external_store.create');
+        $assetExternalStoreStorageListener->handleBulk($eventTransfers, AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE);
 
         // Assert
         $assetExternalStorageCount = SpyAssetExternalCmsSlotStorageQuery::create()->count();
@@ -190,7 +191,7 @@ class AssetExternalStorageListenerTest extends Unit
         $eventTransfer = (new EventEntityTransfer())->setId($assetExternalId);
 
         // Act
-        $assetExternalStorageListener->handle($eventTransfer, 'Entity.spy_asset_external_store.update');
+        $assetExternalStorageListener->handle($eventTransfer, AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_UPDATE);
 
         // Assert
         $assetExternalStorageCount = SpyAssetExternalCmsSlotStorageQuery::create()->count();

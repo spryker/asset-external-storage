@@ -34,9 +34,9 @@ class AssetExternalStorageCommunicationTester extends Actor
     use _generated\AssetExternalStorageCommunicationTesterActions;
 
     /**
-     * @param \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\ConfigurableBundleCartsRestApi\Business\ConfigurableBundleCartsRestApiBusinessFactory $factoryMock
+     * @param \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageBusinessFactory $factoryMock
      *
-     * @return \Spryker\Zed\ConfigurableBundleCartsRestApi\Business\ConfigurableBundleCartsRestApiFacadeInterface
+     * @return \Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacadeInterface
      */
     public function getFacadeMock($factoryMock): AssetExternalStorageFacadeInterface
     {
