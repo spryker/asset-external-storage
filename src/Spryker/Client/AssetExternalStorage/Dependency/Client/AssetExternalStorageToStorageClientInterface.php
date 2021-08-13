@@ -15,11 +15,4 @@ interface AssetExternalStorageToStorageClientInterface
      * @return mixed
      */
     public function get($key);
-
-    /**
-     * @param string[] $keys
-     *
-     * @return array
-     */
-    public function getMulti(array $keys);
 }

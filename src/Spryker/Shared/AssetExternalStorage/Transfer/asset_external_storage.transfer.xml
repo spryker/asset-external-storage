@@ -17,4 +17,11 @@
         <property name="storeName" type="string"/>
     </transfer>
 
+    <transfer name="SynchronizationData">
+        <property name="reference" type="string"/>
+        <property name="data" type="string"/>
+        <property name="key" type="string"/>
+        <property name="store" type="string"/>
+    </transfer>
+
 </transfers>

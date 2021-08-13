@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConstants;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataRepositoryPluginInterface;
+use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataBulkRepositoryPluginInterface;
 
 /**
  * @method \Spryker\Zed\AssetExternalStorage\Communication\AssetExternalStorageCommunicationFactory getFactory()
@@ -19,7 +19,7 @@ use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataRe
  * @method \Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig getConfig()
  * @method \Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacadeInterface getFacade()()
  */
-class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin implements SynchronizationDataRepositoryPluginInterface
+class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin implements SynchronizationDataBulkRepositoryPluginInterface
 {
     /**
      * {@inheritDoc}
@@ -50,11 +50,13 @@ class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin imple
      *
      * @api
      *
+     * @param int $offset
+     * @param int $limit
      * @param int[] $ids
      *
      * @return \Generated\Shared\Transfer\SynchronizationDataTransfer[]
      */
-    public function getData(array $ids = []): array
+    public function getData(int $offset, int $limit, array $ids = []): array
     {
         $synchronizationDataTransfers = [];
         foreach ($this->findAssetExternalStorage($ids) as $assetExternalStorageEntity) {
