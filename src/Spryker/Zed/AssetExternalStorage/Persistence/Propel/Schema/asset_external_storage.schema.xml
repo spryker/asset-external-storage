@@ -5,6 +5,7 @@
         <column name="fk_cms_slot" required="true" type="INTEGER"/>
         <column name="cms_slot_key" type="VARCHAR" size="1024" required="true"/>
         <column name="data" type="LONGVARCHAR" required="false"/>
+        <column name="store" type="VARCHAR" size="255" required="true"/>
 
         <index name="spy_asset_external_cms_slot_storage-cms_slot_key">
             <index-column name="cms_slot_key"/>
