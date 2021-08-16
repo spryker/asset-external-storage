@@ -21,7 +21,7 @@ class AssetExternalStorageConfig extends AbstractBundleConfig
 
     /**
      * Specification:
-     *  - Queue name as used for processing product abstract product tax set messages.
+     *  - Queue name as used for processing asset external messages.
      *
      * @api
      */

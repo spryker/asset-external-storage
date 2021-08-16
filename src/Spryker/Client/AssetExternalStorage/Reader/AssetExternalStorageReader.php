@@ -17,8 +17,6 @@ use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 
 class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
 {
-    protected const KEY_PRODUCT_OFFER_REFERENCE = 'product_offer_reference';
-
     /**
      * @var \Spryker\Client\AssetExternalStorage\Dependency\Client\AssetExternalStorageToStorageClientInterface
      */
