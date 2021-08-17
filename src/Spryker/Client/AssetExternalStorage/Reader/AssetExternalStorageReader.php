@@ -17,6 +17,8 @@ use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 
 class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
 {
+    protected const ASSETS_STORAGE_KEY = 'assets';
+
     /**
      * @var \Spryker\Client\AssetExternalStorage\Dependency\Client\AssetExternalStorageToStorageClientInterface
      */
@@ -54,8 +56,11 @@ class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
         $assetExternalStorageTransferData = $this->storageClient->get($assetExternalStorageKey);
 
         $assetExternalStorageCollectionTransfer = new AssetExternalStorageCollectionTransfer();
+        if (!$assetExternalStorageTransferData || !$assetExternalStorageTransferData[self::ASSETS_STORAGE_KEY]) {
+            return $assetExternalStorageCollectionTransfer;
+        }
 
-        foreach ($assetExternalStorageTransferData['assets'] as $assetextenal) {
+        foreach ($assetExternalStorageTransferData[self::ASSETS_STORAGE_KEY] as $assetextenal) {
             $assetExternalStorageCollectionTransfer->addAssetExternalStorage(
                 (new AssetExternalStorageTransfer())->fromArray($assetextenal, true)
             );

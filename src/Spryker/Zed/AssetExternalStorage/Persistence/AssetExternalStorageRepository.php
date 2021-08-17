@@ -20,7 +20,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     public function findAllAssetExternalStorage(): array
     {
         return $this->getFactory()
-            ->getAssetExternalStorageQuery()
+            ->createAssetExternalStorageQuery()
             ->find()
             ->getArrayCopy();
     }
@@ -32,7 +32,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
      */
     public function findAllAssetExternalStorageByAssetExternalId(array $ids): array
     {
-        $query = $this->getFactory()->getAssetExternalStorageQuery();
+        $query = $this->getFactory()->createAssetExternalStorageQuery();
 
         if ($ids !== []) {
             $query->filterByIdAssetExternalCmsSlotStorage_In($ids);

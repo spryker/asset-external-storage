@@ -7,9 +7,10 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Business;
 
-use Orm\Zed\Store\Persistence\SpyStoreQuery;
 use Spryker\Zed\AssetExternalStorage\AssetExternalStorageDependencyProvider;
 use Spryker\Zed\AssetExternalStorage\Business\Publisher\AssetExternalStorageWriter;
+use Spryker\Zed\AssetExternalStorage\Business\Publisher\AssetExternalStorageWriterInterface;
+use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -22,19 +23,19 @@ class AssetExternalStorageBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \Spryker\Zed\AssetExternalStorage\Business\Publisher\AssetExternalStorageWriter
      */
-    public function createAssetExternalStorageWriter(): AssetExternalStorageWriter
+    public function createAssetExternalStorageWriter(): AssetExternalStorageWriterInterface
     {
         return new AssetExternalStorageWriter(
-            $this->getStoreQuery(),
+            $this->getFacadeStore(),
             $this->getEntityManager()
         );
     }
 
     /**
-     * @return \Orm\Zed\Store\Persistence\SpyStoreQuery
+     * @return \Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface
      */
-    public function getStoreQuery(): SpyStoreQuery
+    public function getFacadeStore(): AssetExternalStorageToStoreFacadeInterface
     {
-        return $this->getProvidedDependency(AssetExternalStorageDependencyProvider::PROPEL_QUERY_STORE);
+        return $this->getProvidedDependency(AssetExternalStorageDependencyProvider::FACADE_STORE);
     }
 }

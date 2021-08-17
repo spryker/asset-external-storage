@@ -7,34 +7,34 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Business\Publisher;
 
+use Generated\Shared\Transfer\StoreTransfer;
 use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
 use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalQuery;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
-use Orm\Zed\Store\Persistence\SpyStore;
-use Orm\Zed\Store\Persistence\SpyStoreQuery;
+use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageEntityManagerInterface;
 
 class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
 {
     /**
-     * @var \Orm\Zed\Store\Persistence\SpyStoreQuery $storeQuery
+     * @var \Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface
      */
-    protected $storeQuery;
+    protected $storeFacade;
 
     /**
-     * @var \Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageEntityManagerInterface $assetExternalStorageEntityManager
+     * @var \Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageEntityManagerInterface
      */
     protected $assetExternalStorageEntityManager;
 
     /**
-     * @param \Orm\Zed\Store\Persistence\SpyStoreQuery $storeQuery
+     * @param \Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface $storeFacade
      * @param \Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageEntityManagerInterface $assetExternalStorageEntityManager
      */
     public function __construct(
-        SpyStoreQuery $storeQuery,
+        AssetExternalStorageToStoreFacadeInterface $storeFacade,
         AssetExternalStorageEntityManagerInterface $assetExternalStorageEntityManager
     ) {
-        $this->storeQuery = $storeQuery;
+        $this->storeFacade = $storeFacade;
         $this->assetExternalStorageEntityManager = $assetExternalStorageEntityManager;
     }
 
@@ -54,25 +54,25 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             ->filterByFkCmsSlot($assetExternalEntity->getFkCmsSlot())
             ->deleteAll();
 
-        $storeEntities = $this->storeQuery->find();
+        $storeTransfers = $this->storeFacade->getAllStores();
 
-        foreach ($storeEntities as $storeEntity) {
-            $this->saveAssetExternalStorageForStore($assetExternalEntity, $storeEntity);
+        foreach ($storeTransfers as $storeTransfer) {
+            $this->saveAssetExternalStorageForStore($assetExternalEntity, $storeTransfer);
         }
     }
 
     /**
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
-     * @param \Orm\Zed\Store\Persistence\SpyStore $storeEntity
+     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
      *
      * @return void
      */
-    protected function saveAssetExternalStorageForStore(SpyAssetExternal $assetExternalEntity, SpyStore $storeEntity): void
+    protected function saveAssetExternalStorageForStore(SpyAssetExternal $assetExternalEntity, StoreTransfer $storeTransfer): void
     {
         $assetExternalEntities = SpyAssetExternalQuery::create()
             ->filterByFkCmsSlot($assetExternalEntity->getFkCmsSlot())
             ->useSpyAssetExternalStoreQuery()
-                ->filterByFkStore($storeEntity->getIdStore())
+                ->filterByFkStore($storeTransfer->getIdStore())
             ->endUse()
             ->find();
 
@@ -82,7 +82,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
 
         $cmsSlotKey = $assetExternalEntity->getSpyCmsSlot()->getKey();
         $cmsSlotId = $assetExternalEntity->getSpyCmsSlot()->getIdCmsSlot();
-        $storeName = $storeEntity->getName();
+        $storeName = $storeTransfer->getName();
 
         $this->assetExternalStorageEntityManager->saveAssetExternalStorage(
             $assetExternalEntities,
