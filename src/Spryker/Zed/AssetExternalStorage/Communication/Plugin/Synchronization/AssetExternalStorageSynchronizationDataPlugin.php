@@ -76,13 +76,13 @@ class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin imple
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
      */
-    protected function findAssetExternalStorage(array $ids = [1]): array
+    protected function findAssetExternalStorage(array $ids): array
     {
         if ($ids === []) {
             return $this->getRepository()->findAllAssetExternalStorage();
         }
 
-        return $this->getRepository()->findAllAssetExternalStorageByAssetExternalId($ids);
+        return $this->getRepository()->findAllAssetExternalStorageByAssetExternalIds($ids);
     }
 
     /**

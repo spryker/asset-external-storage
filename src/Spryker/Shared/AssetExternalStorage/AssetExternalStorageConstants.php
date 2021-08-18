@@ -16,7 +16,7 @@ class AssetExternalStorageConstants extends AbstractBundleConfig
 {
     /**
      * Specification:
-     * - Queue name as used for processing asset external messages
+     * - Resource name, this will use for key generating
      *
      * @api
      */

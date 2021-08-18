@@ -10,9 +10,9 @@ namespace Spryker\Zed\AssetExternalStorage\Business\Publisher;
 interface AssetExternalStorageWriterInterface
 {
     /**
-     * @param int $assetExternalId
+     * @param int $idAssetExternal
      *
      * @return void
      */
-    public function updateAssetExternalSorageData(int $assetExternalId): void;
+    public function updateAssetExternalSorageData(int $idAssetExternal): void;
 }

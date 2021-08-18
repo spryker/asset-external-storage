@@ -74,10 +74,10 @@ class AssetExternalStorageListenerTest extends Unit
             ->setFkCmsSlot(1)
             ->save();
 
-        $assetExternalId = SpyAssetExternalQuery::create()->find()->getLast()->getIdAssetExternal();
+        $idAssetExternal = SpyAssetExternalQuery::create()->find()->getLast()->getIdAssetExternal();
 
         (new SpyAssetExternalStore())
-            ->setFkAssetExternal($assetExternalId)
+            ->setFkAssetExternal($idAssetExternal)
             ->setFkStore(1)
             ->save();
 
@@ -86,7 +86,7 @@ class AssetExternalStorageListenerTest extends Unit
         $assetExternalStorageListener = new AssetExternalStoragePublishListener();
         $assetExternalStorageListener->setFacade($this->facade);
 
-        $eventTransfer = (new EventEntityTransfer())->setId($assetExternalId);
+        $eventTransfer = (new EventEntityTransfer())->setId($idAssetExternal);
 
         // Act
         $assetExternalStorageListener->handle($eventTransfer, AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_UPDATE);
@@ -115,10 +115,10 @@ class AssetExternalStorageListenerTest extends Unit
             ->setFkCmsSlot(1)
             ->save();
 
-        $assetExternalId = SpyAssetExternalQuery::create()->find()->getLast()->getIdAssetExternal();
+        $idAssetExternal = SpyAssetExternalQuery::create()->find()->getLast()->getIdAssetExternal();
 
         (new SpyAssetExternalStore())
-            ->setFkAssetExternal($assetExternalId)
+            ->setFkAssetExternal($idAssetExternal)
             ->setFkStore(1)
             ->save();
 
@@ -129,7 +129,7 @@ class AssetExternalStorageListenerTest extends Unit
 
         $eventTransfers = [
             (new EventEntityTransfer())->setForeignKeys([
-                SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL => $assetExternalId,
+                SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL => $idAssetExternal,
             ]),
         ];
 
@@ -161,10 +161,10 @@ class AssetExternalStorageListenerTest extends Unit
             ->setFkCmsSlot(1)
             ->save();
 
-        $assetExternalId = SpyAssetExternalQuery::create()->find()->getLast()->getIdAssetExternal();
+        $idAssetExternal = SpyAssetExternalQuery::create()->find()->getLast()->getIdAssetExternal();
 
         (new SpyAssetExternalStore())
-            ->setFkAssetExternal($assetExternalId)
+            ->setFkAssetExternal($idAssetExternal)
             ->setFkStore(1)
             ->save();
 
@@ -188,7 +188,7 @@ class AssetExternalStorageListenerTest extends Unit
         $assetExternalStorageListener = new AssetExternalStoragePublishListener();
         $assetExternalStorageListener->setFacade($this->facade);
 
-        $eventTransfer = (new EventEntityTransfer())->setId($assetExternalId);
+        $eventTransfer = (new EventEntityTransfer())->setId($idAssetExternal);
 
         // Act
         $assetExternalStorageListener->handle($eventTransfer, AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_UPDATE);

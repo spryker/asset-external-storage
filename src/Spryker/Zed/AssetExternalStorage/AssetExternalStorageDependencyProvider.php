@@ -21,7 +21,6 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
 {
     public const FACADE_STORE = 'FACADE_STORE';
     public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
-    public const PROPEL_QUERY_ASSET_EXTERNAL_STORAGE = 'PROPEL_QUERY_ASSET_EXTERNAL_STORAGE';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container

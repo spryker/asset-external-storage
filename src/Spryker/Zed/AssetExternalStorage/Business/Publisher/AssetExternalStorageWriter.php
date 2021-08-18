@@ -39,13 +39,13 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
     }
 
     /**
-     * @param int $assetExternalId
+     * @param int $idAssetExternal
      *
      * @return void
      */
-    public function updateAssetExternalSorageData(int $assetExternalId): void
+    public function updateAssetExternalSorageData(int $idAssetExternal): void
     {
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($assetExternalId);
+        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($idAssetExternal);
         if (!$assetExternalEntity) {
             return;
         }
@@ -80,15 +80,11 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             return;
         }
 
-        $cmsSlotKey = $assetExternalEntity->getSpyCmsSlot()->getKey();
-        $cmsSlotId = $assetExternalEntity->getSpyCmsSlot()->getIdCmsSlot();
-        $storeName = $storeTransfer->getName();
-
         $this->assetExternalStorageEntityManager->saveAssetExternalStorage(
             $assetExternalEntities,
-            $storeName,
-            $cmsSlotKey,
-            $cmsSlotId
+            $storeTransfer->getName(),
+            $assetExternalEntity->getSpyCmsSlot()->getKey(),
+            $assetExternalEntity->getSpyCmsSlot()->getIdCmsSlot()
         );
     }
 }

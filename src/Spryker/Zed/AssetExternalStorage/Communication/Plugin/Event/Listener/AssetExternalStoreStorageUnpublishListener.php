@@ -34,8 +34,8 @@ class AssetExternalStoreStorageUnpublishListener extends AbstractPlugin implemen
             ->getEventBehaviorFacade()
             ->getEventTransferForeignKeys($eventEntityTransfers, SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL);
 
-        foreach ($assetExternalIds as $assetExternalId) {
-            $this->getFacade()->unpublish($assetExternalId);
+        foreach ($assetExternalIds as $idAssetExternal) {
+            $this->getFacade()->unpublish($idAssetExternal);
         }
     }
 }

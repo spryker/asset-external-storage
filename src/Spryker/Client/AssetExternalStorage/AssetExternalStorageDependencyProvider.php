@@ -25,7 +25,7 @@ class AssetExternalStorageDependencyProvider extends AbstractDependencyProvider
      *
      * @return \Spryker\Client\Kernel\Container
      */
-    public function provideServiceLayerDependencies(Container $container)
+    public function provideServiceLayerDependencies(Container $container): Container
     {
         parent::provideServiceLayerDependencies($container);
 

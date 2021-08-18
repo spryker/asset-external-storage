@@ -17,11 +17,11 @@ interface AssetExternalStorageFacadeInterface
      *
      * @api
      *
-     * @param int $assetExternalId
+     * @param int $idAssetExternal
      *
      * @return void
      */
-    public function publish(int $assetExternalId): void;
+    public function publish(int $idAssetExternal): void;
 
     /**
      * Specification:
@@ -31,9 +31,9 @@ interface AssetExternalStorageFacadeInterface
      *
      * @api
      *
-     * @param int $assetExternalId
+     * @param int $idAssetExternal
      *
      * @return void
      */
-    public function unpublish(int $assetExternalId): void;
+    public function unpublish(int $idAssetExternal): void;
 }

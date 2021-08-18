@@ -30,7 +30,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
      */
-    public function findAllAssetExternalStorageByAssetExternalId(array $ids): array
+    public function findAllAssetExternalStorageByAssetExternalIds(array $ids): array
     {
         $query = $this->getFactory()->createAssetExternalStorageQuery();
 

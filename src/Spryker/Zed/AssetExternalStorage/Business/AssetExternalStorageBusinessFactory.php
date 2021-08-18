@@ -21,7 +21,7 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 class AssetExternalStorageBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \Spryker\Zed\AssetExternalStorage\Business\Publisher\AssetExternalStorageWriter
+     * @return \Spryker\Zed\AssetExternalStorage\Business\Publisher\AssetExternalStorageWriterInterface
      */
     public function createAssetExternalStorageWriter(): AssetExternalStorageWriterInterface
     {

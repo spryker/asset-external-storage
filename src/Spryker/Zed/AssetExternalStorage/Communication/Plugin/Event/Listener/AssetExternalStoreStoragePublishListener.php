@@ -34,8 +34,8 @@ class AssetExternalStoreStoragePublishListener extends AbstractPlugin implements
             ->getEventBehaviorFacade()
             ->getEventTransferForeignKeys($eventEntityTransfers, SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL);
 
-        foreach ($assetExternalIds as $assetExternalId) {
-            $this->getFacade()->publish($assetExternalId);
+        foreach ($assetExternalIds as $idAssetExternal) {
+            $this->getFacade()->publish($idAssetExternal);
         }
     }
 }

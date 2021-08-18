@@ -19,5 +19,5 @@ interface AssetExternalStorageRepositoryInterface
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
      */
-    public function findAllAssetExternalStorageByAssetExternalId(array $ids): array;
+    public function findAllAssetExternalStorageByAssetExternalIds(array $ids): array;
 }
