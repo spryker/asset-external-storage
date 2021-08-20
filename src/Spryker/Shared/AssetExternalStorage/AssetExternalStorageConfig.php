@@ -17,7 +17,7 @@ class AssetExternalStorageConfig extends AbstractBundleConfig
      *
      * @api
      */
-    public const ASSET_EXTERNAL_CMS_SLOT_RESOURCE_NAME = 'asset_external_cms_slot';
+    public const ASSET_EXTERNAL_CMS_SLOT_RESOURCE_NAME = 'asset_external';
 
     /**
      * Specification:
@@ -25,5 +25,5 @@ class AssetExternalStorageConfig extends AbstractBundleConfig
      *
      * @api
      */
-    public const ASSET_EXTERNAL_SYNC_STORAGE_QUEUE = 'sync.storage.asset_external';
+    public const ASSET_EXTERNAL_SYNC_STORAGE_QUEUE = 'sync.storage.cms';
 }

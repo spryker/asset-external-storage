@@ -9,7 +9,6 @@ namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Synchronization;
 
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
-use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConstants;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataBulkRepositoryPluginInterface;
 
@@ -30,7 +29,7 @@ class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin imple
      */
     public function getResourceName(): string
     {
-        return AssetExternalStorageConstants::ASSET_EXTERNAL_RESOURCE_NAME;
+        return AssetExternalStorageConfig::ASSET_EXTERNAL_CMS_SLOT_RESOURCE_NAME;
     }
 
     /**
