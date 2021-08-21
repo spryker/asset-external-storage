@@ -7,7 +7,7 @@
         <property name="assetName" dataBuilderRule="unique()->sentence(2)"/>
         <property name="assetContent" dataBuilderRule="unique()->sentence(2)"/>
         <property name="slotKey" dataBuilderRule="unique()->sentence(2)"/>
-        <property name="stores" />
+        <property name="stores"/>
     </transfer>
 
     <transfer name="CmsSlotCriteria">
