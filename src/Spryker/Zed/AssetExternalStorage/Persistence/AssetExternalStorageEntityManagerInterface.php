@@ -7,12 +7,13 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
-use Propel\Runtime\Collection\ObjectCollection;
+use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
+use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
 
 interface AssetExternalStorageEntityManagerInterface
 {
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\AssetExternal\Persistence\SpyAssetExternal[] $assetExternalEntities
+     * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
      * @param string $storeName
      * @param string $cmsSlotKey
      * @param int $cmsSlotId
@@ -22,5 +23,35 @@ interface AssetExternalStorageEntityManagerInterface
      *
      * @return void
      */
-    public function saveAssetExternalStorage(ObjectCollection $assetExternalEntities, string $storeName, string $cmsSlotKey, int $cmsSlotId): void;
+    public function createAssetExternalStorage(SpyAssetExternal $assetExternalEntity, string $storeName, string $cmsSlotKey, int $cmsSlotId): void;
+
+    /**
+     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity
+     * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
+     *
+     * @return bool
+     */
+    public function updateAssetExternalStorageData(
+        SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity,
+        SpyAssetExternal $assetExternalEntity
+    ): bool;
+
+    /**
+     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity
+     * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
+     *
+     * @return void
+     */
+    public function createAssetExternalStorageData(
+        SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity,
+        SpyAssetExternal $assetExternalEntity
+    ): void;
+
+    /**
+     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity
+     * @param int $idAssetExternal
+     *
+     * @return void
+     */
+    public function removeAssetFromDataByAssetExternalUuid(SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity, int $idAssetExternal): void;
 }

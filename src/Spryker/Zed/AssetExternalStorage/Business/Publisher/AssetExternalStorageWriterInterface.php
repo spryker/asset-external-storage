@@ -14,5 +14,12 @@ interface AssetExternalStorageWriterInterface
      *
      * @return void
      */
-    public function updateAssetExternalSorageData(int $idAssetExternal): void;
+    public function publish(int $idAssetExternal): void;
+
+    /**
+     * @param int $idAssetExternal
+     *
+     * @return void
+     */
+    public function unpublish(int $idAssetExternal): void;
 }

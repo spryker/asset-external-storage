@@ -22,7 +22,7 @@
             <parameter name="resource" value="asset_external_cms_slot"/>
             <parameter name="key_suffix_column" value="cms_slot_key"/>
             <parameter name="store" required="true"/>
-            <parameter name="queue_group" value="sync.storage.cms"/>
+            <parameter name="queue_group" value="sync.storage.asset_external"/>
         </behavior>
 
         <behavior name="timestampable"/>

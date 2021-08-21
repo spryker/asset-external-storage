@@ -29,7 +29,7 @@ class AssetExternalStorageFacade extends AbstractFacade implements AssetExternal
     {
         $this->getFactory()
             ->createAssetExternalStorageWriter()
-            ->updateAssetExternalSorageData($idAssetExternal);
+            ->publish($idAssetExternal);
     }
 
     /**
@@ -45,6 +45,6 @@ class AssetExternalStorageFacade extends AbstractFacade implements AssetExternal
     {
         $this->getFactory()
             ->createAssetExternalStorageWriter()
-            ->updateAssetExternalSorageData($idAssetExternal);
+            ->unpublish($idAssetExternal);
     }
 }
