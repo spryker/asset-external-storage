@@ -72,10 +72,42 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
      *
      * @return void
      */
-    public function testAvailabilityStoragePublishAndSynchronize(): void
+    public function testAseetExternalCreateStoragePublishAndSynchronize(): void
     {
+        // Assert
         $this->assertCreatedEntityIsSynchronizedToStorage();
+    }
+
+    /**
+     * @disableTransaction
+     *
+     * @return void
+     */
+    public function testAseetExternalUpdateStoragePublishAndSynchronize(): void
+    {
+        // Act
+        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($this->assetExternalTransfer->getIdAssetExternal());
+
+        $assetExternalEntity->setAssetContent('changed content');
+        $assetExternalEntity->save();
+
+        // Assert
         $this->assertUpdatedEntityIsUpdatedInStorage();
+    }
+
+    /**
+     * @disableTransaction
+     *
+     * @return void
+     */
+    public function testAseetExternalDeleteStoragePublishAndSynchronize(): void
+    {
+        // Act
+        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($this->assetExternalTransfer->getIdAssetExternal());
+        $assetExternalEntity->getSpyAssetExternalStores()->delete();
+        $assetExternalEntity->delete();
+
+        // Assert
         $this->assertDeletedEntityIsRemovedFromStorage();
     }
 
@@ -93,15 +125,8 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     /**
      * @return void
      */
-    public function assertUpdatedEntityIsUpdatedInStorage(): void
+    protected function assertUpdatedEntityIsUpdatedInStorage(): void
     {
-        // Act
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($this->assetExternalTransfer->getIdAssetExternal());
-
-        $assetExternalEntity->setAssetContent('changed content');
-        $assetExternalEntity->save();
-
-        // Assert
         $this->tester->assertEntityIsPublished(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_UPDATE, EventConstants::EVENT_QUEUE);
         $this->tester->assertEntityIsUpdatedInStorage(EventConstants::EVENT_QUEUE);
     }
@@ -109,14 +134,8 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     /**
      * @return void
      */
-    public function assertDeletedEntityIsRemovedFromStorage(): void
+    protected function assertDeletedEntityIsRemovedFromStorage(): void
     {
-        // Act - Delete created entities
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($this->assetExternalTransfer->getIdAssetExternal());
-        $assetExternalEntity->getSpyAssetExternalStores()->delete();
-        $assetExternalEntity->delete();
-
-        // Assert
         $this->tester->assertEntityIsPublished(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_DELETE, EventConstants::EVENT_QUEUE);
         $this->tester->assertEntityIsRemovedFromStorage(EventConstants::EVENT_QUEUE);
     }
