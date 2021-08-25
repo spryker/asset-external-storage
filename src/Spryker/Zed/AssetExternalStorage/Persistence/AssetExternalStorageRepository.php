@@ -7,6 +7,10 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
+use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
+use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalQuery;
+use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
+use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -39,5 +43,51 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
         }
 
         return $query->find()->getArrayCopy();
+    }
+
+    /**
+     * @param int $idCmsSlot
+     *
+     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
+     */
+    public function findByFkCmsSlot(int $idCmsSlot): ObjectCollection
+    {
+        return SpyAssetExternalCmsSlotStorageQuery::create()
+            ->filterByFkCmsSlot($idCmsSlot)
+            ->find();
+    }
+
+    /**
+     * @param int $idCmsSlot
+     * @param string $storeName
+     *
+     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
+     */
+    public function findByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): ObjectCollection
+    {
+        return SpyAssetExternalCmsSlotStorageQuery::create()
+            ->filterByFkCmsSlot($idCmsSlot)
+            ->filterByStore($storeName)
+            ->find();
+    }
+
+    /**
+     * @param int $idAssetExternal
+     *
+     * @return \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal|null
+     */
+    public function findAssetExternalByIdAssetExternal(int $idAssetExternal): ?SpyAssetExternal
+    {
+        return SpyAssetExternalQuery::create()->findOneByIdAssetExternal($idAssetExternal);
+    }
+
+    /**
+     * @param int $idAssetExternal
+     *
+     * @return \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal[]|\Propel\Runtime\Collection\ObjectCollection
+     */
+    public function findAssetExternalsByIdAssetExternal(int $idAssetExternal): ObjectCollection
+    {
+        return SpyAssetExternalQuery::create()->findByIdAssetExternal($idAssetExternal);
     }
 }

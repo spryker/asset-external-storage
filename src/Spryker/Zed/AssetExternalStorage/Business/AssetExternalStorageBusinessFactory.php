@@ -27,7 +27,8 @@ class AssetExternalStorageBusinessFactory extends AbstractBusinessFactory
     {
         return new AssetExternalStorageWriter(
             $this->getFacadeStore(),
-            $this->getEntityManager()
+            $this->getEntityManager(),
+            $this->getRepository()
         );
     }
 

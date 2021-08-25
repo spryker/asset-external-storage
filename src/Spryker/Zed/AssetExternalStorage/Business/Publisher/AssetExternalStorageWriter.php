@@ -7,14 +7,10 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Business\Publisher;
 
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalQuery;
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalStoreQuery;
-use Orm\Zed\AssetExternalStorage\Persistence\Base\SpyAssetExternalCmsSlotStorage;
-use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageEntityManagerInterface;
+use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageRepositoryInterface;
 
 class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
 {
@@ -29,15 +25,23 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
     protected $assetExternalStorageEntityManager;
 
     /**
+     * @var \Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageRepositoryInterface
+     */
+    protected $assetExternalStorageRepository;
+
+    /**
      * @param \Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface $storeFacade
      * @param \Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageEntityManagerInterface $assetExternalStorageEntityManager
+     * @param \Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageRepositoryInterface $assetExternalStorageRepository
      */
     public function __construct(
         AssetExternalStorageToStoreFacadeInterface $storeFacade,
-        AssetExternalStorageEntityManagerInterface $assetExternalStorageEntityManager
+        AssetExternalStorageEntityManagerInterface $assetExternalStorageEntityManager,
+        AssetExternalStorageRepositoryInterface $assetExternalStorageRepository
     ) {
         $this->storeFacade = $storeFacade;
         $this->assetExternalStorageEntityManager = $assetExternalStorageEntityManager;
+        $this->assetExternalStorageRepository = $assetExternalStorageRepository;
     }
 
     /**
@@ -47,83 +51,92 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
      */
     public function publish(int $idAssetExternal): void
     {
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($idAssetExternal);
+        $assetExternalEntity = $this->assetExternalStorageRepository->findAssetExternalByIdAssetExternal($idAssetExternal);
+
         if (!$assetExternalEntity) {
             return;
         }
 
-        $storeTransfers = $this->storeFacade->getAllStores();
+        $assetExternalCmsSlotsStoragesByCmsSlot = $this->assetExternalStorageRepository->findByFkCmsSlot($assetExternalEntity->getFkCmsSlot());
 
-        foreach ($storeTransfers as $storeTransfer) {
-            $assetExternalStoreEntities = SpyAssetExternalStoreQuery::create()
-                ->filterByFkStore($storeTransfer->getIdStore())
-                ->filterByFkAssetExternal($idAssetExternal)
-                ->find();
+        if (!$assetExternalCmsSlotsStoragesByCmsSlot->count()) {
+            $this->assetExternalStorageEntityManager->createAssetExternalStorage($assetExternalEntity);
 
-            if (!$assetExternalStoreEntities->count()) {
-                continue;
-            }
+            return;
+        }
 
-            $assetExternalCmsSlotsStoragesByStoreAndCmsSlot = SpyAssetExternalCmsSlotStorageQuery::create()
-                ->filterByFkCmsSlot($assetExternalEntity->getFkCmsSlot())
-                ->filterByStore($storeTransfer->getName())
-                ->find();
-
-            foreach ($assetExternalCmsSlotsStoragesByStoreAndCmsSlot as $assetExternalCmsSlotStorage) {
-                $this->updateData($assetExternalEntity, $assetExternalCmsSlotStorage);
-            }
-
-            if (!$assetExternalCmsSlotsStoragesByStoreAndCmsSlot->count()) {
-                $this->assetExternalStorageEntityManager->createAssetExternalStorage(
-                    $assetExternalEntity,
-                    $storeTransfer->getName(),
-                    $assetExternalEntity->getSpyCmsSlot()->getKey(),
-                    $assetExternalEntity->getSpyCmsSlot()->getIdCmsSlot()
-                );
-            }
+        foreach ($assetExternalCmsSlotsStoragesByCmsSlot as $assetExternalCmsSlotStorage) {
+            $this->assetExternalStorageEntityManager->updateAssetExternalStorageData($assetExternalEntity, $assetExternalCmsSlotStorage);
         }
     }
 
     /**
      * @param int $idAssetExternal
+     * @param int $idStore
      *
      * @return void
      */
-    public function unpublish(int $idAssetExternal): void
+    public function publishStoreRelation(int $idAssetExternal, int $idStore): void
     {
-        $storeTransfers = $this->storeFacade->getAllStores();
+        $assetExternalEntity = $this->assetExternalStorageRepository->findAssetExternalByIdAssetExternal($idAssetExternal);
 
-        foreach ($storeTransfers as $storeTransfer) {
-            $assetExternalStoreEntities = SpyAssetExternalStoreQuery::create()
-                ->filterByFkStore($storeTransfer->getIdStore())
-                ->filterByFkAssetExternal($idAssetExternal)
-                ->find();
+        if (!$assetExternalEntity) {
+            return;
+        }
 
-            if ($assetExternalStoreEntities->count()) {
-                continue;
-            }
+        $storeTransfer = $this->storeFacade->getStoreById($idStore);
 
-            $assetExternalCmsSlotsStoragesByStoreAndCmsSlot = SpyAssetExternalCmsSlotStorageQuery::create()
-                ->filterByStore($storeTransfer->getName())
-                ->find();
+        $assetExternalCmsSlotsStoragesByStoreAndCmsSlot = $this->assetExternalStorageRepository->findByFkCmsSlotAndStore(
+            $assetExternalEntity->getFkCmsSlot(),
+            $storeTransfer->getName()
+        );
 
-            $this->removeAssetExternalsFromStorageData($assetExternalCmsSlotsStoragesByStoreAndCmsSlot, $idAssetExternal);
+        if (!$assetExternalCmsSlotsStoragesByStoreAndCmsSlot->count()) {
+            $this->assetExternalStorageEntityManager->createAssetExternalStorage($assetExternalEntity);
+
+            return;
+        }
+
+        foreach ($assetExternalCmsSlotsStoragesByStoreAndCmsSlot as $assetExternalCmsSlotStorage) {
+            $this->assetExternalStorageEntityManager->updateAssetExternalStorageData($assetExternalEntity, $assetExternalCmsSlotStorage);
         }
     }
 
     /**
-     * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
-     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorage
+     * @param int $idAssetExternal
+     * @param int $idCmsSlot
      *
      * @return void
      */
-    protected function updateData(SpyAssetExternal $assetExternalEntity, SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorage): void
+    public function unpublish(int $idAssetExternal, int $idCmsSlot): void
     {
-        $isUpdated = $this->assetExternalStorageEntityManager->updateAssetExternalStorageData($assetExternalCmsSlotStorage, $assetExternalEntity);
+        $assetExternalCmsSlotsStoragesByCmsSlot = $this->assetExternalStorageRepository->findByFkCmsSlot($idCmsSlot);
 
-        if (!$isUpdated) {
-            $this->assetExternalStorageEntityManager->createAssetExternalStorageData($assetExternalCmsSlotStorage, $assetExternalEntity);
+        $this->removeAssetExternalsFromStorageData($assetExternalCmsSlotsStoragesByCmsSlot, $idAssetExternal);
+    }
+
+    /**
+     * @param int $idAssetExternal
+     * @param int $idStore
+     *
+     * @return void
+     */
+    public function unpublishStoreRelation(int $idAssetExternal, int $idStore): void
+    {
+        $assetExternalEntities = $this->assetExternalStorageRepository->findAssetExternalsByIdAssetExternal($idAssetExternal);
+
+        if (!$assetExternalEntities->count()) {
+            return;
         }
+
+        $storeTransfer = $this->storeFacade->getStoreById($idStore);
+
+        $assetExternalCmsSlotsStoragesByStoreAndCmsSlot = $this->assetExternalStorageRepository->findByFkCmsSlotAndStore(
+            $assetExternalEntities->getFirst()->getFkCmsSlot(),
+            $storeTransfer->getName()
+        );
+
+        $this->removeAssetExternalsFromStorageData($assetExternalCmsSlotsStoragesByStoreAndCmsSlot, $idAssetExternal);
     }
 
     /**

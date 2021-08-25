@@ -18,8 +18,25 @@ interface AssetExternalStorageWriterInterface
 
     /**
      * @param int $idAssetExternal
+     * @param int $idStore
      *
      * @return void
      */
-    public function unpublish(int $idAssetExternal): void;
+    public function publishStoreRelation(int $idAssetExternal, int $idStore): void;
+
+    /**
+     * @param int $idAssetExternal
+     * @param int $idCmsSlot
+     *
+     * @return void
+     */
+    public function unpublish(int $idAssetExternal, int $idCmsSlot): void;
+
+    /**
+     * @param int $idAssetExternal
+     * @param int $idStore
+     *
+     * @return void
+     */
+    public function unpublishStoreRelation(int $idAssetExternal, int $idStore): void;
 }

@@ -25,5 +25,5 @@ class AssetExternalStorageConfig extends AbstractBundleConfig
      *
      * @api
      */
-    public const ASSET_EXTERNAL_SYNC_STORAGE_QUEUE = 'sync.storage.asset_external';
+    public const ASSET_EXTERNAL_SYNC_STORAGE_QUEUE = 'sync.storage.cms';
 }

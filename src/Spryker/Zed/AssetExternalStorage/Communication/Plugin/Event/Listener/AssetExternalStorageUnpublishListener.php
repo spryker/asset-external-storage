@@ -7,10 +7,10 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener;
 
+use Orm\Zed\PayoneConfig\Persistence\Map\SpyAssetExternalTableMap;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
 
 /**
  * @method \Spryker\Zed\AssetExternalStorage\Communication\AssetExternalStorageCommunicationFactory getFactory()
@@ -19,16 +19,16 @@ use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
  */
 class AssetExternalStorageUnpublishListener extends AbstractPlugin implements EventHandlerInterface
 {
-    use DatabaseTransactionHandlerTrait;
-
     /**
-     * @param \Generated\Shared\Transfer\EventEntityTransfer $transfer
+     * @param \Generated\Shared\Transfer\EventEntityTransfer $eventEntityTransfer
      * @param string $eventName
      *
      * @return void
      */
-    public function handle(TransferInterface $transfer, $eventName)
+    public function handle(TransferInterface $eventEntityTransfer, $eventName)
     {
-        $this->getFacade()->unpublish($transfer->getId());
+        $idCmsSlot = $eventEntityTransfer->getForeignKeys()[SpyAssetExternalTableMap::COL_FK_CMS_SLOT];
+
+        $this->getFacade()->unpublish($eventEntityTransfer->getId(), $idCmsSlot);
     }
 }

@@ -25,15 +25,46 @@ interface AssetExternalStorageFacadeInterface
 
     /**
      * Specification:
-     * - Queries all asset externals with cms slot equals to deleted asset external csm slot
-     * - Stores data without deleted asset external as json encoded to storage table
-     * - Sends delete message to queue based on module config
+     * - Queries all asset externals with cms slot equals to requested asset external csm slot and with store equals to requested store
+     * - Removes asset external from json encoded data
+     * - Sends a copy of data to queue based on module config
      *
      * @api
      *
      * @param int $idAssetExternal
+     * @param int $idStore
      *
      * @return void
      */
-    public function unpublish(int $idAssetExternal): void;
+    public function publishStoreRelation(int $idAssetExternal, int $idStore): void;
+
+    /**
+     * Specification:
+     * - Queries all asset externals with cms slot equals to requested asset external csm slot
+     * - Removes asset external from json encoded data
+     * - Sends a copy of data to queue based on module config
+     *
+     * @api
+     *
+     * @param int $idAssetExternal
+     * @param int $idCmsSlot
+     *
+     * @return void
+     */
+    public function unpublish(int $idAssetExternal, int $idCmsSlot): void;
+
+    /**
+     * Specification:
+     * - Queries all asset externals with cms slot equals to requested asset external csm slot and with store equals to requested store
+     * - Removes asset external from json encoded data
+     * - Sends a copy of data to queue based on module config
+     *
+     * @api
+     *
+     * @param int $idAssetExternal
+     * @param int $idStore
+     *
+     * @return void
+     */
+    public function unpublishStoreRelation(int $idAssetExternal, int $idStore): void;
 }

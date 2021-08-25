@@ -23,10 +23,12 @@ class AssetExternalStorageToStoreFacadeBridge implements AssetExternalStorageToS
     }
 
     /**
-     * @return \Generated\Shared\Transfer\StoreTransfer[]
+     * @param int $idStore
+     *
+     * @return \Generated\Shared\Transfer\StoreTransfer
      */
-    public function getAllStores()
+    public function getStoreById(int $idStore)
     {
-        return $this->storeFacade->getAllStores();
+        return $this->storeFacade->getStoreById($idStore);
     }
 }

@@ -8,34 +8,27 @@
 namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener;
 
 use Orm\Zed\AssetExternal\Persistence\Map\SpyAssetExternalStoreTableMap;
-use Spryker\Zed\Event\Dependency\Plugin\EventBulkHandlerInterface;
+use Spryker\Shared\Kernel\Transfer\TransferInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
-use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
 
 /**
  * @method \Spryker\Zed\AssetExternalStorage\Communication\AssetExternalStorageCommunicationFactory getFactory()
  * @method \Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacadeInterface getFacade()
  * @method \Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig getConfig()
  */
-class AssetExternalStoreStoragePublishListener extends AbstractPlugin implements EventBulkHandlerInterface
+class AssetExternalStoreStoragePublishListener extends AbstractPlugin implements EventHandlerInterface
 {
-    use DatabaseTransactionHandlerTrait;
-
     /**
-     * @param \Generated\Shared\Transfer\EventEntityTransfer[] $eventEntityTransfers
+     * @param \Generated\Shared\Transfer\EventEntityTransfer $eventEntityTransfer
      * @param string $eventName
      *
      * @return void
      */
-    public function handleBulk(array $eventEntityTransfers, $eventName)
+    public function handle(TransferInterface $eventEntityTransfer, $eventName)
     {
-        $this->preventTransaction();
-        $assetExternalIds = $this->getFactory()
-            ->getEventBehaviorFacade()
-            ->getEventTransferForeignKeys($eventEntityTransfers, SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL);
+        $idAssetExternal = $eventEntityTransfer->getForeignKeys()[SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL];
+        $idStore = $eventEntityTransfer->getForeignKeys()[SpyAssetExternalStoreTableMap::COL_FK_STORE];
 
-        foreach ($assetExternalIds as $idAssetExternal) {
-            $this->getFacade()->publish($idAssetExternal);
-        }
+        $this->getFacade()->publishStoreRelation($idAssetExternal, $idStore);
     }
 }

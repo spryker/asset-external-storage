@@ -14,38 +14,21 @@ interface AssetExternalStorageEntityManagerInterface
 {
     /**
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
-     * @param string $storeName
-     * @param string $cmsSlotKey
-     * @param int $cmsSlotId
      *
      * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return void
      */
-    public function createAssetExternalStorage(SpyAssetExternal $assetExternalEntity, string $storeName, string $cmsSlotKey, int $cmsSlotId): void;
+    public function createAssetExternalStorage(SpyAssetExternal $assetExternalEntity): void;
 
     /**
-     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
-     *
-     * @return bool
-     */
-    public function updateAssetExternalStorageData(
-        SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity,
-        SpyAssetExternal $assetExternalEntity
-    ): bool;
-
-    /**
-     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity
-     * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
+     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorage
      *
      * @return void
      */
-    public function createAssetExternalStorageData(
-        SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity,
-        SpyAssetExternal $assetExternalEntity
-    ): void;
+    public function updateAssetExternalStorageData(SpyAssetExternal $assetExternalEntity, SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorage): void;
 
     /**
      * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity
