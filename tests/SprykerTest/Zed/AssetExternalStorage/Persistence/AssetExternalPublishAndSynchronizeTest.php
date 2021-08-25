@@ -59,12 +59,6 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
             EventConstants::EVENT_QUEUE => new EventQueueMessageProcessorPlugin(),
             AssetExternalStorageConfig::ASSET_EXTERNAL_SYNC_STORAGE_QUEUE => new SynchronizationStorageQueueMessageProcessorPlugin(),
         ]);
-
-        $this->assetExternalTransfer = $this->tester->haveAssetExternal([
-            'tenantUuid' => 'TENANT_UUID',
-            'slotKey' => 'slt-1',
-            'stores' => ['DE'],
-        ]);
     }
 
     /**
@@ -74,6 +68,18 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
      */
     public function testAssetExternalCreateStoragePublishAndSynchronize(): void
     {
+        // Arrange
+        $assetExternalTransfer = $this->tester->haveAssetExternal(
+            'TENANT_UUID',
+            'content',
+            1,
+            'assetName'
+        );
+        $this->tester->haveAssetExternalStoreRelation(
+            $assetExternalTransfer->getIdAssetExternal(),
+            1
+        );
+
         // Assert
         $this->assertCreatedEntityIsSynchronizedToStorage();
     }
@@ -85,6 +91,18 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
      */
     public function testAssetExternalStoreCreateStoragePublishAndSynchronize(): void
     {
+        // Arrange
+        $assetExternalTransfer = $this->tester->haveAssetExternal(
+            'TENANT_UUID',
+            'content',
+            1,
+            'assetName'
+        );
+        $this->tester->haveAssetExternalStoreRelation(
+            $assetExternalTransfer->getIdAssetExternal(),
+            2
+        );
+
         // Assert
         $this->assertCreatedStoreEntityIsSynchronizedToStorage();
     }
@@ -96,8 +114,20 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
      */
     public function testAssetExternalUpdateStoragePublishAndSynchronize(): void
     {
+        // Arrange
+        $assetExternalTransfer = $this->tester->haveAssetExternal(
+            'TENANT_UUID',
+            'content',
+            1,
+            'assetName'
+        );
+        $this->tester->haveAssetExternalStoreRelation(
+            $assetExternalTransfer->getIdAssetExternal(),
+            1
+        );
+
         // Act
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($this->assetExternalTransfer->getIdAssetExternal());
+        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
 
         $assetExternalEntity->setAssetContent('changed content');
         $assetExternalEntity->save();
@@ -113,8 +143,20 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
      */
     public function testAssetExternalDeleteStoragePublishAndSynchronize(): void
     {
+        // Arrange
+        $assetExternalTransfer = $this->tester->haveAssetExternal(
+            'TENANT_UUID',
+            'content',
+            1,
+            'assetName'
+        );
+        $this->tester->haveAssetExternalStoreRelation(
+            $assetExternalTransfer->getIdAssetExternal(),
+            1
+        );
+
         // Act
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($this->assetExternalTransfer->getIdAssetExternal());
+        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
         $assetExternalEntity->getSpyAssetExternalStores()->delete();
         $assetExternalEntity->delete();
 
@@ -129,8 +171,20 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
      */
     public function testAssetExternalStoreDeleteStoragePublishAndSynchronize(): void
     {
+        // Arrange
+        $assetExternalTransfer = $this->tester->haveAssetExternal(
+            'TENANT_UUID',
+            'content',
+            1,
+            'assetName'
+        );
+        $this->tester->haveAssetExternalStoreRelation(
+            $assetExternalTransfer->getIdAssetExternal(),
+            1
+        );
+
         // Act
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($this->assetExternalTransfer->getIdAssetExternal());
+        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
         $assetExternalEntity->getSpyAssetExternalStores()->delete();
         $assetExternalEntity->delete();
 
@@ -157,7 +211,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $this->tester->assertEntityIsPublished(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE, EventConstants::EVENT_QUEUE);
         $this->tester->assertEntityIsSynchronizedToStorage(AssetExternalStorageConfig::ASSET_EXTERNAL_SYNC_STORAGE_QUEUE);
 
-        $this->tester->assertStorageHasKey($this->getExpectedStorageKey());
+        $this->tester->assertStorageHasKey($this->getExpectedStorageKey('at'));
     }
 
     /**
@@ -188,10 +242,12 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     }
 
     /**
+     * @param string $storeName
+     *
      * @return string
      */
-    protected function getExpectedStorageKey(): string
+    protected function getExpectedStorageKey(string $storeName = 'de'): string
     {
-        return sprintf('asset_external_cms_slot:de:%s', 'slt-1');
+        return sprintf('asset_external_cms_slot:%s:%s', $storeName, 'slt-1');
     }
 }

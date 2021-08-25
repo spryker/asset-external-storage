@@ -9,6 +9,7 @@ namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener;
 
 use Orm\Zed\AssetExternal\Persistence\Map\SpyAssetExternalStoreTableMap;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
+use Spryker\Zed\Event\Dependency\Plugin\EventHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**

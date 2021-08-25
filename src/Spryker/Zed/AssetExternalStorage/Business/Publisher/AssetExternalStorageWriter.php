@@ -65,9 +65,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             return;
         }
 
-        foreach ($assetExternalCmsSlotsStoragesByCmsSlot as $assetExternalCmsSlotStorage) {
-            $this->assetExternalStorageEntityManager->updateAssetExternalStorageData($assetExternalEntity, $assetExternalCmsSlotStorage);
-        }
+        $this->assetExternalStorageEntityManager->updateAssetExternalStoragesData($assetExternalEntity, $assetExternalCmsSlotsStoragesByCmsSlot);
     }
 
     /**
@@ -97,9 +95,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             return;
         }
 
-        foreach ($assetExternalCmsSlotsStoragesByStoreAndCmsSlot as $assetExternalCmsSlotStorage) {
-            $this->assetExternalStorageEntityManager->updateAssetExternalStorageData($assetExternalEntity, $assetExternalCmsSlotStorage);
-        }
+        $this->assetExternalStorageEntityManager->updateAssetExternalStoragesData($assetExternalEntity, $assetExternalCmsSlotsStoragesByStoreAndCmsSlot);
     }
 
     /**
@@ -149,11 +145,9 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
         ObjectCollection $assetExternalCmsSlotsStoragesByStoreAndCmsSlot,
         int $idAssetExternal
     ): void {
-        foreach ($assetExternalCmsSlotsStoragesByStoreAndCmsSlot as $assetExternalCmsSlotStorage) {
-            $this->assetExternalStorageEntityManager->removeAssetFromDataByAssetExternalUuid(
-                $assetExternalCmsSlotStorage,
-                $idAssetExternal
-            );
-        }
+        $this->assetExternalStorageEntityManager->removeAssetFromDatasByAssetExternalUuid(
+            $assetExternalCmsSlotsStoragesByStoreAndCmsSlot,
+            $idAssetExternal
+        );
     }
 }

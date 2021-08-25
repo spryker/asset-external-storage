@@ -9,13 +9,17 @@ namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
 use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
+use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
+use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
 /**
  * @method \Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStoragePersistenceFactory getFactory()
  */
 class AssetExternalStorageEntityManager extends AbstractEntityManager implements AssetExternalStorageEntityManagerInterface
 {
+    use TransactionTrait;
+
     protected const ASSETS_DATA_KEY = 'assets';
     protected const ASSET_UUID_DATA_KEY = 'assetUuid';
     protected const ASSET_CONTENT_DATA_KEY = 'assetContent';
@@ -39,51 +43,41 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
             ],
         ];
 
-        foreach ($assetExternalEntity->getSpyAssetExternalStores() as $assetExternalStore) {
-            $assetExternalCmsSlotStorage = $this->getSpyAssetExternalCmsSlotStorage();
-
-            $assetExternalCmsSlotStorage
-                ->setStore($assetExternalStore->getSpyStore()->getName())
-                ->setFkCmsSlot($assetExternalEntity->getSpyCmsSlot()->getIdCmsSlot())
-                ->setCmsSlotKey($assetExternalEntity->getSpyCmsSlot()->getKey())
-                ->setData($data);
-
-            $assetExternalCmsSlotStorage->save();
-        }
+        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalEntity, $data) {
+            $this->executePublishAssetExternalTransaction($assetExternalEntity, $data);
+        });
     }
 
     /**
-     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity
+     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection $assetExternalCmsSlotStorageEntities
      * @param int $idAssetExternal
      *
      * @return void
      */
-    public function removeAssetFromDataByAssetExternalUuid(SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorageEntity, int $idAssetExternal): void
+    public function removeAssetFromDatasByAssetExternalUuid(ObjectCollection $assetExternalCmsSlotStorageEntities, int $idAssetExternal): void
     {
-        $data = $assetExternalCmsSlotStorageEntity->getData();
-        foreach ($data[static::ASSETS_DATA_KEY] as $key => $asset) {
-            if ($asset[static::ASSET_ID_DATA_KEY] !== $idAssetExternal) {
-                continue;
-            }
-            unset($data[static::ASSETS_DATA_KEY][$key]);
-            $assetExternalCmsSlotStorageEntity->setData($data);
-            $assetExternalCmsSlotStorageEntity->save();
-        }
+        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalCmsSlotStorageEntities, $idAssetExternal) {
+            $this->executeRemoveAssetExternalTransaction($assetExternalCmsSlotStorageEntities, $idAssetExternal);
+        });
     }
 
     /**
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
-     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorage
+     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection $assetExternalCmsSlotStorageEntities
      *
      * @return void
      */
-    public function updateAssetExternalStorageData(SpyAssetExternal $assetExternalEntity, SpyAssetExternalCmsSlotStorage $assetExternalCmsSlotStorage): void
+    public function updateAssetExternalStoragesData(SpyAssetExternal $assetExternalEntity, ObjectCollection $assetExternalCmsSlotStorageEntities): void
     {
-        $isUpdated = $this->updateData($assetExternalCmsSlotStorage, $assetExternalEntity);
+        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalEntity, $assetExternalCmsSlotStorageEntities) {
+            foreach ($assetExternalCmsSlotStorageEntities as $assetExternalCmsSlotStorageEntity) {
+                $isUpdated = $this->updateData($assetExternalCmsSlotStorageEntity, $assetExternalEntity);
 
-        if (!$isUpdated) {
-            $this->createData($assetExternalCmsSlotStorage, $assetExternalEntity);
-        }
+                if (!$isUpdated) {
+                    $this->createData($assetExternalCmsSlotStorageEntity, $assetExternalEntity);
+                }
+            }
+        });
     }
 
     /**
@@ -139,5 +133,47 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     protected function getSpyAssetExternalCmsSlotStorage(): SpyAssetExternalCmsSlotStorage
     {
         return new SpyAssetExternalCmsSlotStorage();
+    }
+
+    /**
+     * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
+     * @param array $data
+     *
+     * @return void
+     */
+    protected function executePublishAssetExternalTransaction(SpyAssetExternal $assetExternalEntity, array $data): void
+    {
+        foreach ($assetExternalEntity->getSpyAssetExternalStores() as $assetExternalStore) {
+            $assetExternalCmsSlotStorage = $this->getSpyAssetExternalCmsSlotStorage();
+
+            $assetExternalCmsSlotStorage
+                ->setStore($assetExternalStore->getSpyStore()->getName())
+                ->setFkCmsSlot($assetExternalEntity->getSpyCmsSlot()->getIdCmsSlot())
+                ->setCmsSlotKey($assetExternalEntity->getSpyCmsSlot()->getKey())
+                ->setData($data);
+
+            $assetExternalCmsSlotStorage->save();
+        }
+    }
+
+    /**
+     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection $assetExternalCmsSlotStorageEntities
+     * @param int $idAssetExternal
+     *
+     * @return void
+     */
+    protected function executeRemoveAssetExternalTransaction(ObjectCollection $assetExternalCmsSlotStorageEntities, int $idAssetExternal): void
+    {
+        foreach ($assetExternalCmsSlotStorageEntities as $assetExternalCmsSlotStorageEntity) {
+            $data = $assetExternalCmsSlotStorageEntity->getData();
+            foreach ($data[static::ASSETS_DATA_KEY] as $key => $asset) {
+                if ($asset[static::ASSET_ID_DATA_KEY] !== $idAssetExternal) {
+                    continue;
+                }
+                unset($data[static::ASSETS_DATA_KEY][$key]);
+                $assetExternalCmsSlotStorageEntity->setData($data);
+                $assetExternalCmsSlotStorageEntity->save();
+            }
+        }
     }
 }
