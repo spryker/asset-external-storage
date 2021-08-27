@@ -9,6 +9,7 @@ namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener;
 
 use Orm\Zed\AssetExternal\Persistence\Map\SpyAssetExternalStoreTableMap;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
+use Spryker\Zed\AssetExternalStorage\Communication\Exception\NoForeignKeyException;
 use Spryker\Zed\Event\Dependency\Plugin\EventHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
@@ -23,11 +24,19 @@ class AssetExternalStoreStorageUnpublishListener extends AbstractPlugin implemen
      * @param \Generated\Shared\Transfer\EventEntityTransfer $eventEntityTransfer
      * @param string $eventName
      *
+     * @throws \Spryker\Zed\AssetExternalStorage\Communication\Exception\NoForeignKeyException
+     *
      * @return void
      */
     public function handle(TransferInterface $eventEntityTransfer, $eventName)
     {
-        $idStore = $eventEntityTransfer->getForeignKeys()[SpyAssetExternalStoreTableMap::COL_FK_STORE];
+        $foreignKeys = $eventEntityTransfer->getForeignKeys();
+
+        if (!isset($foreignKeys[SpyAssetExternalStoreTableMap::COL_FK_STORE])) {
+            throw new NoForeignKeyException(SpyAssetExternalStoreTableMap::COL_FK_STORE);
+        }
+
+        $idStore = $foreignKeys[SpyAssetExternalStoreTableMap::COL_FK_STORE];
 
         $this->getFacade()->unpublishStoreRelation($eventEntityTransfer->getId(), $idStore);
     }

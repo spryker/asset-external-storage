@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\AssetExternalStorage;
 
+use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalQuery;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeBridge;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeBridge;
@@ -21,6 +22,7 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
 {
     public const FACADE_STORE = 'FACADE_STORE';
     public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
+    public const PROPEL_QUERY_ASSET_EXTERNAL = 'PROPEL_QUERY_ASSET_EXTERNAL';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -55,6 +57,20 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
      *
      * @return \Spryker\Zed\Kernel\Container
      */
+    public function providePersistenceLayerDependencies(Container $container): Container
+    {
+        parent::providePersistenceLayerDependencies($container);
+
+        $this->addAssetExternalQuery($container);
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
     protected function addFacadeStore(Container $container): Container
     {
         $container->set(static::FACADE_STORE, function (Container $container): AssetExternalStorageToStoreFacadeInterface {
@@ -74,6 +90,20 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
         $container->set(static::FACADE_EVENT_BEHAVIOR, function (Container $container): AssetExternalStorageToEventBehaviorFacadeInterface {
             return new AssetExternalStorageToEventBehaviorFacadeBridge($container->getLocator()->eventBehavior()->facade());
         });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addAssetExternalQuery(Container $container): Container
+    {
+        $container->set(static::PROPEL_QUERY_ASSET_EXTERNAL, $container->factory(function () {
+            return SpyAssetExternalQuery::create();
+        }));
 
         return $container;
     }

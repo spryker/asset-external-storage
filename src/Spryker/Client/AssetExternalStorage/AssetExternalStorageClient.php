@@ -12,10 +12,6 @@ use Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**
- * {@inheritDoc}
- *
- * @api
- *
  * @method \Spryker\Client\AssetExternalStorage\AssetExternalStorageFactory getFactory()
  */
 class AssetExternalStorageClient extends AbstractClient implements AssetExternalStorageClientInterface
@@ -34,6 +30,6 @@ class AssetExternalStorageClient extends AbstractClient implements AssetExternal
     ): AssetExternalStorageCollectionTransfer {
         return $this->getFactory()
             ->createAssetExternalStorageReader()
-            ->getAssetExternals($assetExternalStorageCollectionCriteriaTransfer);
+            ->getAssetExternalStorageCollectionByCriteria($assetExternalStorageCollectionCriteriaTransfer);
     }
 }

@@ -14,11 +14,4 @@ use Spryker\Shared\Kernel\AbstractBundleConfig;
  */
 class AssetExternalStorageConstants extends AbstractBundleConfig
 {
-    /**
-     * Specification:
-     * - Resource name, this will use for key generating
-     *
-     * @api
-     */
-    public const ASSET_EXTERNAL_RESOURCE_NAME = 'asset_external';
 }

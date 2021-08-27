@@ -17,7 +17,7 @@ interface AssetExternalStorageReaderInterface
      *
      * @return \Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer
      */
-    public function getAssetExternals(
+    public function getAssetExternalStorageCollectionByCriteria(
         AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
     ): AssetExternalStorageCollectionTransfer;
 }

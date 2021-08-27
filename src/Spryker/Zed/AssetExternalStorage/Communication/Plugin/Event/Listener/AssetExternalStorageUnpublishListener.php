@@ -7,8 +7,10 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener;
 
+use Orm\Zed\AssetExternal\Persistence\Map\SpyAssetExternalStoreTableMap;
 use Orm\Zed\PayoneConfig\Persistence\Map\SpyAssetExternalTableMap;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
+use Spryker\Zed\AssetExternalStorage\Communication\Exception\NoForeignKeyException;
 use Spryker\Zed\Event\Dependency\Plugin\EventHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
@@ -23,11 +25,19 @@ class AssetExternalStorageUnpublishListener extends AbstractPlugin implements Ev
      * @param \Generated\Shared\Transfer\EventEntityTransfer $eventEntityTransfer
      * @param string $eventName
      *
+     * @throws \Spryker\Zed\AssetExternalStorage\Communication\Exception\NoForeignKeyException
+     *
      * @return void
      */
     public function handle(TransferInterface $eventEntityTransfer, $eventName)
     {
-        $idCmsSlot = $eventEntityTransfer->getForeignKeys()[SpyAssetExternalTableMap::COL_FK_CMS_SLOT];
+        $foreignKeys = $eventEntityTransfer->getForeignKeys();
+
+        if (!isset($foreignKeys[SpyAssetExternalTableMap::COL_FK_CMS_SLOT])) {
+            throw new NoForeignKeyException(SpyAssetExternalStoreTableMap::COL_FK_STORE);
+        }
+
+        $idCmsSlot = $foreignKeys[SpyAssetExternalTableMap::COL_FK_CMS_SLOT];
 
         $this->getFacade()->unpublish($eventEntityTransfer->getId(), $idCmsSlot);
     }

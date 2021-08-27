@@ -57,7 +57,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             return;
         }
 
-        $assetExternalCmsSlotsStoragesByCmsSlot = $this->assetExternalStorageRepository->findByFkCmsSlot($assetExternalEntity->getFkCmsSlot());
+        $assetExternalCmsSlotsStoragesByCmsSlot = $this->assetExternalStorageRepository->findAssetExternalStoragesByFkCmsSlot($assetExternalEntity->getFkCmsSlot());
 
         if (!$assetExternalCmsSlotsStoragesByCmsSlot->count()) {
             $this->assetExternalStorageEntityManager->createAssetExternalStorage($assetExternalEntity);
@@ -84,13 +84,13 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
 
         $storeTransfer = $this->storeFacade->getStoreById($idStore);
 
-        $assetExternalCmsSlotsStoragesByStoreAndCmsSlot = $this->assetExternalStorageRepository->findByFkCmsSlotAndStore(
+        $assetExternalCmsSlotsStoragesByStoreAndCmsSlot = $this->assetExternalStorageRepository->findAssetExternalStoragesByFkCmsSlotAndStore(
             $assetExternalEntity->getFkCmsSlot(),
             $storeTransfer->getName()
         );
 
         if (!$assetExternalCmsSlotsStoragesByStoreAndCmsSlot->count()) {
-            $this->assetExternalStorageEntityManager->createAssetExternalStorage($assetExternalEntity);
+            $this->assetExternalStorageEntityManager->createAssetExternalStorage($assetExternalEntity, $storeTransfer->getName());
 
             return;
         }
@@ -106,7 +106,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
      */
     public function unpublish(int $idAssetExternal, int $idCmsSlot): void
     {
-        $assetExternalCmsSlotsStoragesByCmsSlot = $this->assetExternalStorageRepository->findByFkCmsSlot($idCmsSlot);
+        $assetExternalCmsSlotsStoragesByCmsSlot = $this->assetExternalStorageRepository->findAssetExternalStoragesByFkCmsSlot($idCmsSlot);
 
         $this->removeAssetExternalsFromStorageData($assetExternalCmsSlotsStoragesByCmsSlot, $idAssetExternal);
     }
@@ -127,7 +127,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
 
         $storeTransfer = $this->storeFacade->getStoreById($idStore);
 
-        $assetExternalCmsSlotsStoragesByStoreAndCmsSlot = $this->assetExternalStorageRepository->findByFkCmsSlotAndStore(
+        $assetExternalCmsSlotsStoragesByStoreAndCmsSlot = $this->assetExternalStorageRepository->findAssetExternalStoragesByFkCmsSlotAndStore(
             $assetExternalEntities->getFirst()->getFkCmsSlot(),
             $storeTransfer->getName()
         );

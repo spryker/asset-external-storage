@@ -28,10 +28,11 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
 
     /**
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
+     * @param string $storeName
      *
      * @return void
      */
-    public function createAssetExternalStorage(SpyAssetExternal $assetExternalEntity): void
+    public function createAssetExternalStorage(SpyAssetExternal $assetExternalEntity, string $storeName): void
     {
         $data[static::CMS_SLOT_KEY_DATA_KEY] = $assetExternalEntity->getSpyCmsSlot()->getKey();
 
@@ -43,8 +44,8 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
             ],
         ];
 
-        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalEntity, $data) {
-            $this->executePublishAssetExternalTransaction($assetExternalEntity, $data);
+        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalEntity, $storeName, $data) {
+            $this->executePublishAssetExternalTransaction($assetExternalEntity, $storeName, $data);
         });
     }
 
@@ -138,22 +139,21 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     /**
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
      * @param array $data
+     * @param string $storeName
      *
      * @return void
      */
-    protected function executePublishAssetExternalTransaction(SpyAssetExternal $assetExternalEntity, array $data): void
+    protected function executePublishAssetExternalTransaction(SpyAssetExternal $assetExternalEntity, string $storeName, array $data): void
     {
-        foreach ($assetExternalEntity->getSpyAssetExternalStores() as $assetExternalStore) {
-            $assetExternalCmsSlotStorage = $this->getSpyAssetExternalCmsSlotStorage();
+        $assetExternalCmsSlotStorage = $this->getSpyAssetExternalCmsSlotStorage();
 
-            $assetExternalCmsSlotStorage
-                ->setStore($assetExternalStore->getSpyStore()->getName())
-                ->setFkCmsSlot($assetExternalEntity->getSpyCmsSlot()->getIdCmsSlot())
-                ->setCmsSlotKey($assetExternalEntity->getSpyCmsSlot()->getKey())
-                ->setData($data);
+        $assetExternalCmsSlotStorage
+            ->setStore($storeName)
+            ->setFkCmsSlot($assetExternalEntity->getSpyCmsSlot()->getIdCmsSlot())
+            ->setCmsSlotKey($assetExternalEntity->getSpyCmsSlot()->getKey())
+            ->setData($data);
 
-            $assetExternalCmsSlotStorage->save();
-        }
+        $assetExternalCmsSlotStorage->save();
     }
 
     /**

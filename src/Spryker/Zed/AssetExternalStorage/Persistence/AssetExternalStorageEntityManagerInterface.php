@@ -14,13 +14,14 @@ interface AssetExternalStorageEntityManagerInterface
 {
     /**
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
+     * @param string $storeName
      *
      * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return void
      */
-    public function createAssetExternalStorage(SpyAssetExternal $assetExternalEntity): void;
+    public function createAssetExternalStorage(SpyAssetExternal $assetExternalEntity, string $storeName): void;
 
     /**
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity

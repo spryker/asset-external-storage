@@ -78,10 +78,10 @@ class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin imple
     protected function findAssetExternalStorage(array $ids): array
     {
         if ($ids === []) {
-            return $this->getRepository()->findAllAssetExternalStorage();
+            return $this->getRepository()->findAllAssetExternalStorages();
         }
 
-        return $this->getRepository()->findAllAssetExternalStorageByAssetExternalIds($ids);
+        return $this->getRepository()->findAllAssetExternalStoragesByAssetExternalIds($ids);
     }
 
     /**

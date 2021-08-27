@@ -15,21 +15,21 @@ interface AssetExternalStorageRepositoryInterface
     /**
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
      */
-    public function findAllAssetExternalStorage(): array;
+    public function findAllAssetExternalStorages(): array;
 
     /**
      * @param int[] $ids
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
      */
-    public function findAllAssetExternalStorageByAssetExternalIds(array $ids): array;
+    public function findAllAssetExternalStoragesByAssetExternalIds(array $ids): array;
 
     /**
      * @param int $idCmsSlot
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
      */
-    public function findByFkCmsSlot(int $idCmsSlot): ObjectCollection;
+    public function findAssetExternalStoragesByFkCmsSlot(int $idCmsSlot): ObjectCollection;
 
     /**
      * @param int $idCmsSlot
@@ -37,7 +37,7 @@ interface AssetExternalStorageRepositoryInterface
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
      */
-    public function findByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): ObjectCollection;
+    public function findAssetExternalStoragesByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): ObjectCollection;
 
     /**
      * @param int $idAssetExternal

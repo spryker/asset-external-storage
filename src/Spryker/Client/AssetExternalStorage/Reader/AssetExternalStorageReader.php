@@ -9,10 +9,10 @@ namespace Spryker\Client\AssetExternalStorage\Reader;
 
 use Generated\Shared\Transfer\AssetExternalStorageCollectionCriteriaTransfer;
 use Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer;
-use Generated\Shared\Transfer\AssetExternalStorageTransfer;
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Spryker\Client\AssetExternalStorage\Dependency\Client\AssetExternalStorageToStorageClientInterface;
 use Spryker\Client\AssetExternalStorage\Dependency\Service\AssetExternalStorageToSynchronizationServiceInterface;
+use Spryker\Client\AssetExternalStorage\Mapper\AssetExternalStorageMapperInterface;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 
 class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
@@ -30,15 +30,23 @@ class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
     protected $synchronizationService;
 
     /**
+     * @var \Spryker\Client\AssetExternalStorage\Mapper\AssetExternalStorageMapperInterface
+     */
+    protected $assetExternalStorageMapper;
+
+    /**
      * @param \Spryker\Client\AssetExternalStorage\Dependency\Client\AssetExternalStorageToStorageClientInterface $storageClient
      * @param \Spryker\Client\AssetExternalStorage\Dependency\Service\AssetExternalStorageToSynchronizationServiceInterface $synchronizationService
+     * @param \Spryker\Client\AssetExternalStorage\Mapper\AssetExternalStorageMapperInterface $assetExternalStorageMapper
      */
     public function __construct(
         AssetExternalStorageToStorageClientInterface $storageClient,
-        AssetExternalStorageToSynchronizationServiceInterface $synchronizationService
+        AssetExternalStorageToSynchronizationServiceInterface $synchronizationService,
+        AssetExternalStorageMapperInterface $assetExternalStorageMapper
     ) {
         $this->storageClient = $storageClient;
         $this->synchronizationService = $synchronizationService;
+        $this->assetExternalStorageMapper = $assetExternalStorageMapper;
     }
 
     /**
@@ -46,7 +54,7 @@ class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
      *
      * @return \Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer
      */
-    public function getAssetExternals(
+    public function getAssetExternalStorageCollectionByCriteria(
         AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
     ): AssetExternalStorageCollectionTransfer {
         $assetExternalStorageKey = $this->generateKey(
@@ -55,18 +63,11 @@ class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
         );
         $assetExternalStorageTransferData = $this->storageClient->get($assetExternalStorageKey);
 
-        $assetExternalStorageCollectionTransfer = new AssetExternalStorageCollectionTransfer();
         if (!$assetExternalStorageTransferData || empty([$assetExternalStorageTransferData[static::ASSETS_STORAGE_KEY]])) {
-            return $assetExternalStorageCollectionTransfer;
+            return new AssetExternalStorageCollectionTransfer();
         }
 
-        foreach ($assetExternalStorageTransferData[static::ASSETS_STORAGE_KEY] as $assetExtenal) {
-            $assetExternalStorageCollectionTransfer->addAssetExternalStorage(
-                (new AssetExternalStorageTransfer())->fromArray($assetExtenal, true)
-            );
-        }
-
-        return $assetExternalStorageCollectionTransfer;
+        return $this->assetExternalStorageMapper->mapAssetExternalStorageDataToAssetExternalStorageTransfer($assetExternalStorageTransferData[static::ASSETS_STORAGE_KEY]);
     }
 
     /**

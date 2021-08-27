@@ -8,8 +8,6 @@
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
 use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalQuery;
-use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
@@ -21,7 +19,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     /**
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
      */
-    public function findAllAssetExternalStorage(): array
+    public function findAllAssetExternalStorages(): array
     {
         return $this->getFactory()
             ->createAssetExternalStorageQuery()
@@ -34,7 +32,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
      */
-    public function findAllAssetExternalStorageByAssetExternalIds(array $ids): array
+    public function findAllAssetExternalStoragesByAssetExternalIds(array $ids): array
     {
         $query = $this->getFactory()->createAssetExternalStorageQuery();
 
@@ -50,9 +48,10 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
      */
-    public function findByFkCmsSlot(int $idCmsSlot): ObjectCollection
+    public function findAssetExternalStoragesByFkCmsSlot(int $idCmsSlot): ObjectCollection
     {
-        return SpyAssetExternalCmsSlotStorageQuery::create()
+        return $this->getFactory()
+            ->createAssetExternalStorageQuery()
             ->filterByFkCmsSlot($idCmsSlot)
             ->find();
     }
@@ -63,9 +62,10 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
      */
-    public function findByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): ObjectCollection
+    public function findAssetExternalStoragesByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): ObjectCollection
     {
-        return SpyAssetExternalCmsSlotStorageQuery::create()
+        return $this->getFactory()
+            ->createAssetExternalStorageQuery()
             ->filterByFkCmsSlot($idCmsSlot)
             ->filterByStore($storeName)
             ->find();
@@ -78,7 +78,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
      */
     public function findAssetExternalByIdAssetExternal(int $idAssetExternal): ?SpyAssetExternal
     {
-        return SpyAssetExternalQuery::create()->findOneByIdAssetExternal($idAssetExternal);
+        return $this->getFactory()->getAssetExternalQuery()->findOneByIdAssetExternal($idAssetExternal);
     }
 
     /**
@@ -88,6 +88,6 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
      */
     public function findAssetExternalsByIdAssetExternal(int $idAssetExternal): ObjectCollection
     {
-        return SpyAssetExternalQuery::create()->findByIdAssetExternal($idAssetExternal);
+        return $this->getFactory()->getAssetExternalQuery()->findByIdAssetExternal($idAssetExternal);
     }
 }

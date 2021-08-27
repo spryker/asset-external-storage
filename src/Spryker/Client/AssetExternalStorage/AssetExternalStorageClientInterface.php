@@ -14,7 +14,10 @@ interface AssetExternalStorageClientInterface
 {
     /**
      * Specification:
-     * - Get asset external collection transfer object from storage for the specified cms slot key and store name combination.
+     * - Gets asset external collection transfer object from storage for the specified cms slot key and store name combination.
+     * - Requires AssetExternalStorageCollectionCriteriaTransfer.slotKey transfer field to be set.
+     * - Requires AssetExternalStorageCollectionCriteriaTransfer.storeName transfer field to be set.
+     * - Gets data from storage by key equals asset_external:{storeName}:{slotKey}.
      *
      * @api
      *

@@ -8,11 +8,13 @@
 namespace SprykerTest\Zed\AssetExternalStorage\Persistence;
 
 use Codeception\Test\Unit;
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalQuery;
+use Faker\Provider\Uuid;
+use Generated\Shared\Transfer\CmsSlotTransfer;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 use Spryker\Shared\Event\EventConstants;
 use Spryker\Zed\AssetExternal\Dependency\AssetExternalEvents;
 use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Subscriber\AssetExternalStorageEventSubscriber;
+use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStoragePersistenceFactory;
 use Spryker\Zed\Event\Communication\Plugin\Queue\EventQueueMessageProcessorPlugin;
 use Spryker\Zed\Queue\QueueDependencyProvider;
 use Spryker\Zed\Synchronization\Communication\Plugin\Queue\SynchronizationStorageQueueMessageProcessorPlugin;
@@ -35,9 +37,9 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     protected $tester;
 
     /**
-     * @var \Generated\Shared\Transfer\AssetExternalTransfer
+     * @var \Generated\Shared\Transfer\CmsSlotTransfer
      */
-    protected $assetExternalTransfer;
+    protected $cmsSlotTransfer;
 
     /**
      * All tests in here require to have a valid availability entity to work on.
@@ -45,7 +47,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
      *
      * - Gets published and synchronized after create
      * - Gets published and updated after update
-     * - Rets published and removed after delete
+     * - Gets published and removed after delete
      *
      * @return void
      */
@@ -58,6 +60,10 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $this->tester->setDependency(QueueDependencyProvider::QUEUE_MESSAGE_PROCESSOR_PLUGINS, [
             EventConstants::EVENT_QUEUE => new EventQueueMessageProcessorPlugin(),
             AssetExternalStorageConfig::ASSET_EXTERNAL_SYNC_STORAGE_QUEUE => new SynchronizationStorageQueueMessageProcessorPlugin(),
+        ]);
+
+        $this->cmsSlotTransfer = $this->tester->haveCmsSlotInDb([
+            CmsSlotTransfer::KEY => 'slt-'.Uuid::uuid(),
         ]);
     }
 
@@ -72,7 +78,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             'TENANT_UUID',
             'content',
-            1,
+            $this->cmsSlotTransfer->getIdCmsSlot(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(
@@ -93,9 +99,9 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     {
         // Arrange
         $assetExternalTransfer = $this->tester->haveAssetExternal(
-            'TENANT_UUID',
+            'TENANT_UUID_STORE',
             'content',
-            1,
+            $this->cmsSlotTransfer->getIdCmsSlot(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(
@@ -118,7 +124,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             'TENANT_UUID',
             'content',
-            1,
+            $this->cmsSlotTransfer->getIdCmsSlot(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(
@@ -127,7 +133,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         );
 
         // Act
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
+        $assetExternalEntity = (new AssetExternalStoragePersistenceFactory())->getAssetExternalQuery()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
 
         $assetExternalEntity->setAssetContent('changed content');
         $assetExternalEntity->save();
@@ -147,7 +153,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             'TENANT_UUID',
             'content',
-            1,
+            $this->cmsSlotTransfer->getIdCmsSlot(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(
@@ -156,7 +162,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         );
 
         // Act
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
+        $assetExternalEntity = (new AssetExternalStoragePersistenceFactory())->getAssetExternalQuery()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
         $assetExternalEntity->getSpyAssetExternalStores()->delete();
         $assetExternalEntity->delete();
 
@@ -175,7 +181,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             'TENANT_UUID',
             'content',
-            1,
+            $this->cmsSlotTransfer->getIdCmsSlot(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(
@@ -184,7 +190,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         );
 
         // Act
-        $assetExternalEntity = SpyAssetExternalQuery::create()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
+        $assetExternalEntity = (new AssetExternalStoragePersistenceFactory())->getAssetExternalQuery()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
         $assetExternalEntity->getSpyAssetExternalStores()->delete();
         $assetExternalEntity->delete();
 
@@ -248,6 +254,6 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
      */
     protected function getExpectedStorageKey(string $storeName = 'de'): string
     {
-        return sprintf('asset_external_cms_slot:%s:%s', $storeName, 'slt-1');
+        return sprintf('asset_external_cms_slot:%s:%s', $storeName, $this->cmsSlotTransfer->getKey());
     }
 }
