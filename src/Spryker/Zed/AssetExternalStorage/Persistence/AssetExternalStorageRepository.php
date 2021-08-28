@@ -17,20 +17,23 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class AssetExternalStorageRepository extends AbstractRepository implements AssetExternalStorageRepositoryInterface
 {
     /**
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
+     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
     public function findAllAssetExternalStorages(): array
     {
-        return $this->getFactory()
+        $assetExternalCmsSlotStorageEntities = $this->getFactory()
             ->createAssetExternalStorageQuery()
-            ->find()
-            ->getArrayCopy();
+            ->find();
+
+        return $this->getFactory()
+            ->createAssetExternalStorageMapper()
+            ->mapExternalCmsSlotStorageEntitiesToExternalCmsSlotStorageEntityTransfers($assetExternalCmsSlotStorageEntities);
     }
 
     /**
      * @param int[] $ids
      *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
+     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
     public function findAllAssetExternalStoragesByAssetExternalIds(array $ids): array
     {
@@ -40,35 +43,48 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
             $query->filterByIdAssetExternalCmsSlotStorage_In($ids);
         }
 
-        return $query->find()->getArrayCopy();
+        $assetExternalCmsSlotStorageEntities = $query->find();
+
+        return $this
+            ->getFactory()
+            ->createAssetExternalStorageMapper()
+            ->mapExternalCmsSlotStorageEntitiesToExternalCmsSlotStorageEntityTransfers($assetExternalCmsSlotStorageEntities);
     }
 
     /**
      * @param int $idCmsSlot
      *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
+     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlot(int $idCmsSlot): ObjectCollection
+    public function findAssetExternalStoragesByFkCmsSlot(int $idCmsSlot): array
     {
-        return $this->getFactory()
+        $assetExternalCmsSlotStorageEntities = $this->getFactory()
             ->createAssetExternalStorageQuery()
             ->filterByFkCmsSlot($idCmsSlot)
             ->find();
+
+        return $this->getFactory()
+            ->createAssetExternalStorageMapper()
+            ->mapExternalCmsSlotStorageEntitiesToExternalCmsSlotStorageEntityTransfers($assetExternalCmsSlotStorageEntities);
     }
 
     /**
      * @param int $idCmsSlot
      * @param string $storeName
      *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
+     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): ObjectCollection
+    public function findAssetExternalStoragesByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): array
     {
-        return $this->getFactory()
+        $assetExternalCmsSlotStorageEntities = $this->getFactory()
             ->createAssetExternalStorageQuery()
             ->filterByFkCmsSlot($idCmsSlot)
             ->filterByStore($storeName)
             ->find();
+
+        return $this->getFactory()
+            ->createAssetExternalStorageMapper()
+            ->mapExternalCmsSlotStorageEntitiesToExternalCmsSlotStorageEntityTransfers($assetExternalCmsSlotStorageEntities);
     }
 
     /**

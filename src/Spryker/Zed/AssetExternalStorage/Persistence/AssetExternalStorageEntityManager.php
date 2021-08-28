@@ -64,20 +64,14 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
 
     /**
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
-     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection $assetExternalCmsSlotStorageEntities
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfers
      *
      * @return void
      */
-    public function updateAssetExternalStoragesData(SpyAssetExternal $assetExternalEntity, ObjectCollection $assetExternalCmsSlotStorageEntities): void
+    public function updateAssetExternalStoragesData(SpyAssetExternal $assetExternalEntity, array $assetExternalCmsSlotStorageEntityTransfers): void
     {
-        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalEntity, $assetExternalCmsSlotStorageEntities) {
-            foreach ($assetExternalCmsSlotStorageEntities as $assetExternalCmsSlotStorageEntity) {
-                $isUpdated = $this->updateData($assetExternalCmsSlotStorageEntity, $assetExternalEntity);
-
-                if (!$isUpdated) {
-                    $this->createData($assetExternalCmsSlotStorageEntity, $assetExternalEntity);
-                }
-            }
+        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalEntity, $assetExternalCmsSlotStorageEntityTransfers) {
+            $this->updateAssetExternalStoragesDataTransaction($assetExternalCmsSlotStorageEntityTransfers, $assetExternalEntity);
         });
     }
 
@@ -173,6 +167,21 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
                 unset($data[static::ASSETS_DATA_KEY][$key]);
                 $assetExternalCmsSlotStorageEntity->setData($data);
                 $assetExternalCmsSlotStorageEntity->save();
+            }
+        }
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfers
+     * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
+     */
+    protected function updateAssetExternalStoragesDataTransaction(array $assetExternalCmsSlotStorageEntityTransfers, SpyAssetExternal $assetExternalEntity): void
+    {
+        foreach ($assetExternalCmsSlotStorageEntityTransfers as $assetExternalCmsSlotStorageEntityTransfer) {
+            $isUpdated = $this->updateData($assetExternalCmsSlotStorageEntityTransfer, $assetExternalEntity);
+
+            if (!$isUpdated) {
+                $this->createData($assetExternalCmsSlotStorageEntityTransfer, $assetExternalEntity);
             }
         }
     }

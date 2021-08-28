@@ -13,31 +13,31 @@ use Propel\Runtime\Collection\ObjectCollection;
 interface AssetExternalStorageRepositoryInterface
 {
     /**
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
+     * @return \Generated\Shared\Transfer\AssetExternalStorageTransfer[]
      */
     public function findAllAssetExternalStorages(): array;
 
     /**
      * @param int[] $ids
      *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]
+     * @return \Generated\Shared\Transfer\AssetExternalStorageTransfer[]
      */
     public function findAllAssetExternalStoragesByAssetExternalIds(array $ids): array;
 
     /**
      * @param int $idCmsSlot
      *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
+     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlot(int $idCmsSlot): ObjectCollection;
+    public function findAssetExternalStoragesByFkCmsSlot(int $idCmsSlot): array;
 
     /**
      * @param int $idCmsSlot
      * @param string $storeName
      *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection
+     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): ObjectCollection;
+    public function findAssetExternalStoragesByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): array;
 
     /**
      * @param int $idAssetExternal

@@ -10,6 +10,8 @@ namespace Spryker\Zed\AssetExternalStorage\Persistence;
 use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalQuery;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
 use Spryker\Zed\AssetExternalStorage\AssetExternalStorageDependencyProvider;
+use Spryker\Zed\AssetExternalStorage\Persistence\Mapper\AssetExternalStorageMapper;
+use Spryker\Zed\AssetExternalStorage\Persistence\Mapper\AssetExternalStorageMapperInterface;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -25,6 +27,14 @@ class AssetExternalStoragePersistenceFactory extends AbstractPersistenceFactory
     public function createAssetExternalStorageQuery(): SpyAssetExternalCmsSlotStorageQuery
     {
         return SpyAssetExternalCmsSlotStorageQuery::create();
+    }
+
+    /**
+     * @return Spryker\Zed\AssetExternalStorage\Persistence\Mapper\AssetExternalStorageMapperInterface
+     */
+    public function createAssetExternalStorageMapper(): AssetExternalStorageMapperInterface
+    {
+        return new AssetExternalStorageMapper();
     }
 
     /**

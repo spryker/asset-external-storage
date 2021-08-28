@@ -25,11 +25,11 @@ interface AssetExternalStorageEntityManagerInterface
 
     /**
      * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
-     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection $assetExternalCmsSlotStorageEntities
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfers
      *
      * @return void
      */
-    public function updateAssetExternalStoragesData(SpyAssetExternal $assetExternalEntity, ObjectCollection $assetExternalCmsSlotStorageEntities): void;
+    public function updateAssetExternalStoragesData(SpyAssetExternal $assetExternalEntity, array $assetExternalCmsSlotStorageEntityTransfers): void;
 
     /**
      * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection $assetExternalCmsSlotStorageEntities
