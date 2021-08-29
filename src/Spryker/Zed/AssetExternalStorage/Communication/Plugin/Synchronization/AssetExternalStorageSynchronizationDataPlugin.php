@@ -8,7 +8,6 @@
 namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Synchronization;
 
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
-use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataBulkRepositoryPluginInterface;
@@ -59,11 +58,11 @@ class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin imple
     public function getData(int $offset, int $limit, array $ids = []): array
     {
         $synchronizationDataTransfers = [];
-        foreach ($this->findAssetExternalStorage($ids) as $assetExternalStorageTransfer) {
+        foreach ($this->findAssetExternalStorage($ids) as $assetExternalStorageEntityTransfer) {
             $synchronizationDataTransfer = new SynchronizationDataTransfer();
-            $synchronizationDataTransfer->setData($assetExternalStorageTransfer->getData());
-            $synchronizationDataTransfer->setKey($assetExternalStorageTransfer->getCmsSlotKey());
-            $synchronizationDataTransfer->setStore($assetExternalStorageTransfer->getStore());
+            $synchronizationDataTransfer->setData($assetExternalStorageEntityTransfer->getData());
+            $synchronizationDataTransfer->setKey($assetExternalStorageEntityTransfer->getCmsSlotKey());
+            $synchronizationDataTransfer->setStore($assetExternalStorageEntityTransfer->getStore());
 
             $synchronizationDataTransfers[] = $synchronizationDataTransfer;
         }

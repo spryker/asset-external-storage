@@ -8,6 +8,7 @@
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
 use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
+use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
 use Propel\Runtime\Collection\ObjectCollection;
 
 interface AssetExternalStorageRepositoryInterface
@@ -20,9 +21,16 @@ interface AssetExternalStorageRepositoryInterface
     /**
      * @param int[] $ids
      *
-     * @return \Generated\Shared\Transfer\AssetExternalStorageTransfer[]
+     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
     public function findAllAssetExternalStoragesByAssetExternalIds(array $ids): array;
+
+    /**
+     * @param int $idAssetExternalCmsSlotStorage
+     *
+     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
+     */
+    public function findOneAssetExternalStorageEntityByAssetExternalId(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage;
 
     /**
      * @param int $idCmsSlot

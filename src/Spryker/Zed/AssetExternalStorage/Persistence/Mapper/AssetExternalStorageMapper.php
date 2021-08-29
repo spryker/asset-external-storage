@@ -7,9 +7,7 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence\Mapper;
 
-use Generated\Shared\Transfer\AssetExternalStorageTransfer;
 use Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer;
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalStore;
 use Propel\Runtime\Collection\ObjectCollection;
 
 class AssetExternalStorageMapper implements AssetExternalStorageMapperInterface

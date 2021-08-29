@@ -63,7 +63,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         ]);
 
         $this->cmsSlotTransfer = $this->tester->haveCmsSlotInDb([
-            CmsSlotTransfer::KEY => 'slt-'.Uuid::uuid(),
+            CmsSlotTransfer::KEY => 'slt-' . Uuid::uuid(),
         ]);
     }
 

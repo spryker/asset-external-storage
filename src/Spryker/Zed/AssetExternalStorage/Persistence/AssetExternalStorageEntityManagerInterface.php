@@ -8,7 +8,6 @@
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
 use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
-use Propel\Runtime\Collection\ObjectCollection;
 
 interface AssetExternalStorageEntityManagerInterface
 {
@@ -32,10 +31,10 @@ interface AssetExternalStorageEntityManagerInterface
     public function updateAssetExternalStoragesData(SpyAssetExternal $assetExternalEntity, array $assetExternalCmsSlotStorageEntityTransfers): void;
 
     /**
-     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection $assetExternalCmsSlotStorageEntities
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotsStorageEntityTransfers
      * @param int $idAssetExternal
      *
      * @return void
      */
-    public function removeAssetFromDatasByAssetExternalUuid(ObjectCollection $assetExternalCmsSlotStorageEntities, int $idAssetExternal): void;
+    public function removeAssetFromDatasByAssetExternalUuid(array $assetExternalCmsSlotsStorageEntityTransfers, int $idAssetExternal): void;
 }

@@ -8,6 +8,7 @@
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
 use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
+use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
@@ -49,6 +50,18 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
             ->getFactory()
             ->createAssetExternalStorageMapper()
             ->mapExternalCmsSlotStorageEntitiesToExternalCmsSlotStorageEntityTransfers($assetExternalCmsSlotStorageEntities);
+    }
+
+    /**
+     * @param int $idAssetExternalCmsSlotStorage
+     *
+     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
+     */
+    public function findOneAssetExternalStorageEntityByAssetExternalId(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage
+    {
+        return $this->getFactory()
+            ->createAssetExternalStorageQuery()
+            ->findOneByIdAssetExternalCmsSlotStorage($idAssetExternalCmsSlotStorage);
     }
 
     /**

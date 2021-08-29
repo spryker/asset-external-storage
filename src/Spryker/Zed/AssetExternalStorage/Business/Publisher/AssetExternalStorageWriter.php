@@ -7,7 +7,6 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Business\Publisher;
 
-use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageEntityManagerInterface;
 use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageRepositoryInterface;
@@ -71,7 +70,8 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
         foreach ($assetExternalEntity->getSpyAssetExternalStores() as $storeRelationEntity) {
             $this->assetExternalStorageEntityManager->createAssetExternalStorage(
                 $assetExternalEntity,
-                $storeRelationEntity->getSpyStore()->getName());
+                $storeRelationEntity->getSpyStore()->getName()
+            );
         }
     }
 
@@ -143,17 +143,17 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
     }
 
     /**
-     * @param \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[]|\Propel\Runtime\Collection\ObjectCollection $assetExternalCmsSlotsStoragesByStoreAndCmsSlot
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotsStorageEntityTransfers
      * @param int $idAssetExternal
      *
      * @return void
      */
     protected function removeAssetExternalsFromStorageData(
-        ObjectCollection $assetExternalCmsSlotsStoragesByStoreAndCmsSlot,
+        array $assetExternalCmsSlotsStorageEntityTransfers,
         int $idAssetExternal
     ): void {
         $this->assetExternalStorageEntityManager->removeAssetFromDatasByAssetExternalUuid(
-            $assetExternalCmsSlotsStoragesByStoreAndCmsSlot,
+            $assetExternalCmsSlotsStorageEntityTransfers,
             $idAssetExternal
         );
     }
