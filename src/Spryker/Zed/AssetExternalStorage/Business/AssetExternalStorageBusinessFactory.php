@@ -53,9 +53,9 @@ class AssetExternalStorageBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotInterface
+     * @return \Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotFacadeInterface
      */
-    public function getCmsSlotFacade(): AssetExternalStorageToCmsSlotInterface
+    public function getCmsSlotFacade(): AssetExternalStorageToCmsSlotFacadeInterface
     {
         return $this->getProvidedDependency(AssetExternalStorageDependencyProvider::FACADE_CMS_SLOT);
     }

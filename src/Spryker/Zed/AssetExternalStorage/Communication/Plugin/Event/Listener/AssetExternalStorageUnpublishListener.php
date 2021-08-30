@@ -8,7 +8,7 @@
 namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener;
 
 use Orm\Zed\AssetExternal\Persistence\Map\SpyAssetExternalStoreTableMap;
-use Orm\Zed\PayoneConfig\Persistence\Map\SpyAssetExternalTableMap;
+use Orm\Zed\AssetExternal\Persistence\Map\SpyAssetExternalTableMap;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
 use Spryker\Zed\AssetExternalStorage\Communication\Exception\NoForeignKeyException;
 use Spryker\Zed\Event\Dependency\Plugin\EventHandlerInterface;

@@ -11,7 +11,6 @@ use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAss
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAssetExternalInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotBridge;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotInterface;
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeBridge;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
@@ -102,8 +101,8 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
      */
     public function addCmsSlotFacade(Container $container): Container
     {
-        $container->set(static::FACADE_CMS_SLOT, function (Container $container): AssetExternalStorageToCmsSlotInterface {
-            return new AssetExternalStorageToCmsSlotBridge($container->getLocator()->cmsSlot()->facade());
+        $container->set(static::FACADE_CMS_SLOT, function (Container $container): AssetExternalStorageToCmsSlotFacadeInterface {
+            return new AssetExternalStorageToCmsSlotFacadeBridge($container->getLocator()->cmsSlot()->facade());
         });
 
         return $container;

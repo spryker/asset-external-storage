@@ -9,7 +9,7 @@ namespace Spryker\Zed\AssetExternalStorage\Dependency\Facade;
 
 use Generated\Shared\Transfer\CmsSlotTransfer;
 
-class AssetExternalStorageToCmsSlotBridge implements AssetExternalStorageToCmsSlotInterface
+class AssetExternalStorageToCmsSlotFacadeBridge implements AssetExternalStorageToCmsSlotFacadeInterface
 {
     /**
      * @var \Spryker\Zed\CmsSlot\Business\CmsSlotFacadeInterface

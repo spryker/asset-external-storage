@@ -76,7 +76,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
 
         $assetExternalCmsSlotStorageEntityTransfersByCmsSlot = $this->assetExternalStorageRepository->findAssetExternalStoragesByFkCmsSlot($assetExternalTransfer->getIdCmsSlot());
 
-        if (!count($assetExternalCmsSlotStorageEntityTransfersByCmsSlot)) {
+        if (count($assetExternalCmsSlotStorageEntityTransfersByCmsSlot)) {
             $this->assetExternalStorageEntityManager->updateAssetExternalStoragesData(
                 $assetExternalTransfer,
                 $assetExternalCmsSlotStorageEntityTransfersByCmsSlot

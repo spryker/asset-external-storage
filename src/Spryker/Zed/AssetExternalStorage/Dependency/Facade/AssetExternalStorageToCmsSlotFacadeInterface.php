@@ -9,7 +9,7 @@ namespace Spryker\Zed\AssetExternalStorage\Dependency\Facade;
 
 use Generated\Shared\Transfer\CmsSlotTransfer;
 
-interface AssetExternalStorageToCmsSlotInterface
+interface AssetExternalStorageToCmsSlotFacadeInterface
 {
     /**
      * @param int $idCmsSlot

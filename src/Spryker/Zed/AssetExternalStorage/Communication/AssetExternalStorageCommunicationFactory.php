@@ -8,7 +8,6 @@
 namespace Spryker\Zed\AssetExternalStorage\Communication;
 
 use Spryker\Zed\AssetExternalStorage\AssetExternalStorageDependencyProvider;
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 /**
