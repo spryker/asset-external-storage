@@ -14,7 +14,6 @@ use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 use Spryker\Shared\Event\EventConstants;
 use Spryker\Zed\AssetExternal\Dependency\AssetExternalEvents;
 use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Subscriber\AssetExternalStorageEventSubscriber;
-use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStoragePersistenceFactory;
 use Spryker\Zed\Event\Communication\Plugin\Queue\EventQueueMessageProcessorPlugin;
 use Spryker\Zed\Queue\QueueDependencyProvider;
 use Spryker\Zed\Synchronization\Communication\Plugin\Queue\SynchronizationStorageQueueMessageProcessorPlugin;
@@ -132,11 +131,10 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
             1
         );
 
-        // Act
-        $assetExternalEntity = (new AssetExternalStoragePersistenceFactory())->getAssetExternalQuery()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
+        $assetExternalTransfer->setAssetContent('changed content');
 
-        $assetExternalEntity->setAssetContent('changed content');
-        $assetExternalEntity->save();
+        // Act
+        $this->tester->updateAssetExternal($assetExternalTransfer);
 
         // Assert
         $this->assertUpdatedEntityIsUpdatedInStorage();
@@ -162,9 +160,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         );
 
         // Act
-        $assetExternalEntity = (new AssetExternalStoragePersistenceFactory())->getAssetExternalQuery()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
-        $assetExternalEntity->getSpyAssetExternalStores()->delete();
-        $assetExternalEntity->delete();
+        $this->tester->deleteAssetExternal($assetExternalTransfer);
 
         // Assert
         $this->assertDeletedEntityIsRemovedFromStorage();
@@ -190,9 +186,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         );
 
         // Act
-        $assetExternalEntity = (new AssetExternalStoragePersistenceFactory())->getAssetExternalQuery()->findOneByIdAssetExternal($assetExternalTransfer->getIdAssetExternal());
-        $assetExternalEntity->getSpyAssetExternalStores()->delete();
-        $assetExternalEntity->delete();
+        $this->tester->deleteAssetExternal($assetExternalTransfer);
 
         // Assert
         $this->assertDeletedStoreEntityIsRemovedFromStorage();

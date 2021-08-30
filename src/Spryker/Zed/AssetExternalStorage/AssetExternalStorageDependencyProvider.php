@@ -7,7 +7,10 @@
 
 namespace Spryker\Zed\AssetExternalStorage;
 
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternalQuery;
+use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAssetExternalBridge;
+use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAssetExternalInterface;
+use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotBridge;
+use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeBridge;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeBridge;
@@ -22,7 +25,8 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
 {
     public const FACADE_STORE = 'FACADE_STORE';
     public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
-    public const PROPEL_QUERY_ASSET_EXTERNAL = 'PROPEL_QUERY_ASSET_EXTERNAL';
+    public const FACADE_ASSET_EXTERNAL = 'FACADE_ASSET_EXTERNAL';
+    public const FACADE_CMS_SLOT = 'FACADE_CMS_SLOT';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -34,6 +38,8 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
         parent::provideBusinessLayerDependencies($container);
 
         $this->addFacadeStore($container);
+        $this->addAssetExternalFacade($container);
+        $this->addCmsSlotFacade($container);
 
         return $container;
     }
@@ -60,8 +66,6 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
     public function providePersistenceLayerDependencies(Container $container): Container
     {
         parent::providePersistenceLayerDependencies($container);
-
-        $this->addAssetExternalQuery($container);
 
         return $container;
     }
@@ -99,11 +103,25 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    protected function addAssetExternalQuery(Container $container): Container
+    public function addAssetExternalFacade(Container $container): Container
     {
-        $container->set(static::PROPEL_QUERY_ASSET_EXTERNAL, $container->factory(function () {
-            return SpyAssetExternalQuery::create();
-        }));
+        $container->set(static::FACADE_ASSET_EXTERNAL, function (Container $container): AssetExternalStorageToAssetExternalInterface {
+            return new AssetExternalStorageToAssetExternalBridge($container->getLocator()->assetExternal()->facade());
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function addCmsSlotFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_CMS_SLOT, function (Container $container): AssetExternalStorageToCmsSlotInterface {
+            return new AssetExternalStorageToCmsSlotBridge($container->getLocator()->cmsSlot()->facade());
+        });
 
         return $container;
     }

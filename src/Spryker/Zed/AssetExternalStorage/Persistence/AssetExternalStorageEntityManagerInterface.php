@@ -7,28 +7,29 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
+use Generated\Shared\Transfer\AssetExternalTransfer;
 
 interface AssetExternalStorageEntityManagerInterface
 {
     /**
-     * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
+     * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      * @param string $storeName
+     * @param string $cmsSlotKey
      *
      * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return void
      */
-    public function createAssetExternalStorage(SpyAssetExternal $assetExternalEntity, string $storeName): void;
+    public function createAssetExternalStorage(AssetExternalTransfer $assetExternalTransfer, string $storeName, string $cmsSlotKey): void;
 
     /**
-     * @param \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal $assetExternalEntity
+     * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfers
      *
      * @return void
      */
-    public function updateAssetExternalStoragesData(SpyAssetExternal $assetExternalEntity, array $assetExternalCmsSlotStorageEntityTransfers): void;
+    public function updateAssetExternalStoragesData(AssetExternalTransfer $assetExternalTransfer, array $assetExternalCmsSlotStorageEntityTransfers): void;
 
     /**
      * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotsStorageEntityTransfers

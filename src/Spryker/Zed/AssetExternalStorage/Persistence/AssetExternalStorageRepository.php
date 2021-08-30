@@ -7,9 +7,8 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
-use Orm\Zed\AssetExternal\Persistence\SpyAssetExternal;
+use Exception;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
-use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -53,15 +52,25 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     }
 
     /**
+     * @throw \Exception
+     *
      * @param int $idAssetExternalCmsSlotStorage
+     *
+     * @throws \Exception
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
      */
     public function findOneAssetExternalStorageEntityByAssetExternalId(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage
     {
-        return $this->getFactory()
+        $assetExternalCmsSlotStorageEntity = $this->getFactory()
             ->createAssetExternalStorageQuery()
             ->findOneByIdAssetExternalCmsSlotStorage($idAssetExternalCmsSlotStorage);
+
+        if (!$assetExternalCmsSlotStorageEntity) {
+            throw new Exception(sprintf('No asset external storage entity with id %s', $idAssetExternalCmsSlotStorage));
+        }
+
+        return $assetExternalCmsSlotStorageEntity;
     }
 
     /**
@@ -98,25 +107,5 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
         return $this->getFactory()
             ->createAssetExternalStorageMapper()
             ->mapExternalCmsSlotStorageEntitiesToExternalCmsSlotStorageEntityTransfers($assetExternalCmsSlotStorageEntities);
-    }
-
-    /**
-     * @param int $idAssetExternal
-     *
-     * @return \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal|null
-     */
-    public function findAssetExternalByIdAssetExternal(int $idAssetExternal): ?SpyAssetExternal
-    {
-        return $this->getFactory()->getAssetExternalQuery()->findOneByIdAssetExternal($idAssetExternal);
-    }
-
-    /**
-     * @param int $idAssetExternal
-     *
-     * @return \Orm\Zed\AssetExternal\Persistence\SpyAssetExternal[]|\Propel\Runtime\Collection\ObjectCollection
-     */
-    public function findAssetExternalsByIdAssetExternal(int $idAssetExternal): ObjectCollection
-    {
-        return $this->getFactory()->getAssetExternalQuery()->findByIdAssetExternal($idAssetExternal);
     }
 }
