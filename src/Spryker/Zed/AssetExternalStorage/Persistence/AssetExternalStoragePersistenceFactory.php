@@ -34,4 +34,12 @@ class AssetExternalStoragePersistenceFactory extends AbstractPersistenceFactory
     {
         return new AssetExternalStorageMapper();
     }
+
+    /**
+     * @return \Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageRepositoryInterface
+     */
+    public function createRepository(): AssetExternalStorageRepositoryInterface
+    {
+        return new AssetExternalStorageRepository();
+    }
 }
