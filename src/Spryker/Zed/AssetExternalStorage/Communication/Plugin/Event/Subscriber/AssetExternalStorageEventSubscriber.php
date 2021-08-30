@@ -18,7 +18,6 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig getConfig()
- * @method \Spryker\Zed\AssetExternalStorage\Communication\AssetExternalStorageCommunicationFactory getFactory()
  * @method \Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacadeInterface getFacade()
  */
 class AssetExternalStorageEventSubscriber extends AbstractPlugin implements EventSubscriberInterface

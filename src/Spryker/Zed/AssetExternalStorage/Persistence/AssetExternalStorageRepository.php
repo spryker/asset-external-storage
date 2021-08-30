@@ -7,7 +7,6 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
-use Exception;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
 use Spryker\Zed\AssetExternalStorage\Persistence\Exception\AssetExternalStorageEntityNotFound;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
