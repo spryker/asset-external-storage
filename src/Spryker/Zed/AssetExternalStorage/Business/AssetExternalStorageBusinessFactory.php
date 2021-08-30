@@ -11,7 +11,7 @@ use Spryker\Zed\AssetExternalStorage\AssetExternalStorageDependencyProvider;
 use Spryker\Zed\AssetExternalStorage\Business\Publisher\AssetExternalStorageWriter;
 use Spryker\Zed\AssetExternalStorage\Business\Publisher\AssetExternalStorageWriterInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAssetExternalInterface;
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotInterface;
+use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
