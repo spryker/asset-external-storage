@@ -9,6 +9,7 @@ namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
 use Exception;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
+use Spryker\Zed\AssetExternalStorage\Persistence\Exception\AssetExternalStorageEntityNotFound;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -52,11 +53,9 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     }
 
     /**
-     * @throw \Exception
-     *
      * @param int $idAssetExternalCmsSlotStorage
      *
-     * @throws \Exception
+     * @throws \Spryker\Zed\AssetExternalStorage\Persistence\Exception\AssetExternalStorageEntityNotFound
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
      */
@@ -67,7 +66,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
             ->findOneByIdAssetExternalCmsSlotStorage($idAssetExternalCmsSlotStorage);
 
         if (!$assetExternalCmsSlotStorageEntity) {
-            throw new Exception(sprintf('No asset external storage entity with id %s', $idAssetExternalCmsSlotStorage));
+            throw new AssetExternalStorageEntityNotFound($idAssetExternalCmsSlotStorage);
         }
 
         return $assetExternalCmsSlotStorageEntity;

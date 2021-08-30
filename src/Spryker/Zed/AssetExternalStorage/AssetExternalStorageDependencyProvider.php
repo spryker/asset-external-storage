@@ -11,7 +11,6 @@ use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAss
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAssetExternalInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotBridge;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotInterface;
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeBridge;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeBridge;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface;
@@ -53,8 +52,6 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
     {
         parent::provideCommunicationLayerDependencies($container);
 
-        $this->addEventBehaviorFacade($container);
-
         return $container;
     }
 
@@ -79,20 +76,6 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
     {
         $container->set(static::FACADE_STORE, function (Container $container): AssetExternalStorageToStoreFacadeInterface {
             return new AssetExternalStorageToStoreFacadeBridge($container->getLocator()->store()->facade());
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    public function addEventBehaviorFacade(Container $container): Container
-    {
-        $container->set(static::FACADE_EVENT_BEHAVIOR, function (Container $container): AssetExternalStorageToEventBehaviorFacadeInterface {
-            return new AssetExternalStorageToEventBehaviorFacadeBridge($container->getLocator()->eventBehavior()->facade());
         });
 
         return $container;
