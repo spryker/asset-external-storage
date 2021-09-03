@@ -19,11 +19,4 @@ use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
  */
 class AssetExternalStorageCommunicationFactory extends AbstractCommunicationFactory
 {
-/**
- * @return \Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToEventBehaviorFacadeInterface
- */
-    public function getEventBehaviorFacade(): AssetExternalStorageToEventBehaviorFacadeInterface
-    {
-        return $this->getProvidedDependency(AssetExternalStorageDependencyProvider::FACADE_EVENT_BEHAVIOR);
-    }
 }
