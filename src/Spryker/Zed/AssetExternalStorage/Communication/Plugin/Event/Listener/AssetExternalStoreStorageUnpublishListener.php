@@ -34,9 +34,13 @@ class AssetExternalStoreStorageUnpublishListener extends AbstractPlugin implemen
         if (!isset($foreignKeys[SpyAssetExternalStoreTableMap::COL_FK_STORE])) {
             throw new NoForeignKeyException(SpyAssetExternalStoreTableMap::COL_FK_STORE);
         }
+        if (!isset($foreignKeys[SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL])) {
+            throw new NoForeignKeyException(SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL);
+        }
 
         $idStore = $foreignKeys[SpyAssetExternalStoreTableMap::COL_FK_STORE];
+        $idAssetExternal = $foreignKeys[SpyAssetExternalStoreTableMap::COL_FK_ASSET_EXTERNAL];
 
-        $this->getFacade()->unpublishStoreRelation($eventEntityTransfer->getId(), $idStore);
+        $this->getFacade()->unpublishStoreRelation($idAssetExternal, $idStore);
     }
 }
