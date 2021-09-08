@@ -55,7 +55,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
      *
      * @return void
      */
-    public function removeAssetFromDatasByAssetExternalUuid(array $assetExternalCmsSlotsStorageEntityTransfers, int $idAssetExternal): void
+    public function removeAssetFromDatasByIdAssetExternal(array $assetExternalCmsSlotsStorageEntityTransfers, int $idAssetExternal): void
     {
         $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalCmsSlotsStorageEntityTransfers, $idAssetExternal) {
             $this->executeRemoveAssetExternalTransaction($assetExternalCmsSlotsStorageEntityTransfers, $idAssetExternal);
@@ -172,7 +172,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
                 unset($data[static::ASSETS_DATA_KEY][$key]);
                 $assetExternalStorageEntity = $this->getFactory()
                     ->createRepository()
-                    ->findOneAssetExternalStorageEntityByAssetExternalId($assetExternalCmsSlotsStorageEntityTransfer->getIdAssetExternalCmsSlotStorage());
+                    ->findOneAssetExternalStorageEntityById($assetExternalCmsSlotsStorageEntityTransfer->getIdAssetExternalCmsSlotStorage());
 
                 $assetExternalStorageEntity->setData($data);
 
@@ -194,7 +194,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
         foreach ($assetExternalCmsSlotStorageEntityTransfers as $assetExternalCmsSlotStorageEntityTransfer) {
             $assetExternalCmsSlotStorageEntity = $this->getFactory()
                 ->createRepository()
-                ->findOneAssetExternalStorageEntityByAssetExternalId($assetExternalCmsSlotStorageEntityTransfer->getIdAssetExternalCmsSlotStorage());
+                ->findOneAssetExternalStorageEntityById($assetExternalCmsSlotStorageEntityTransfer->getIdAssetExternalCmsSlotStorage());
 
             $isUpdated = $this->updateData($assetExternalCmsSlotStorageEntity, $assetExternalTransfer);
 

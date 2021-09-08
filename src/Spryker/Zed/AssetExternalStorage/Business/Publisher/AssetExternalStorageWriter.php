@@ -177,7 +177,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
         array $assetExternalCmsSlotsStorageEntityTransfers,
         int $idAssetExternal
     ): void {
-        $this->assetExternalStorageEntityManager->removeAssetFromDatasByAssetExternalUuid(
+        $this->assetExternalStorageEntityManager->removeAssetFromDatasByIdAssetExternal(
             $assetExternalCmsSlotsStorageEntityTransfers,
             $idAssetExternal
         );
