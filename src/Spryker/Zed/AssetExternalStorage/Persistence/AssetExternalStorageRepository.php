@@ -52,26 +52,6 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     }
 
     /**
-     * @param int $idAssetExternalCmsSlotStorage
-     *
-     * @throws \Spryker\Zed\AssetExternalStorage\Persistence\Exception\AssetExternalStorageEntityNotFound
-     *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
-     */
-    public function findOneAssetExternalStorageEntityByAssetExternalId(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage
-    {
-        $assetExternalCmsSlotStorageEntity = $this->getFactory()
-            ->createAssetExternalStorageQuery()
-            ->findOneByIdAssetExternalCmsSlotStorage($idAssetExternalCmsSlotStorage);
-
-        if (!$assetExternalCmsSlotStorageEntity) {
-            throw new AssetExternalStorageEntityNotFound($idAssetExternalCmsSlotStorage);
-        }
-
-        return $assetExternalCmsSlotStorageEntity;
-    }
-
-    /**
      * @param int $idCmsSlot
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]

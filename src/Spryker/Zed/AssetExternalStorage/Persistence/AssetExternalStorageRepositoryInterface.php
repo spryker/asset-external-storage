@@ -24,13 +24,6 @@ interface AssetExternalStorageRepositoryInterface
     public function findAllAssetExternalStoragesByAssetExternalIds(array $ids): array;
 
     /**
-     * @param int $idAssetExternalCmsSlotStorage
-     *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
-     */
-    public function findOneAssetExternalStorageEntityByAssetExternalId(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage;
-
-    /**
      * @param int $idCmsSlot
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
