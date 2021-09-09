@@ -9,6 +9,7 @@ namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
 use Generated\Shared\Transfer\AssetExternalTransfer;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
+use Spryker\Zed\AssetExternalStorage\Persistence\Exception\AssetExternalStorageEntityNotFound;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 use Spryker\Zed\Kernel\Persistence\EntityManager\TransactionTrait;
 
@@ -170,9 +171,9 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
                     continue;
                 }
                 unset($data[static::ASSETS_DATA_KEY][$key]);
-                $assetExternalStorageEntity = $this->getFactory()
-                    ->createRepository()
-                    ->findOneAssetExternalStorageEntityById($assetExternalCmsSlotsStorageEntityTransfer->getIdAssetExternalCmsSlotStorage());
+                $assetExternalStorageEntity = $this->findOneAssetExternalStorageEntityById(
+                    $assetExternalCmsSlotsStorageEntityTransfer->getIdAssetExternalCmsSlotStorage()
+                );
 
                 $assetExternalStorageEntity->setData($data);
 
@@ -192,9 +193,9 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
         AssetExternalTransfer $assetExternalTransfer
     ): void {
         foreach ($assetExternalCmsSlotStorageEntityTransfers as $assetExternalCmsSlotStorageEntityTransfer) {
-            $assetExternalCmsSlotStorageEntity = $this->getFactory()
-                ->createRepository()
-                ->findOneAssetExternalStorageEntityById($assetExternalCmsSlotStorageEntityTransfer->getIdAssetExternalCmsSlotStorage());
+            $assetExternalCmsSlotStorageEntity = $this->findOneAssetExternalStorageEntityById(
+                $assetExternalCmsSlotStorageEntityTransfer->getIdAssetExternalCmsSlotStorage()
+            );
 
             $isUpdated = $this->updateData($assetExternalCmsSlotStorageEntity, $assetExternalTransfer);
 
@@ -202,5 +203,25 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
                 $this->createData($assetExternalCmsSlotStorageEntity, $assetExternalTransfer);
             }
         }
+    }
+
+    /**
+     * @param int $idAssetExternalCmsSlotStorage
+     *
+     * @throws \Spryker\Zed\AssetExternalStorage\Persistence\Exception\AssetExternalStorageEntityNotFound
+     *
+     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
+     */
+    protected function findOneAssetExternalStorageEntityById(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage
+    {
+        $assetExternalCmsSlotStorageEntity = $this->getFactory()
+            ->createAssetExternalStorageQuery()
+            ->findOneByIdAssetExternalCmsSlotStorage($idAssetExternalCmsSlotStorage);
+
+        if (!$assetExternalCmsSlotStorageEntity) {
+            throw new AssetExternalStorageEntityNotFound($idAssetExternalCmsSlotStorage);
+        }
+
+        return $assetExternalCmsSlotStorageEntity;
     }
 }
