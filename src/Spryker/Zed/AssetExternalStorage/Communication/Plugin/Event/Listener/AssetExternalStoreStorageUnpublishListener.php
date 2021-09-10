@@ -7,8 +7,8 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener;
 
-use Orm\Zed\AssetExternal\Persistence\Map\SpyAssetExternalStoreTableMap;
 use Spryker\Shared\Kernel\Transfer\TransferInterface;
+use Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig;
 use Spryker\Zed\AssetExternalStorage\Communication\Exception\NoForeignKeyException;
 use Spryker\Zed\Event\Dependency\Plugin\EventHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
@@ -16,6 +16,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \Spryker\Zed\AssetExternalStorage\Business\AssetExternalStorageFacadeInterface getFacade()
  * @method \Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig getConfig()
+ * @method \Spryker\Zed\AssetExternalStorage\Communication\AssetExternalStorageCommunicationFactory getFactory()
  */
 class AssetExternalStoreStorageUnpublishListener extends AbstractPlugin implements EventHandlerInterface
 {
@@ -31,12 +32,16 @@ class AssetExternalStoreStorageUnpublishListener extends AbstractPlugin implemen
     {
         $foreignKeys = $eventEntityTransfer->getForeignKeys();
 
-        if (!isset($foreignKeys[SpyAssetExternalStoreTableMap::COL_FK_STORE])) {
-            throw new NoForeignKeyException(SpyAssetExternalStoreTableMap::COL_FK_STORE);
+        if (!isset($foreignKeys[AssetExternalStorageConfig::COL_FK_STORE])) {
+            throw new NoForeignKeyException(AssetExternalStorageConfig::COL_FK_STORE);
+        }
+        if (!isset($foreignKeys[AssetExternalStorageConfig::COL_FK_ASSET_EXTERNAL])) {
+            throw new NoForeignKeyException(AssetExternalStorageConfig::COL_FK_ASSET_EXTERNAL);
         }
 
-        $idStore = $foreignKeys[SpyAssetExternalStoreTableMap::COL_FK_STORE];
+        $idStore = $foreignKeys[AssetExternalStorageConfig::COL_FK_STORE];
+        $idAssetExternal = $foreignKeys[AssetExternalStorageConfig::COL_FK_ASSET_EXTERNAL];
 
-        $this->getFacade()->unpublishStoreRelation($eventEntityTransfer->getId(), $idStore);
+        $this->getFacade()->unpublishStoreRelation($idAssetExternal, $idStore);
     }
 }

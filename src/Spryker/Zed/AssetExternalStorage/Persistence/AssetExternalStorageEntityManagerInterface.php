@@ -37,5 +37,5 @@ interface AssetExternalStorageEntityManagerInterface
      *
      * @return void
      */
-    public function removeAssetFromDatasByAssetExternalUuid(array $assetExternalCmsSlotsStorageEntityTransfers, int $idAssetExternal): void;
+    public function removeAssetFromDatasByIdAssetExternal(array $assetExternalCmsSlotsStorageEntityTransfers, int $idAssetExternal): void;
 }

@@ -24,13 +24,6 @@ interface AssetExternalStorageRepositoryInterface
     public function findAllAssetExternalStoragesByAssetExternalIds(array $ids): array;
 
     /**
-     * @param int $idAssetExternalCmsSlotStorage
-     *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
-     */
-    public function findOneAssetExternalStorageEntityByAssetExternalId(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage;
-
-    /**
      * @param int $idCmsSlot
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
@@ -39,9 +32,9 @@ interface AssetExternalStorageRepositoryInterface
 
     /**
      * @param int $idCmsSlot
-     * @param string $storeName
+     * @param string[] $storeNames
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): array;
+    public function findAssetExternalStoragesByFkCmsSlotAndStores(int $idCmsSlot, array $storeNames): array;
 }

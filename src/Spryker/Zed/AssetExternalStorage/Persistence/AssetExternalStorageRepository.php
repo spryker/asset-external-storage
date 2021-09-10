@@ -52,26 +52,6 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     }
 
     /**
-     * @param int $idAssetExternalCmsSlotStorage
-     *
-     * @throws \Spryker\Zed\AssetExternalStorage\Persistence\Exception\AssetExternalStorageEntityNotFound
-     *
-     * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
-     */
-    public function findOneAssetExternalStorageEntityByAssetExternalId(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage
-    {
-        $assetExternalCmsSlotStorageEntity = $this->getFactory()
-            ->createAssetExternalStorageQuery()
-            ->findOneByIdAssetExternalCmsSlotStorage($idAssetExternalCmsSlotStorage);
-
-        if (!$assetExternalCmsSlotStorageEntity) {
-            throw new AssetExternalStorageEntityNotFound($idAssetExternalCmsSlotStorage);
-        }
-
-        return $assetExternalCmsSlotStorageEntity;
-    }
-
-    /**
      * @param int $idCmsSlot
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
@@ -90,16 +70,16 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
 
     /**
      * @param int $idCmsSlot
-     * @param string $storeName
+     * @param string[] $storeNames
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlotAndStore(int $idCmsSlot, string $storeName): array
+    public function findAssetExternalStoragesByFkCmsSlotAndStores(int $idCmsSlot, array $storeNames): array
     {
         $assetExternalCmsSlotStorageEntities = $this->getFactory()
             ->createAssetExternalStorageQuery()
             ->filterByFkCmsSlot($idCmsSlot)
-            ->filterByStore($storeName)
+            ->filterByStore_In($storeNames)
             ->find();
 
         return $this->getFactory()
