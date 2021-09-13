@@ -2,7 +2,7 @@
 <database xmlns="spryker:schema-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:schemaLocation="spryker:schema-01 https://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\AssetExternalStorage\Persistence" package="src.Orm.Zed.AssetExternalStorage.Persistence">
     <table name="spy_asset_external_cms_slot_storage" identifierQuoting="true" idMethod="native" allowPkInsert="true">
         <column name="id_asset_external_cms_slot_storage" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
-        <column name="cms_slot_key" type="VARCHAR" size="1024" required="true"/>
+        <column name="cms_slot_key" type="VARCHAR" size="255" required="true"/>
         <column name="data" type="LONGVARCHAR" required="false"/>
         <column name="store" type="VARCHAR" size="255" required="true"/>
 
