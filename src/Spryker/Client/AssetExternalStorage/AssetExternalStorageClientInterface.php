@@ -7,7 +7,7 @@
 
 namespace Spryker\Client\AssetExternalStorage;
 
-use Generated\Shared\Transfer\AssetExternalStorageCollectionCriteriaTransfer;
+use Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer;
 use Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer;
 
 interface AssetExternalStorageClientInterface
@@ -15,17 +15,17 @@ interface AssetExternalStorageClientInterface
     /**
      * Specification:
      * - Gets asset external collection transfer object from storage for the specified cms slot key and store name combination.
-     * - Requires AssetExternalStorageCollectionCriteriaTransfer.slotKey transfer field to be set.
-     * - Requires AssetExternalStorageCollectionCriteriaTransfer.storeName transfer field to be set.
+     * - Requires AssetExternalStorageCriteriaTransfer.slotKey transfer field to be set.
+     * - Requires AssetExternalStorageCriteriaTransfer.storeName transfer field to be set.
      * - Gets data from storage by key equals asset_external:{storeName}:{slotKey}.
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
+     * @param \Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer $assetExternalStorageCriteriaTransfer
      *
      * @return \Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer
      */
     public function getAssetExternalCollectionForCmsSlot(
-        AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
+        AssetExternalStorageCriteriaTransfer $assetExternalStorageCriteriaTransfer
     ): AssetExternalStorageCollectionTransfer;
 }

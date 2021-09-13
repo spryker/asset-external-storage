@@ -13,7 +13,7 @@
         <property name="assetsExternalStorage" type="AssetExternalStorage[]" singular="assetExternalStorage"/>
     </transfer>
 
-    <transfer name="AssetExternalStorageCollectionCriteria" strict="true">
+    <transfer name="AssetExternalStorageCriteria" strict="true">
         <property name="slotKey" type="string"/>
         <property name="storeName" type="string"/>
     </transfer>

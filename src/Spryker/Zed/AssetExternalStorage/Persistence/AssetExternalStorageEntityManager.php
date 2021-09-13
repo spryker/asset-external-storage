@@ -149,7 +149,6 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
 
         $assetExternalCmsSlotStorage
             ->setStore($storeName)
-            ->setFkCmsSlot($assetExternalTransfer->getIdCmsSlot())
             ->setCmsSlotKey($cmsSlotKey)
             ->setData($data);
 
@@ -171,7 +170,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
                     continue;
                 }
                 unset($data[static::ASSETS_DATA_KEY][$key]);
-                $assetExternalStorageEntity = $this->findOneAssetExternalStorageEntityById(
+                $assetExternalStorageEntity = $this->getAssetExternalStorageEntityById(
                     $assetExternalCmsSlotsStorageEntityTransfer->getIdAssetExternalCmsSlotStorage()
                 );
 
@@ -193,7 +192,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
         AssetExternalTransfer $assetExternalTransfer
     ): void {
         foreach ($assetExternalCmsSlotStorageEntityTransfers as $assetExternalCmsSlotStorageEntityTransfer) {
-            $assetExternalCmsSlotStorageEntity = $this->findOneAssetExternalStorageEntityById(
+            $assetExternalCmsSlotStorageEntity = $this->getAssetExternalStorageEntityById(
                 $assetExternalCmsSlotStorageEntityTransfer->getIdAssetExternalCmsSlotStorage()
             );
 
@@ -212,7 +211,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
      *
      * @return \Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage
      */
-    protected function findOneAssetExternalStorageEntityById(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage
+    protected function getAssetExternalStorageEntityById(int $idAssetExternalCmsSlotStorage): SpyAssetExternalCmsSlotStorage
     {
         $assetExternalCmsSlotStorageEntity = $this->getFactory()
             ->createAssetExternalStorageQuery()

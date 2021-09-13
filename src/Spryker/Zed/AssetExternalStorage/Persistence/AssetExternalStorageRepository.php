@@ -19,7 +19,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     /**
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAllAssetExternalStorages(): array
+    public function findAssetExternalStorages(): array
     {
         $assetExternalCmsSlotStorageEntities = $this->getFactory()
             ->createAssetExternalStorageQuery()
@@ -52,15 +52,15 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     }
 
     /**
-     * @param int $idCmsSlot
+     * @param string $cmsSlotKey
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlot(int $idCmsSlot): array
+    public function findAssetExternalStoragesByCmsSlotKey(string $cmsSlotKey): array
     {
         $assetExternalCmsSlotStorageEntities = $this->getFactory()
             ->createAssetExternalStorageQuery()
-            ->filterByFkCmsSlot($idCmsSlot)
+            ->filterByCmsSlotKey($idCmsSlot)
             ->find();
 
         return $this->getFactory()
@@ -69,16 +69,16 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     }
 
     /**
-     * @param int $idCmsSlot
+     * @param string $cmsSlotKey
      * @param string[] $storeNames
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlotAndStores(int $idCmsSlot, array $storeNames): array
+    public function findAssetExternalStoragesByCmsSlotKeyAndStores(string $cmsSlotKey, array $storeNames): array
     {
         $assetExternalCmsSlotStorageEntities = $this->getFactory()
             ->createAssetExternalStorageQuery()
-            ->filterByFkCmsSlot($idCmsSlot)
+            ->filterByCmsSlotKey($cmsSlotKey)
             ->filterByStore_In($storeNames)
             ->find();
 

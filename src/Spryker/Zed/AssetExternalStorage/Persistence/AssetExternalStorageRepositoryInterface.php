@@ -14,7 +14,7 @@ interface AssetExternalStorageRepositoryInterface
     /**
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAllAssetExternalStorages(): array;
+    public function findAssetExternalStorages(): array;
 
     /**
      * @param int[] $ids
@@ -24,17 +24,17 @@ interface AssetExternalStorageRepositoryInterface
     public function findAllAssetExternalStoragesByAssetExternalIds(array $ids): array;
 
     /**
-     * @param int $idCmsSlot
+     * @param string $cmsSlotKey
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlot(int $idCmsSlot): array;
+    public function findAssetExternalStoragesByCmsSlotKey(string $cmsSlotKey): array;
 
     /**
-     * @param int $idCmsSlot
+     * @param string $cmsSlotKey
      * @param string[] $storeNames
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAssetExternalStoragesByFkCmsSlotAndStores(int $idCmsSlot, array $storeNames): array;
+    public function findAssetExternalStoragesByCmsSlotKeyAndStores(string $cmsSlotKey, array $storeNames): array;
 }

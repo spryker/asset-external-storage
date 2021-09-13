@@ -32,12 +32,12 @@ class AssetExternalStorageUnpublishListener extends AbstractPlugin implements Ev
     {
         $foreignKeys = $eventEntityTransfer->getForeignKeys();
 
-        if (!isset($foreignKeys[AssetExternalStorageConfig::COL_FK_CMS_SLOT])) {
-            throw new NoForeignKeyException(AssetExternalStorageConfig::COL_FK_STORE);
+        if (!isset($foreignKeys[AssetExternalStorageConfig::COL_CMS_SLOT_KEY])) {
+            throw new NoForeignKeyException(AssetExternalStorageConfig::COL_CMS_SLOT_KEY);
         }
 
-        $idCmsSlot = $foreignKeys[AssetExternalStorageConfig::COL_FK_CMS_SLOT];
+        $cmsSlotKey = $foreignKeys[AssetExternalStorageConfig::COL_CMS_SLOT_KEY];
 
-        $this->getFacade()->unpublish($eventEntityTransfer->getId(), $idCmsSlot);
+        $this->getFacade()->unpublish($eventEntityTransfer->getId(), $cmsSlotKey);
     }
 }

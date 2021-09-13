@@ -7,7 +7,7 @@
 
 namespace Spryker\Client\AssetExternalStorage;
 
-use Generated\Shared\Transfer\AssetExternalStorageCollectionCriteriaTransfer;
+use Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer;
 use Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
@@ -21,15 +21,15 @@ class AssetExternalStorageClient extends AbstractClient implements AssetExternal
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
+     * @param \Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer $assetExternalStorageCriteriaTransfer
      *
      * @return \Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer
      */
     public function getAssetExternalCollectionForCmsSlot(
-        AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
+        AssetExternalStorageCriteriaTransfer $assetExternalStorageCriteriaTransfer
     ): AssetExternalStorageCollectionTransfer {
         return $this->getFactory()
             ->createAssetExternalStorageReader()
-            ->getAssetExternalStorageCollectionByCriteria($assetExternalStorageCollectionCriteriaTransfer);
+            ->getAssetExternalStorageCollection($assetExternalStorageCriteriaTransfer);
     }
 }

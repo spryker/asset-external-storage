@@ -55,15 +55,15 @@ class AssetExternalStorageFacade extends AbstractFacade implements AssetExternal
      * @api
      *
      * @param int $idAssetExternal
-     * @param int $idCmsSlot
+     * @param string $cmsSlotKey
      *
      * @return void
      */
-    public function unpublish(int $idAssetExternal, int $idCmsSlot): void
+    public function unpublish(int $idAssetExternal, string $cmsSlotKey): void
     {
         $this->getFactory()
             ->createAssetExternalStorageWriter()
-            ->unpublish($idAssetExternal, $idCmsSlot);
+            ->unpublish($idAssetExternal, $cmsSlotKey);
     }
 
     /**

@@ -14,7 +14,7 @@ class AssetExternalStorageConfig extends AbstractBundleConfig
     /**
      * the column name for the fk_cms_slot field
      */
-    public const COL_FK_CMS_SLOT = 'spy_asset_external.fk_cms_slot';
+    public const COL_CMS_SLOT_KEY = 'spy_asset_external.cms_slot_key';
 
     /**
      * the column name for the fk_asset_external field
@@ -31,7 +31,7 @@ class AssetExternalStorageConfig extends AbstractBundleConfig
      *
      * @return string|null
      */
-    public function getEventQueueName(): ?string
+    public function findEventQueueName(): ?string
     {
         return null;
     }

@@ -7,7 +7,7 @@
 
 namespace Spryker\Client\AssetExternalStorage\Reader;
 
-use Generated\Shared\Transfer\AssetExternalStorageCollectionCriteriaTransfer;
+use Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer;
 use Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer;
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Spryker\Client\AssetExternalStorage\Dependency\Client\AssetExternalStorageToStorageClientInterface;
@@ -50,16 +50,16 @@ class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
+     * @param \Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer $assetExternalStorageCriteriaTransfer
      *
      * @return \Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer
      */
-    public function getAssetExternalStorageCollectionByCriteria(
-        AssetExternalStorageCollectionCriteriaTransfer $assetExternalStorageCollectionCriteriaTransfer
+    public function getAssetExternalStorageCollection(
+        AssetExternalStorageCriteriaTransfer $assetExternalStorageCriteriaTransfer
     ): AssetExternalStorageCollectionTransfer {
         $assetExternalStorageKey = $this->generateKey(
-            $assetExternalStorageCollectionCriteriaTransfer->getSlotKeyOrFail(),
-            $assetExternalStorageCollectionCriteriaTransfer->getStoreNameOrFail()
+            $assetExternalStorageCriteriaTransfer->getSlotKeyOrFail(),
+            $assetExternalStorageCriteriaTransfer->getStoreNameOrFail()
         );
         $assetExternalStorageTransferData = $this->storageClient->get($assetExternalStorageKey);
 

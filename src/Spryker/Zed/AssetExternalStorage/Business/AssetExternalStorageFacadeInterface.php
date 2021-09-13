@@ -47,11 +47,11 @@ interface AssetExternalStorageFacadeInterface
      * @api
      *
      * @param int $idAssetExternal
-     * @param int $idCmsSlot
+     * @param string $cmsSlotKey
      *
      * @return void
      */
-    public function unpublish(int $idAssetExternal, int $idCmsSlot): void;
+    public function unpublish(int $idAssetExternal, string $cmsSlotKey): void;
 
     /**
      * Specification:
