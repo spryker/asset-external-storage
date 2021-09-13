@@ -77,7 +77,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             'TENANT_UUID',
             'content',
-            $this->cmsSlotTransfer->getIdCmsSlot(),
+            $this->cmsSlotTransfer->getKey(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(
@@ -100,7 +100,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             'TENANT_UUID_STORE',
             'content',
-            $this->cmsSlotTransfer->getIdCmsSlot(),
+            $this->cmsSlotTransfer->getKey(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(
@@ -123,7 +123,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             'TENANT_UUID',
             'content',
-            $this->cmsSlotTransfer->getIdCmsSlot(),
+            $this->cmsSlotTransfer->getKey(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(
@@ -151,7 +151,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             'TENANT_UUID',
             'content',
-            $this->cmsSlotTransfer->getIdCmsSlot(),
+            $this->cmsSlotTransfer->getKey(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(
@@ -177,7 +177,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             'TENANT_UUID',
             'content',
-            $this->cmsSlotTransfer->getIdCmsSlot(),
+            $this->cmsSlotTransfer->getKey(),
             'assetName'
         );
         $this->tester->haveAssetExternalStoreRelation(

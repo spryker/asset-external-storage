@@ -11,7 +11,6 @@ use Spryker\Zed\AssetExternalStorage\AssetExternalStorageDependencyProvider;
 use Spryker\Zed\AssetExternalStorage\Business\Publisher\AssetExternalStorageWriter;
 use Spryker\Zed\AssetExternalStorage\Business\Publisher\AssetExternalStorageWriterInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAssetExternalInterface;
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotFacadeInterface;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -30,7 +29,6 @@ class AssetExternalStorageBusinessFactory extends AbstractBusinessFactory
         return new AssetExternalStorageWriter(
             $this->getFacadeStore(),
             $this->getFacadeAssetExternal(),
-            $this->getCmsSlotFacade(),
             $this->getEntityManager(),
             $this->getRepository()
         );
@@ -50,13 +48,5 @@ class AssetExternalStorageBusinessFactory extends AbstractBusinessFactory
     public function getFacadeAssetExternal(): AssetExternalStorageToAssetExternalInterface
     {
         return $this->getProvidedDependency(AssetExternalStorageDependencyProvider::FACADE_ASSET_EXTERNAL);
-    }
-
-    /**
-     * @return \Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToCmsSlotFacadeInterface
-     */
-    public function getCmsSlotFacade(): AssetExternalStorageToCmsSlotFacadeInterface
-    {
-        return $this->getProvidedDependency(AssetExternalStorageDependencyProvider::FACADE_CMS_SLOT);
     }
 }
