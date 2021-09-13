@@ -7,8 +7,8 @@
 
 namespace Spryker\Client\AssetExternalStorage;
 
-use Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer;
 use Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer;
+use Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
 /**

@@ -7,8 +7,8 @@
 
 namespace Spryker\Client\AssetExternalStorage\Reader;
 
-use Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer;
 use Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer;
+use Generated\Shared\Transfer\AssetExternalStorageCriteriaTransfer;
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Spryker\Client\AssetExternalStorage\Dependency\Client\AssetExternalStorageToStorageClientInterface;
 use Spryker\Client\AssetExternalStorage\Dependency\Service\AssetExternalStorageToSynchronizationServiceInterface;

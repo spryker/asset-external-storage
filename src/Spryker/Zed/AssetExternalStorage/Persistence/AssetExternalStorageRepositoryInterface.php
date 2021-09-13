@@ -7,8 +7,6 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
-use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
-
 interface AssetExternalStorageRepositoryInterface
 {
     /**

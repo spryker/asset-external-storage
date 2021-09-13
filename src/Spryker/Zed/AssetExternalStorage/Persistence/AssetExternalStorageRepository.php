@@ -7,8 +7,6 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
-use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
-use Spryker\Zed\AssetExternalStorage\Persistence\Exception\AssetExternalStorageEntityNotFound;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -60,7 +58,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     {
         $assetExternalCmsSlotStorageEntities = $this->getFactory()
             ->createAssetExternalStorageQuery()
-            ->filterByCmsSlotKey($idCmsSlot)
+            ->filterByCmsSlotKey($cmsSlotKey)
             ->find();
 
         return $this->getFactory()
