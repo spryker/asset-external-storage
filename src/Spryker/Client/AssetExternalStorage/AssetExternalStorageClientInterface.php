@@ -25,7 +25,7 @@ interface AssetExternalStorageClientInterface
      *
      * @return \Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer
      */
-    public function getAssetExternalCollectionForCmsSlot(
+    public function getAssetExternalCollection(
         AssetExternalStorageCriteriaTransfer $assetExternalStorageCriteriaTransfer
     ): AssetExternalStorageCollectionTransfer;
 }

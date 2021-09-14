@@ -25,7 +25,7 @@ class AssetExternalStorageClient extends AbstractClient implements AssetExternal
      *
      * @return \Generated\Shared\Transfer\AssetExternalStorageCollectionTransfer
      */
-    public function getAssetExternalCollectionForCmsSlot(
+    public function getAssetExternalCollection(
         AssetExternalStorageCriteriaTransfer $assetExternalStorageCriteriaTransfer
     ): AssetExternalStorageCollectionTransfer {
         return $this->getFactory()
