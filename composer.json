@@ -5,7 +5,7 @@
     "license": "proprietary",
     "require": {
         "php": ">=7.3",
-        "spryker/asset-external": "^1.0.0",
+        "spryker/asset-external": "dev-beta/app-store-demo",
         "spryker/kernel": "^3.30.0",
         "spryker/propel-orm": "^1.3.0",
         "spryker/storage": "^3.0.0",

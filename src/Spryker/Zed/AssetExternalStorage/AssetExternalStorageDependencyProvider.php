@@ -44,30 +44,6 @@ class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyPro
      *
      * @return \Spryker\Zed\Kernel\Container
      */
-    public function provideCommunicationLayerDependencies(Container $container): Container
-    {
-        parent::provideCommunicationLayerDependencies($container);
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    public function providePersistenceLayerDependencies(Container $container): Container
-    {
-        parent::providePersistenceLayerDependencies($container);
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addFacadeStore(Container $container): Container
     {
         $container->set(static::FACADE_STORE, function (Container $container): AssetExternalStorageToStoreFacadeInterface {

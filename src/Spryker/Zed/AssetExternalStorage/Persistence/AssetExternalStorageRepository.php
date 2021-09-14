@@ -33,7 +33,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
-    public function findAllAssetExternalStoragesByAssetExternalIds(array $ids): array
+    public function findAssetExternalStoragesByAssetExternalIds(array $ids): array
     {
         $query = $this->getFactory()->createAssetExternalStorageQuery();
 

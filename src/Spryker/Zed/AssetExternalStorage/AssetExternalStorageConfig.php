@@ -41,7 +41,7 @@ class AssetExternalStorageConfig extends AbstractBundleConfig
      *
      * @return string|null
      */
-    public function getSynchronizationPoolName(): ?string
+    public function findSynchronizationPoolName(): ?string
     {
         return null;
     }

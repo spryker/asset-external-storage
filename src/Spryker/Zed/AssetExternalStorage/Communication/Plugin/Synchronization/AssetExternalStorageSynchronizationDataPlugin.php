@@ -81,7 +81,7 @@ class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin imple
             return $this->getRepository()->findAssetExternalStorages();
         }
 
-        return $this->getRepository()->findAllAssetExternalStoragesByAssetExternalIds($ids);
+        return $this->getRepository()->findAssetExternalStoragesByAssetExternalIds($ids);
     }
 
     /**
@@ -117,6 +117,6 @@ class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin imple
      */
     public function getSynchronizationQueuePoolName(): ?string
     {
-        return $this->getFactory()->getConfig()->getSynchronizationPoolName();
+        return $this->getFactory()->getConfig()->findSynchronizationPoolName();
     }
 }
