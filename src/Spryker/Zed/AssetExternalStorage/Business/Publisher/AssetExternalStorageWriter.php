@@ -65,12 +65,14 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             return;
         }
 
-        $assetExternalCmsSlotStorageEntityTransfers = $this->assetExternalStorageRepository->findAssetExternalStoragesByCmsSlotKeyAndStores($assetExternalTransfer->getCmsSlotKey(), $assetExternalTransfer->getStores());
+        $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores = $this->assetExternalStorageRepository->findAssetExternalStoragesByCmsSlotKeyAndStores($assetExternalTransfer->getCmsSlotKey(), $assetExternalTransfer->getStores());
+        $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores = $this->assetExternalStorageRepository->findAssetExternalStoragesWithCmsSlotKeyNotEqualAndByStores($assetExternalTransfer->getCmsSlotKey(), $assetExternalTransfer->getStores());
 
-        if (count($assetExternalCmsSlotStorageEntityTransfers)) {
+        if (count($assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores)) {
             $this->assetExternalStorageEntityManager->updateAssetExternalStoragesData(
                 $assetExternalTransfer,
-                $assetExternalCmsSlotStorageEntityTransfers
+                $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores,
+                $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
             );
 
             return;
@@ -80,7 +82,8 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             $this->assetExternalStorageEntityManager->createAssetExternalStorage(
                 $assetExternalTransfer,
                 $storeName,
-                $assetExternalTransfer->getCmsSlotKey()
+                $assetExternalTransfer->getCmsSlotKey(),
+                $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
             );
         }
     }
@@ -107,12 +110,12 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
         );
 
         if (!count($assetExternalCmsSlotStorageEntityTransfers)) {
-            $this->assetExternalStorageEntityManager->createAssetExternalStorage($assetExternalTransfer, $storeTransfer->getName(), $assetExternalTransfer->getCmsSlotKey());
+            $this->assetExternalStorageEntityManager->createAssetExternalStorage($assetExternalTransfer, $storeTransfer->getName(), $assetExternalTransfer->getCmsSlotKey(), []);
 
             return;
         }
 
-        $this->assetExternalStorageEntityManager->updateAssetExternalStoragesData($assetExternalTransfer, $assetExternalCmsSlotStorageEntityTransfers);
+        $this->assetExternalStorageEntityManager->updateAssetExternalStoragesData($assetExternalTransfer, $assetExternalCmsSlotStorageEntityTransfers, []);
     }
 
     /**

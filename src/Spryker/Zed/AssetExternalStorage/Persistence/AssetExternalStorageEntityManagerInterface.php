@@ -15,21 +15,32 @@ interface AssetExternalStorageEntityManagerInterface
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      * @param string $storeName
      * @param string $cmsSlotKey
+     * @param array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
      *
      * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
      *
      * @return void
      */
-    public function createAssetExternalStorage(AssetExternalTransfer $assetExternalTransfer, string $storeName, string $cmsSlotKey): void;
+    public function createAssetExternalStorage(
+        AssetExternalTransfer $assetExternalTransfer,
+        string $storeName,
+        string $cmsSlotKey,
+        array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+    ): void;
 
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfers
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
      *
      * @return void
      */
-    public function updateAssetExternalStoragesData(AssetExternalTransfer $assetExternalTransfer, array $assetExternalCmsSlotStorageEntityTransfers): void;
+    public function updateAssetExternalStoragesData(
+        AssetExternalTransfer $assetExternalTransfer,
+        array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores,
+        array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+    ): void;
 
     /**
      * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotsStorageEntityTransfers

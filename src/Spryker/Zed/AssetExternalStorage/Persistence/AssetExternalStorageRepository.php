@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Persistence;
 
+use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -59,6 +60,25 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
         $assetExternalCmsSlotStorageEntities = $this->getFactory()
             ->createAssetExternalStorageQuery()
             ->filterByCmsSlotKey($cmsSlotKey)
+            ->find();
+
+        return $this->getFactory()
+            ->createAssetExternalStorageMapper()
+            ->mapExternalCmsSlotStorageEntitiesToExternalCmsSlotStorageEntityTransfers($assetExternalCmsSlotStorageEntities);
+    }
+
+    /**
+     * @param string $cmsSlotKey
+     * @param string[] $storeNames
+     *
+     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     */
+    public function findAssetExternalStoragesWithCmsSlotKeyNotEqualAndByStores(string $cmsSlotKey, array $storeNames): array
+    {
+        $assetExternalCmsSlotStorageEntities = $this->getFactory()
+            ->createAssetExternalStorageQuery()
+            ->filterByCmsSlotKey($cmsSlotKey, Criteria::NOT_EQUAL)
+            ->filterByStore_In($storeNames)
             ->find();
 
         return $this->getFactory()

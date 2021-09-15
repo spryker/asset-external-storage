@@ -34,5 +34,13 @@ interface AssetExternalStorageRepositoryInterface
      *
      * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
      */
+    public function findAssetExternalStoragesWithCmsSlotKeyNotEqualAndByStores(string $cmsSlotKey, array $storeNames): array;
+
+    /**
+     * @param string $cmsSlotKey
+     * @param string[] $storeNames
+     *
+     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     */
     public function findAssetExternalStoragesByCmsSlotKeyAndStores(string $cmsSlotKey, array $storeNames): array;
 }
