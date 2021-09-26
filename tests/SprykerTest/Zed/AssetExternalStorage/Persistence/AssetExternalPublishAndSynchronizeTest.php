@@ -101,7 +101,16 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $this->tester->assertEntityIsPublished(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_CREATE, EventConstants::EVENT_QUEUE);
         $this->tester->assertEntityIsSynchronizedToStorage(AssetExternalStorageConfig::ASSET_EXTERNAL_SYNC_STORAGE_QUEUE);
 
-        $this->assertStorageData($assetExternalTransfer, 'de');
+        $this->assertStorageData([
+            'asset_external_cms_slot:de:external-asset-header' => [
+                'cmsSlotKey' => 'external-asset-header',
+                'assets' => [[
+                    'assetId' => $assetExternalTransfer->getIdAssetExternal(),
+                    'assetUuid' => $assetExternalTransfer->getAssetUuid(),
+                    'assetContent' => $assetExternalTransfer->getAssetContent(),
+                ]]
+            ]
+        ]);
     }
 
     /**
@@ -132,8 +141,91 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $this->tester->assertEntityIsPublished(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE, EventConstants::EVENT_QUEUE);
         $this->tester->assertEntityIsSynchronizedToStorage(AssetExternalStorageConfig::ASSET_EXTERNAL_SYNC_STORAGE_QUEUE);
 
-        $this->assertStorageData($assetExternalTransfer, 'at');
-        $this->assertStorageData($assetExternalTransfer, 'de');
+        $this->assertStorageData([
+            'asset_external_cms_slot:de:external-asset-header' => [
+                'cmsSlotKey' => 'external-asset-header',
+                'assets' => [[
+                    'assetId' => $assetExternalTransfer->getIdAssetExternal(),
+                    'assetUuid' => $assetExternalTransfer->getAssetUuid(),
+                    'assetContent' => $assetExternalTransfer->getAssetContent(),
+                ]]
+            ],
+            'asset_external_cms_slot:at:external-asset-header' => [
+                'cmsSlotKey' => 'external-asset-header',
+                'assets' => [[
+                    'assetId' => $assetExternalTransfer->getIdAssetExternal(),
+                    'assetUuid' => $assetExternalTransfer->getAssetUuid(),
+                    'assetContent' => $assetExternalTransfer->getAssetContent(),
+                ]]
+            ]
+        ]);
+    }
+
+    /**
+     * @disableTransaction
+     *
+     * @return void
+     */
+    public function testSeveralAssetExternalCreatedInOneCmsSlotStoragePublishAndSynchronize(): void
+    {
+        // Arrange
+        $firstAssetUuid = Uuid::uuid();
+        $firstAssetExternalTransfer = $this->tester->haveAssetExternal(
+            $firstAssetUuid,
+            'content for the first asset',
+            $this->cmsSlotTransfer->getKey(),
+            'firstAssetName'
+        );
+        $this->tester->haveAssetExternalStoreRelation(
+            $firstAssetExternalTransfer->getIdAssetExternal(),
+            1
+        );
+        $this->tester->haveAssetExternalStoreRelation(
+            $firstAssetExternalTransfer->getIdAssetExternal(),
+            2
+        );
+
+        $secondAssetUuid = Uuid::uuid();
+        $secondAssetExternalTransfer = $this->tester->haveAssetExternal(
+            $secondAssetUuid,
+            'content for the second asset',
+            $this->cmsSlotTransfer->getKey(),
+            'secondAssetName'
+        );
+        $this->tester->haveAssetExternalStoreRelation(
+            $secondAssetExternalTransfer->getIdAssetExternal(),
+            2
+        );
+
+        // Assert
+        $this->tester->assertEntityIsPublished(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE, EventConstants::EVENT_QUEUE);
+        $this->tester->assertEntityIsSynchronizedToStorage(AssetExternalStorageConfig::ASSET_EXTERNAL_SYNC_STORAGE_QUEUE);
+
+        $this->assertStorageData([
+            'asset_external_cms_slot:de:external-asset-header' => [
+                'cmsSlotKey' => 'external-asset-header',
+                'assets' => [[
+                    'assetId' => $firstAssetExternalTransfer->getIdAssetExternal(),
+                    'assetUuid' => $firstAssetExternalTransfer->getAssetUuid(),
+                    'assetContent' => $firstAssetExternalTransfer->getAssetContent(),
+                ]]
+            ],
+            'asset_external_cms_slot:at:external-asset-header' => [
+                'cmsSlotKey' => 'external-asset-header',
+                'assets' => [
+                    [
+                        'assetId' => $firstAssetExternalTransfer->getIdAssetExternal(),
+                        'assetUuid' => $firstAssetExternalTransfer->getAssetUuid(),
+                        'assetContent' => $firstAssetExternalTransfer->getAssetContent(),
+                    ],
+                    [
+                        'assetId' => $secondAssetExternalTransfer->getIdAssetExternal(),
+                        'assetUuid' => $secondAssetExternalTransfer->getAssetUuid(),
+                        'assetContent' => $secondAssetExternalTransfer->getAssetContent(),
+                    ]
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -165,7 +257,16 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         $this->tester->assertEntityIsPublished(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_CREATE, EventConstants::EVENT_QUEUE);
         $this->tester->assertEntityIsSynchronizedToStorage(AssetExternalStorageConfig::ASSET_EXTERNAL_SYNC_STORAGE_QUEUE);
 
-        $this->assertStorageData($assetExternalTransfer, 'de');
+        $this->assertStorageData([
+            'asset_external_cms_slot:de:external-asset-header' => [
+                'cmsSlotKey' => 'external-asset-header',
+                'assets' => [[
+                    'assetId' => $assetExternalTransfer->getIdAssetExternal(),
+                    'assetUuid' => $assetExternalTransfer->getAssetUuid(),
+                    'assetContent' => $assetExternalTransfer->getAssetContent(),
+                ]]
+            ]
+        ]);
     }
 
     /**
@@ -196,8 +297,18 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         // Assert
         $this->tester->assertEntityIsPublished(AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_CREATE, EventConstants::EVENT_QUEUE);
         $this->tester->assertEntityIsSynchronizedToStorage(AssetExternalStorageConfig::ASSET_EXTERNAL_SYNC_STORAGE_QUEUE);
+        $this->assertStorageData([
+            'asset_external_cms_slot:de:external-asset-footer' => [
+                'cmsSlotKey' => 'external-asset-footer',
+                'assets' => [[
+                    'assetId' => $assetExternalTransfer->getIdAssetExternal(),
+                    'assetUuid' => $assetExternalTransfer->getAssetUuid(),
+                    'assetContent' => $assetExternalTransfer->getAssetContent(),
+                ]]
+            ]
+        ]);
 
-        $this->assertStorageData($assetExternalTransfer, 'de');
+        $this->tester->assertStorageNotHasKey('asset_external_cms_slot:de:external-asset-header');
     }
 
     /**
@@ -266,20 +377,20 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
-     * @param string $storeName
+     * @param array $expectedStorageData
      */
-    protected function assertStorageData(AssetExternalTransfer $assetExternalTransfer, string $storeName): void
+    protected function assertStorageData(array $expectedStorageData): void
     {
-        $this->tester->assertStorageHasKey($this->getExpectedStorageKey($assetExternalTransfer->getCmsSlotKey(), $storeName));
+        $this->assertEquals(count($expectedStorageData), $this->tester->getStorageClient()->getCountItems());
 
-        $storageData = $this->tester->getStorageClient()->get($this->getExpectedStorageKey($assetExternalTransfer->getCmsSlotKey(), $storeName));
-        $this->assertArrayHasKey('cmsSlotKey', $storageData);
-        $this->assertEquals($assetExternalTransfer->getCmsSlotKey(), $storageData['cmsSlotKey']);
-        $this->assertEquals([[
-            'assetId' => $assetExternalTransfer->getIdAssetExternal(),
-            'assetUuid' => $assetExternalTransfer->getAssetUuid(),
-            'assetContent' => $assetExternalTransfer->getAssetContent()
-        ]], $storageData['assets']);
+        foreach ($expectedStorageData as $expectedStorageKey => $expectedStorageDataItem) {
+            $this->tester->assertStorageHasKey($expectedStorageKey);
+
+            $storageData = $this->tester->getStorageClient()->get($expectedStorageKey);
+            $this->assertArrayHasKey('cmsSlotKey', $storageData);
+            $this->assertEquals($expectedStorageDataItem['cmsSlotKey'], $storageData['cmsSlotKey']);
+
+            $this->assertEquals($expectedStorageDataItem['assets'], $storageData['assets']);
+        }
     }
 }
