@@ -9,10 +9,8 @@ namespace SprykerTest\Zed\AssetExternalStorage\Persistence;
 
 use Codeception\Test\Unit;
 use Faker\Provider\Uuid;
-use Generated\Shared\Transfer\AssetExternalTransfer;
 use Generated\Shared\Transfer\CmsSlotTransfer;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
-use Orm\Zed\PayoneConfig\Persistence\SpyAssetExternalStoreQuery;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 use Spryker\Shared\Event\EventConstants;
 use Spryker\Zed\AssetExternal\Dependency\AssetExternalEvents;
@@ -69,6 +67,9 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
         ]);
     }
 
+    /**
+     * @return void
+     */
     protected function tearDown(): void
     {
         $this->tester->getStorageClient()->deleteAll();
@@ -108,8 +109,8 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
                     'assetId' => $assetExternalTransfer->getIdAssetExternal(),
                     'assetUuid' => $assetExternalTransfer->getAssetUuid(),
                     'assetContent' => $assetExternalTransfer->getAssetContent(),
-                ]]
-            ]
+                ]],
+            ],
         ]);
     }
 
@@ -148,7 +149,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
                     'assetId' => $assetExternalTransfer->getIdAssetExternal(),
                     'assetUuid' => $assetExternalTransfer->getAssetUuid(),
                     'assetContent' => $assetExternalTransfer->getAssetContent(),
-                ]]
+                ]],
             ],
             'asset_external_cms_slot:at:external-asset-header' => [
                 'cmsSlotKey' => 'external-asset-header',
@@ -156,8 +157,8 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
                     'assetId' => $assetExternalTransfer->getIdAssetExternal(),
                     'assetUuid' => $assetExternalTransfer->getAssetUuid(),
                     'assetContent' => $assetExternalTransfer->getAssetContent(),
-                ]]
-            ]
+                ]],
+            ],
         ]);
     }
 
@@ -208,7 +209,7 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
                     'assetId' => $firstAssetExternalTransfer->getIdAssetExternal(),
                     'assetUuid' => $firstAssetExternalTransfer->getAssetUuid(),
                     'assetContent' => $firstAssetExternalTransfer->getAssetContent(),
-                ]]
+                ]],
             ],
             'asset_external_cms_slot:at:external-asset-header' => [
                 'cmsSlotKey' => 'external-asset-header',
@@ -222,9 +223,9 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
                         'assetId' => $secondAssetExternalTransfer->getIdAssetExternal(),
                         'assetUuid' => $secondAssetExternalTransfer->getAssetUuid(),
                         'assetContent' => $secondAssetExternalTransfer->getAssetContent(),
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -264,8 +265,8 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
                     'assetId' => $assetExternalTransfer->getIdAssetExternal(),
                     'assetUuid' => $assetExternalTransfer->getAssetUuid(),
                     'assetContent' => $assetExternalTransfer->getAssetContent(),
-                ]]
-            ]
+                ]],
+            ],
         ]);
     }
 
@@ -304,8 +305,8 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
                     'assetId' => $assetExternalTransfer->getIdAssetExternal(),
                     'assetUuid' => $assetExternalTransfer->getAssetUuid(),
                     'assetContent' => $assetExternalTransfer->getAssetContent(),
-                ]]
-            ]
+                ]],
+            ],
         ]);
 
         $this->tester->assertStorageNotHasKey('asset_external_cms_slot:de:external-asset-header');
@@ -378,6 +379,8 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
 
     /**
      * @param array $expectedStorageData
+     *
+     * @return void
      */
     protected function assertStorageData(array $expectedStorageData): void
     {

@@ -31,7 +31,7 @@ class AssetExternalStorageFactory extends AbstractFactory
     /**
      * @return \Spryker\Client\AssetExternalStorage\Mapper\AssetExternalStorageMapper
      */
-    public function createAssetExternalStorageMapper()
+    public function createAssetExternalStorageMapper(): AssetExternalStorageMapper
     {
         return new AssetExternalStorageMapper();
     }
