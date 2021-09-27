@@ -20,10 +20,29 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
 {
     use TransactionTrait;
 
+    /**
+     * @var string
+     */
     protected const ASSETS_DATA_KEY = 'assets';
+
+    /**
+     * @var string
+     */
     protected const ASSET_UUID_DATA_KEY = 'assetUuid';
+
+    /**
+     * @var string
+     */
     protected const ASSET_CONTENT_DATA_KEY = 'assetContent';
+
+    /**
+     * @var string
+     */
     protected const ASSET_ID_DATA_KEY = 'assetId';
+
+    /**
+     * @var string
+     */
     protected const CMS_SLOT_KEY_DATA_KEY = 'cmsSlotKey';
 
     /**

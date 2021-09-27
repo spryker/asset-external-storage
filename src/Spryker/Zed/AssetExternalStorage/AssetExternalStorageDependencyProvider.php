@@ -19,9 +19,24 @@ use Spryker\Zed\Kernel\Container;
  */
 class AssetExternalStorageDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const FACADE_STORE = 'FACADE_STORE';
+
+    /**
+     * @var string
+     */
     public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
+
+    /**
+     * @var string
+     */
     public const FACADE_ASSET_EXTERNAL = 'FACADE_ASSET_EXTERNAL';
+
+    /**
+     * @var string
+     */
     public const FACADE_CMS_SLOT = 'FACADE_CMS_SLOT';
 
     /**

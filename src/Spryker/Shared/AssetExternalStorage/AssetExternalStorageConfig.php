@@ -16,6 +16,8 @@ class AssetExternalStorageConfig extends AbstractBundleConfig
      * - Key generation resource name for asset external messages.
      *
      * @api
+     *
+     * @var string
      */
     public const ASSET_EXTERNAL_CMS_SLOT_RESOURCE_NAME = 'asset_external_cms_slot';
 
@@ -24,6 +26,8 @@ class AssetExternalStorageConfig extends AbstractBundleConfig
      *  - Queue name as used for processing asset external messages.
      *
      * @api
+     *
+     * @var string
      */
     public const ASSET_EXTERNAL_SYNC_STORAGE_QUEUE = 'sync.storage.cms';
 }

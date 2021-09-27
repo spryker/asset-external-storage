@@ -17,7 +17,14 @@ use Spryker\Client\Kernel\Container;
  */
 class AssetExternalStorageDependencyProvider extends AbstractDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const SERVICE_SYNCHRONIZATION = 'SERVICE_SYNCHRONIZATION';
+
+    /**
+     * @var string
+     */
     public const CLIENT_STORAGE = 'CLIENT_STORAGE';
 
     /**
