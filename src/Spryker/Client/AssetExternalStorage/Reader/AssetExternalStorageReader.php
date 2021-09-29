@@ -17,6 +17,9 @@ use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
 
 class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
 {
+    /**
+     * @var string
+     */
     protected const ASSETS_STORAGE_KEY = 'assets';
 
     /**
