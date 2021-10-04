@@ -82,7 +82,6 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             $this->assetExternalStorageEntityManager->createAssetExternalStorage(
                 $assetExternalTransfer,
                 $storeName,
-                $assetExternalTransfer->getCmsSlotKey(),
                 $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
             );
         }
@@ -110,7 +109,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
         );
 
         if (!count($assetExternalCmsSlotStorageEntityTransfers)) {
-            $this->assetExternalStorageEntityManager->createAssetExternalStorage($assetExternalTransfer, $storeTransfer->getName(), $assetExternalTransfer->getCmsSlotKey(), []);
+            $this->assetExternalStorageEntityManager->createAssetExternalStorage($assetExternalTransfer, $storeTransfer->getName(), []);
 
             return;
         }

@@ -48,7 +48,6 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      * @param string $storeName
-     * @param string $cmsSlotKey
      * @param array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
      *
      * @return void
@@ -56,10 +55,9 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     public function createAssetExternalStorage(
         AssetExternalTransfer $assetExternalTransfer,
         string $storeName,
-        string $cmsSlotKey,
         array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
     ): void {
-        $data[static::CMS_SLOT_KEY_DATA_KEY] = $cmsSlotKey;
+        $data[static::CMS_SLOT_KEY_DATA_KEY] = $assetExternalTransfer->getCmsSlotKey();
 
         $data[static::ASSETS_DATA_KEY] = [
             [
@@ -69,11 +67,15 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
             ],
         ];
 
-        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalTransfer, $storeName, $cmsSlotKey, $data, $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores): void {
+        $this->getTransactionHandler()->handleTransaction(function () use (
+            $assetExternalTransfer,
+            $storeName,
+            $data,
+            $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+        ): void {
             $this->executePublishAssetExternalTransaction(
                 $assetExternalTransfer,
                 $storeName,
-                $cmsSlotKey,
                 $data
             );
 
@@ -181,14 +183,13 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     protected function executePublishAssetExternalTransaction(
         AssetExternalTransfer $assetExternalTransfer,
         string $storeName,
-        string $cmsSlotKey,
         array $data
     ): void {
         $assetExternalCmsSlotStorage = $this->getSpyAssetExternalCmsSlotStorage();
 
         $assetExternalCmsSlotStorage
             ->setStore($storeName)
-            ->setCmsSlotKey($cmsSlotKey)
+            ->setCmsSlotKey($assetExternalTransfer->getCmsSlotKey())
             ->setData($data);
 
         $assetExternalCmsSlotStorage->save();

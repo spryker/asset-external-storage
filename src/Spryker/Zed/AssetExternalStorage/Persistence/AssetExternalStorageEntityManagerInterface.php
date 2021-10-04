@@ -14,7 +14,6 @@ interface AssetExternalStorageEntityManagerInterface
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      * @param string $storeName
-     * @param string $cmsSlotKey
      * @param array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
      *
      * @throws \Propel\Runtime\Exception\PropelException
@@ -25,7 +24,6 @@ interface AssetExternalStorageEntityManagerInterface
     public function createAssetExternalStorage(
         AssetExternalTransfer $assetExternalTransfer,
         string $storeName,
-        string $cmsSlotKey,
         array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
     ): void;
 
