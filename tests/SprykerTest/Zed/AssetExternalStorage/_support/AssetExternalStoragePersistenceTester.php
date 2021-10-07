@@ -36,16 +36,16 @@ class AssetExternalStoragePersistenceTester extends Actor
      */
     public function assertStorageData(array $expectedStorageData): void
     {
-        $this->assertEquals(count($expectedStorageData), $this->getStorageClient()->getCountItems());
+        $this->assertSame(count($expectedStorageData), $this->getStorageClient()->getCountItems());
 
         foreach ($expectedStorageData as $expectedStorageKey => $expectedStorageDataItem) {
             $this->assertStorageHasKey($expectedStorageKey);
 
             $storageData = $this->getStorageClient()->get($expectedStorageKey);
             $this->assertArrayHasKey('cmsSlotKey', $storageData);
-            $this->assertEquals($expectedStorageDataItem['cmsSlotKey'], $storageData['cmsSlotKey']);
+            $this->assertSame($expectedStorageDataItem['cmsSlotKey'], $storageData['cmsSlotKey']);
 
-            $this->assertEquals($expectedStorageDataItem['assets'], $storageData['assets']);
+            $this->assertSame($expectedStorageDataItem['assets'], $storageData['assets']);
         }
     }
 }
