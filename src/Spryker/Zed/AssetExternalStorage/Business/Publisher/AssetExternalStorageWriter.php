@@ -65,14 +65,14 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             return;
         }
 
-        $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores = $this->assetExternalStorageRepository->findAssetExternalStoragesByCmsSlotKeyAndStores($assetExternalTransfer->getCmsSlotKey(), $assetExternalTransfer->getStores());
-        $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores = $this->assetExternalStorageRepository->findAssetExternalStoragesWithCmsSlotKeyNotEqualAndByStores($assetExternalTransfer->getCmsSlotKey(), $assetExternalTransfer->getStores());
+        $assetExternalCmsSlotStorageToUpdate = $this->assetExternalStorageRepository->findAssetExternalStoragesByCmsSlotKeyAndStores($assetExternalTransfer->getCmsSlotKey(), $assetExternalTransfer->getStores());
+        $assetExternalCmsSlotStorageToDelete = $this->assetExternalStorageRepository->findAssetExternalStoragesWithCmsSlotKeyNotEqualAndByStores($assetExternalTransfer->getCmsSlotKey(), $assetExternalTransfer->getStores());
 
-        if (count($assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores)) {
+        if (count($assetExternalCmsSlotStorageToUpdate)) {
             $this->assetExternalStorageEntityManager->updateAssetExternalStoragesData(
                 $assetExternalTransfer,
-                $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores,
-                $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+                $assetExternalCmsSlotStorageToUpdate,
+                $assetExternalCmsSlotStorageToDelete
             );
 
             return;
@@ -82,7 +82,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             $this->assetExternalStorageEntityManager->createAssetExternalStorage(
                 $assetExternalTransfer,
                 $storeName,
-                $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+                $assetExternalCmsSlotStorageToDelete
             );
         }
     }

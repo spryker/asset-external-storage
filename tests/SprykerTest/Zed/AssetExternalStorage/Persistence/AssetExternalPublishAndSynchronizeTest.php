@@ -8,7 +8,6 @@
 namespace SprykerTest\Zed\AssetExternalStorage\Persistence;
 
 use Codeception\Test\Unit;
-use Faker\Provider\Uuid;
 use Generated\Shared\Transfer\CmsSlotTransfer;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
 use Spryker\Shared\AssetExternalStorage\AssetExternalStorageConfig;
@@ -104,7 +103,6 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     public function testAssetExternalCreateStoragePublishAndSynchronize(): void
     {
         // Arrange
-        $assetUuid = Uuid::uuid();
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             ['cmsSlotKey' => $this->cmsSlotTransfer->getKey()],
         );
@@ -137,7 +135,6 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     public function testAssetExternalStoreCreateStoragePublishAndSynchronize(): void
     {
         // Arrange
-        $assetUuid = Uuid::uuid();
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             ['cmsSlotKey' => $this->cmsSlotTransfer->getKey()],
         );
@@ -182,7 +179,6 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     public function testSeveralAssetExternalCreatedInOneCmsSlotStoragePublishAndSynchronize(): void
     {
         // Arrange
-        $firstAssetUuid = Uuid::uuid();
         $firstAssetExternalTransfer = $this->tester->haveAssetExternal(
             ['cmsSlotKey' => $this->cmsSlotTransfer->getKey()],
         );
@@ -195,7 +191,6 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
             $this->storeAtTransfer->getIdStore()
         );
 
-        $secondAssetUuid = Uuid::uuid();
         $secondAssetExternalTransfer = $this->tester->haveAssetExternal(
             ['cmsSlotKey' => $this->cmsSlotTransfer->getKey()],
         );
@@ -243,7 +238,6 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     public function testAssetExternalUpdateContentStoragePublishAndSynchronize(): void
     {
         // Arrange
-        $assetUuid = Uuid::uuid();
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             ['cmsSlotKey' => $this->cmsSlotTransfer->getKey()],
         );
@@ -281,7 +275,6 @@ class AssetExternalPublishAndSynchronizeTest extends Unit
     public function testAssetExternalUpdateCmsSlotStoragePublishAndSynchronize(): void
     {
         // Arrange
-        $assetUuid = Uuid::uuid();
         $assetExternalTransfer = $this->tester->haveAssetExternal(
             ['cmsSlotKey' => $this->cmsSlotTransfer->getKey()],
         );

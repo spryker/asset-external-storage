@@ -10,6 +10,7 @@ namespace Spryker\Client\AssetExternalStorage;
 use Spryker\Client\AssetExternalStorage\Dependency\Client\AssetExternalStorageToStorageClientInterface;
 use Spryker\Client\AssetExternalStorage\Dependency\Service\AssetExternalStorageToSynchronizationServiceInterface;
 use Spryker\Client\AssetExternalStorage\Mapper\AssetExternalStorageMapper;
+use Spryker\Client\AssetExternalStorage\Mapper\AssetExternalStorageMapperInterface;
 use Spryker\Client\AssetExternalStorage\Reader\AssetExternalStorageReader;
 use Spryker\Client\AssetExternalStorage\Reader\AssetExternalStorageReaderInterface;
 use Spryker\Client\Kernel\AbstractFactory;
@@ -29,9 +30,9 @@ class AssetExternalStorageFactory extends AbstractFactory
     }
 
     /**
-     * @return \Spryker\Client\AssetExternalStorage\Mapper\AssetExternalStorageMapper
+     * @return \Spryker\Client\AssetExternalStorage\Mapper\AssetExternalStorageMapperInterface
      */
-    public function createAssetExternalStorageMapper(): AssetExternalStorageMapper
+    public function createAssetExternalStorageMapper(): AssetExternalStorageMapperInterface
     {
         return new AssetExternalStorageMapper();
     }

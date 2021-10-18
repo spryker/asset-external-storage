@@ -48,14 +48,14 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      * @param string $storeName
-     * @param array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+     * @param array $assetExternalCmsSlotStorageToDelete
      *
      * @return void
      */
     public function createAssetExternalStorage(
         AssetExternalTransfer $assetExternalTransfer,
         string $storeName,
-        array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+        array $assetExternalCmsSlotStorageToDelete
     ): void {
         $data[static::CMS_SLOT_KEY_DATA_KEY] = $assetExternalTransfer->getCmsSlotKey();
 
@@ -71,7 +71,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
             $assetExternalTransfer,
             $storeName,
             $data,
-            $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+            $assetExternalCmsSlotStorageToDelete
         ): void {
             $this->executePublishAssetExternalTransaction(
                 $assetExternalTransfer,
@@ -80,7 +80,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
             );
 
             $this->removeAssetFromDatasByIdAssetExternal(
-                $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores,
+                $assetExternalCmsSlotStorageToDelete,
                 $assetExternalTransfer->getIdAssetExternal()
             );
         });
@@ -101,19 +101,19 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
 
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageToUpdate
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageToDelete
      *
      * @return void
      */
     public function updateAssetExternalStoragesData(
         AssetExternalTransfer $assetExternalTransfer,
-        array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores,
-        array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+        array $assetExternalCmsSlotStorageToUpdate,
+        array $assetExternalCmsSlotStorageToDelete
     ): void {
-        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalTransfer, $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores, $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores): void {
-            $this->updateAssetExternalStoragesDataTransaction($assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores, $assetExternalTransfer);
-            $this->executeRemoveAssetExternalTransaction($assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores, $assetExternalTransfer->getIdAssetExternal());
+        $this->getTransactionHandler()->handleTransaction(function () use ($assetExternalTransfer, $assetExternalCmsSlotStorageToUpdate, $assetExternalCmsSlotStorageToDelete): void {
+            $this->updateAssetExternalStoragesDataTransaction($assetExternalCmsSlotStorageToUpdate, $assetExternalTransfer);
+            $this->executeRemoveAssetExternalTransaction($assetExternalCmsSlotStorageToDelete, $assetExternalTransfer->getIdAssetExternal());
         });
     }
 
@@ -175,7 +175,6 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      * @param string $storeName
-     * @param string $cmsSlotKey
      * @param array $data
      *
      * @return void

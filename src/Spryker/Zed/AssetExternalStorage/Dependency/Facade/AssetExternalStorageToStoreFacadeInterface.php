@@ -7,6 +7,8 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Dependency\Facade;
 
+use Generated\Shared\Transfer\StoreTransfer;
+
 interface AssetExternalStorageToStoreFacadeInterface
 {
     /**
@@ -16,5 +18,5 @@ interface AssetExternalStorageToStoreFacadeInterface
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
-    public function getStoreById(int $idStore);
+    public function getStoreById(int $idStore): StoreTransfer;
 }

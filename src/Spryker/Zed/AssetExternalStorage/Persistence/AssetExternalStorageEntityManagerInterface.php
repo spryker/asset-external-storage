@@ -14,30 +14,30 @@ interface AssetExternalStorageEntityManagerInterface
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      * @param string $storeName
-     * @param array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+     * @param array $assetExternalCmsSlotStorageToDelete
      *
-     * @throws \Propel\Runtime\Exception\PropelException
      * @throws \Spryker\Zed\Propel\Business\Exception\AmbiguousComparisonException
+     * @throws \Propel\Runtime\Exception\PropelException
      *
      * @return void
      */
     public function createAssetExternalStorage(
         AssetExternalTransfer $assetExternalTransfer,
         string $storeName,
-        array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+        array $assetExternalCmsSlotStorageToDelete
     ): void;
 
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageToUpdate
+     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageToDelete
      *
      * @return void
      */
     public function updateAssetExternalStoragesData(
         AssetExternalTransfer $assetExternalTransfer,
-        array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotKeyAndStores,
-        array $assetExternalCmsSlotStorageEntityTransfersByCmsSlotNotAsCurrentAndStores
+        array $assetExternalCmsSlotStorageToUpdate,
+        array $assetExternalCmsSlotStorageToDelete
     ): void;
 
     /**
