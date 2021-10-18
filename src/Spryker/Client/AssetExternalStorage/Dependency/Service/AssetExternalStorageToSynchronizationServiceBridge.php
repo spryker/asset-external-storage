@@ -7,8 +7,6 @@
 
 namespace Spryker\Client\AssetExternalStorage\Dependency\Service;
 
-use Spryker\Service\Synchronization\Dependency\Plugin\SynchronizationKeyGeneratorPluginInterface;
-
 class AssetExternalStorageToSynchronizationServiceBridge implements AssetExternalStorageToSynchronizationServiceInterface
 {
     /**
@@ -29,7 +27,7 @@ class AssetExternalStorageToSynchronizationServiceBridge implements AssetExterna
      *
      * @return \Spryker\Service\Synchronization\Dependency\Plugin\SynchronizationKeyGeneratorPluginInterface
      */
-    public function getStorageKeyBuilder(string $resourceName): SynchronizationKeyGeneratorPluginInterface
+    public function getStorageKeyBuilder($resourceName)
     {
         return $this->synchronizationService->getStorageKeyBuilder($resourceName);
     }

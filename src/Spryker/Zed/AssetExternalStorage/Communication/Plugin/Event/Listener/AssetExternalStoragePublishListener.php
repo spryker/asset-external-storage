@@ -24,7 +24,7 @@ class AssetExternalStoragePublishListener extends AbstractPlugin implements Even
      *
      * @return void
      */
-    public function handle(TransferInterface $transfer, string $eventName): void
+    public function handle(TransferInterface $transfer, $eventName)
     {
         $this->getFacade()->publish($transfer->getId());
     }

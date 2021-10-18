@@ -28,7 +28,7 @@ class AssetExternalStorageUnpublishListener extends AbstractPlugin implements Ev
      *
      * @return void
      */
-    public function handle(TransferInterface $eventEntityTransfer, string $eventName): void
+    public function handle(TransferInterface $eventEntityTransfer, $eventName)
     {
         $foreignKeys = $eventEntityTransfer->getForeignKeys();
 

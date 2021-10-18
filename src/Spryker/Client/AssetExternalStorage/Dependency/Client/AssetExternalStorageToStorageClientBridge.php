@@ -27,7 +27,7 @@ class AssetExternalStorageToStorageClientBridge implements AssetExternalStorageT
      *
      * @return mixed
      */
-    public function get(string $key)
+    public function get($key)
     {
         return $this->storageClient->get($key);
     }
