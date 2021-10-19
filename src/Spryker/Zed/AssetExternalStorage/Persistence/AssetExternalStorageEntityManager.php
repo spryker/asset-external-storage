@@ -203,7 +203,9 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     protected function executeRemoveAssetExternalTransaction(array $assetExternalCmsSlotsStorageEntityTransfers, int $idAssetExternal): void
     {
         foreach ($assetExternalCmsSlotsStorageEntityTransfers as $assetExternalCmsSlotsStorageEntityTransfer) {
+            /** @var array $data */
             $data = $assetExternalCmsSlotsStorageEntityTransfer->getData();
+
             foreach ($data[static::ASSETS_DATA_KEY] as $key => $asset) {
                 if ($asset[static::ASSET_ID_DATA_KEY] !== $idAssetExternal) {
                     continue;

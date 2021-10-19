@@ -12,21 +12,21 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class AssetExternalStorageConfig extends AbstractBundleConfig
 {
     /**
-     * the column name for the fk_cms_slot field
+     * The column name for the fk_cms_slot field.
      *
      * @var string
      */
     public const COL_CMS_SLOT_KEY = 'spy_asset_external.cms_slot_key';
 
     /**
-     * the column name for the fk_asset_external field
+     * The column name for the fk_asset_external field.
      *
      * @var string
      */
     public const COL_FK_ASSET_EXTERNAL = 'spy_asset_external_store.fk_asset_external';
 
     /**
-     * the column name for the fk_store field
+     * The column name for the fk_store field.
      *
      * @var string
      */

@@ -25,4 +25,17 @@
         <property name="store" type="string"/>
     </transfer>
 
+    <transfer name="AssetExternal" strict="true">
+        <property name="idAssetExternal" type="int"/>
+        <property name="assetUuid" type="string"/>
+        <property name="assetName" type="string"/>
+        <property name="cmsSlotKey" type="string"/>
+        <property name="assetContent" type="string"/>
+        <property name="stores" type="string[]" singular="store"/>
+    </transfer>
+
+    <transfer name="Store">
+        <property name="name" type="string"/>
+    </transfer>
+
 </transfers>
