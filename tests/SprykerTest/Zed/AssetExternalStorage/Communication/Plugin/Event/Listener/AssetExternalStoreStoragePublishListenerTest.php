@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerTest\Zed\AssetExternalStorage\Comminication\Plugin\Event\Listener;
 
 use Codeception\Test\Unit;
@@ -10,6 +15,19 @@ use Spryker\Zed\AssetExternalStorage\Communication\Exception\NoForeignKeyExcepti
 use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetExternalStoreStoragePublishListener;
 use SprykerTest\Zed\AssetExternalStorage\AssetExternalStorageCommunicationTester;
 
+/**
+ * Auto-generated group annotations
+ *
+ * @group SprykerTest
+ * @group Zed
+ * @group AssetExternalStorage
+ * @group Comminication
+ * @group Plugin
+ * @group Event
+ * @group Listener
+ * @group AssetExternalStoreStoragePublishListenerTest
+ * Add your own group annotations below this line
+ */
 class AssetExternalStoreStoragePublishListenerTest extends Unit
 {
     /**
@@ -66,7 +84,8 @@ class AssetExternalStoreStoragePublishListenerTest extends Unit
         // Act
         $this->assetExternalStoreStoragePublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE);
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE
+        );
 
         // Assert
         $this->tester->assertAssetExternalStorage([
@@ -96,7 +115,8 @@ class AssetExternalStoreStoragePublishListenerTest extends Unit
         // Act
         $this->assetExternalStoreStoragePublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE);
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE
+        );
     }
 
     /**
@@ -114,6 +134,7 @@ class AssetExternalStoreStoragePublishListenerTest extends Unit
         // Act
         $this->assetExternalStoreStoragePublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE);
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE
+        );
     }
 }

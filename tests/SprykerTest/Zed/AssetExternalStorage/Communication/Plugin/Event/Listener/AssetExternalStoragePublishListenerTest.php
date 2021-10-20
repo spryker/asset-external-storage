@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerTest\Zed\AssetExternalStorage\Comminication\Plugin\Event\Listener;
 
 use Codeception\Test\Unit;
@@ -8,6 +13,19 @@ use Spryker\Zed\AssetExternal\Dependency\AssetExternalEvents;
 use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetExternalStoragePublishListener;
 use SprykerTest\Zed\AssetExternalStorage\AssetExternalStorageCommunicationTester;
 
+/**
+ * Auto-generated group annotations
+ *
+ * @group SprykerTest
+ * @group Zed
+ * @group AssetExternalStorage
+ * @group Comminication
+ * @group Plugin
+ * @group Event
+ * @group Listener
+ * @group AssetExternalStoragePublishListenerTest
+ * Add your own group annotations below this line
+ */
 class AssetExternalStoragePublishListenerTest extends Unit
 {
     /**
@@ -47,7 +65,8 @@ class AssetExternalStoragePublishListenerTest extends Unit
         // Act
         $assetExternalStoragePublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_CREATE);
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_CREATE
+        );
 
         // Assert
         $this->tester->assertAssetExternalStorage([

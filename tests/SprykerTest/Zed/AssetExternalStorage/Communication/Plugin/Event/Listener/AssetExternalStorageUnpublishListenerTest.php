@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerTest\Zed\AssetExternalStorage\Comminication\Plugin\Event\Listener;
 
 use Codeception\Test\Unit;
@@ -7,10 +12,22 @@ use Generated\Shared\Transfer\EventEntityTransfer;
 use Spryker\Zed\AssetExternal\Dependency\AssetExternalEvents;
 use Spryker\Zed\AssetExternalStorage\AssetExternalStorageConfig;
 use Spryker\Zed\AssetExternalStorage\Communication\Exception\NoForeignKeyException;
-use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetExternalStoragePublishListener;
 use Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetExternalStorageUnpublishListener;
 use SprykerTest\Zed\AssetExternalStorage\AssetExternalStorageCommunicationTester;
 
+/**
+ * Auto-generated group annotations
+ *
+ * @group SprykerTest
+ * @group Zed
+ * @group AssetExternalStorage
+ * @group Comminication
+ * @group Plugin
+ * @group Event
+ * @group Listener
+ * @group AssetExternalStorageUnpublishListenerTest
+ * Add your own group annotations below this line
+ */
 class AssetExternalStorageUnpublishListenerTest extends Unit
 {
     /**
@@ -61,7 +78,8 @@ class AssetExternalStorageUnpublishListenerTest extends Unit
         // Act
         $this->assetExternalStorageUnpublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_DELETE);
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_DELETE
+        );
 
         // Assert
         $this->tester->assertAssetExternalStorage([
@@ -90,6 +108,7 @@ class AssetExternalStorageUnpublishListenerTest extends Unit
         // Act
         $this->assetExternalStorageUnpublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_DELETE);
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_DELETE
+        );
     }
 }

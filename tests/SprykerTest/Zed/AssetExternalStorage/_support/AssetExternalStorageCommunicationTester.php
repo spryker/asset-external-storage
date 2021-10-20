@@ -1,19 +1,22 @@
 <?php
+/**
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerTest\Zed\AssetExternalStorage;
 
+use Codeception\Actor;
 use Codeception\Stub;
 use Generated\Shared\Transfer\AssetExternalTransfer;
-use Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer;
-use Generated\Shared\Transfer\StoreTransfer;
-use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage;
 use Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorageQuery;
 use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToAssetExternalBridge;
-use Spryker\Zed\AssetExternalStorage\Dependency\Facade\AssetExternalStorageToStoreFacadeBridge;
 use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageEntityManager;
 use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageRepository;
 
 /**
  * Inherited Methods
+ *
  * @method void wantToTest($text)
  * @method void wantTo($text)
  * @method void execute($callable)
@@ -26,8 +29,8 @@ use Spryker\Zed\AssetExternalStorage\Persistence\AssetExternalStorageRepository;
  * @method void pause()
  *
  * @SuppressWarnings(PHPMD)
-*/
-class AssetExternalStorageCommunicationTester extends \Codeception\Actor
+ */
+class AssetExternalStorageCommunicationTester extends Actor
 {
     use _generated\AssetExternalStorageCommunicationTesterActions;
 
@@ -37,7 +40,7 @@ class AssetExternalStorageCommunicationTester extends \Codeception\Actor
     public const ID_ASSET_EXTERNAL_DEFAULT = 1;
 
     /**
-     * @var int
+     * @var string
      */
     public const STORE_NAME_DEFAULT = 'DE';
 
@@ -48,17 +51,19 @@ class AssetExternalStorageCommunicationTester extends \Codeception\Actor
      */
     public function mockAssetExternalFacade(AssetExternalTransfer $assetExternalTransfer): void
     {
-        $assetExternalFacadeMock = Stub::make(AssetExternalStorageToAssetExternalBridge::class,
+        $assetExternalFacadeMock = Stub::make(
+            AssetExternalStorageToAssetExternalBridge::class,
             [
                 'findAssetById' => $assetExternalTransfer,
-            ]);
+            ]
+        );
         $this->mockFactoryMethod('getFacadeAssetExternal', $assetExternalFacadeMock);
         $this->mockFactoryMethod('getEntityManager', new AssetExternalStorageEntityManager());
         $this->mockFactoryMethod('getRepository', new AssetExternalStorageRepository());
     }
 
     /**
-     * @param int $beforeCount
+     * @param array $expectedStorageData
      *
      * @return void
      */
