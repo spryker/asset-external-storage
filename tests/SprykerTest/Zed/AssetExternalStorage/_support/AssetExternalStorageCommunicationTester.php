@@ -65,7 +65,7 @@ class AssetExternalStorageCommunicationTester extends Actor
     /**
      * @var string
      */
-    public const ASSET_EXTERNAL_STORAGE_KEY = 'asset_external_cms_slot';
+    protected const ASSET_EXTERNAL_STORAGE_KEY = 'asset_external_cms_slot';
 
     /**
      * @var string
