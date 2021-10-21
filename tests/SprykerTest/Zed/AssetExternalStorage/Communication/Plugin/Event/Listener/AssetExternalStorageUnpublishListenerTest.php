@@ -83,17 +83,12 @@ class AssetExternalStorageUnpublishListenerTest extends Unit
         );
 
         // Assert
-        $storageKeyDE = $this->tester
-            ->getStorageKey(AssetExternalStorageCommunicationTester::STORE_NAME_DE);
-        $storageKeyEN = $this->tester
-            ->getStorageKey(AssetExternalStorageCommunicationTester::STORE_NAME_EN);
-
         $this->tester->assertAssetExternalStorage([
-            $storageKeyDE => [
+            'asset_external_cms_slot:de:external-asset-header-test' => [
                 'cmsSlotKey' => AssetExternalStorageCommunicationTester::CMS_SLOT_KEY_DEFAULT,
                 'assets' => [],
             ],
-            $storageKeyEN => [
+            'asset_external_cms_slot:en:external-asset-header-test' => [
                 'cmsSlotKey' => AssetExternalStorageCommunicationTester::CMS_SLOT_KEY_DEFAULT,
                 'assets' => [],
             ],

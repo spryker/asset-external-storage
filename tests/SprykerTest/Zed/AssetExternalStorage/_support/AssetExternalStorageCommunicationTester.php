@@ -65,11 +65,6 @@ class AssetExternalStorageCommunicationTester extends Actor
     /**
      * @var string
      */
-    protected const ASSET_EXTERNAL_STORAGE_KEY_PREFIX = 'asset_external_cms_slot';
-
-    /**
-     * @var string
-     */
     protected const ASSETS_DATA_KEY = 'assets';
 
     /**
@@ -161,20 +156,5 @@ class AssetExternalStorageCommunicationTester extends Actor
 
             $assetExternalCmsSlotStorage->save();
         }
-    }
-
-    /**
-     * @param string $storeName
-     *
-     * @return string
-     */
-    public function getStorageKey(string $storeName): string
-    {
-        return sprintf(
-            '%s:%s:%s',
-            static::ASSET_EXTERNAL_STORAGE_KEY_PREFIX,
-            strtolower($storeName),
-            static::CMS_SLOT_KEY_DEFAULT
-        );
     }
 }
