@@ -65,7 +65,7 @@ class AssetExternalStorageCommunicationTester extends Actor
     /**
      * @var string
      */
-    protected const ASSET_EXTERNAL_STORAGE_KEY = 'asset_external_cms_slot';
+    protected const ASSET_EXTERNAL_STORAGE_KEY_PREFIX = 'asset_external_cms_slot';
 
     /**
      * @var string
@@ -172,7 +172,7 @@ class AssetExternalStorageCommunicationTester extends Actor
     {
         return sprintf(
             '%s:%s:%s',
-            static::ASSET_EXTERNAL_STORAGE_KEY,
+            static::ASSET_EXTERNAL_STORAGE_KEY_PREFIX,
             strtolower($storeName),
             static::CMS_SLOT_KEY_DEFAULT
         );
