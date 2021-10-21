@@ -42,7 +42,55 @@ class AssetExternalStorageCommunicationTester extends Actor
     /**
      * @var string
      */
-    public const STORE_NAME_DEFAULT = 'DE';
+    public const STORE_NAME_DE = 'DE';
+
+    /**
+     * @var string
+     */
+    public const STORE_NAME_EN = 'EN';
+
+    /**
+     * @var array<string>
+     */
+    public const STORE_NAMES_DEFAULT = [
+        self::STORE_NAME_DE,
+        self::STORE_NAME_EN,
+    ];
+
+    /**
+     * @var string
+     */
+    public const CMS_SLOT_KEY_DEFAULT = 'external-asset-header-test';
+
+    /**
+     * @var string
+     */
+    public const ASSET_EXTERNAL_STORAGE_KEY = 'asset_external_cms_slot';
+
+    /**
+     * @var string
+     */
+    protected const ASSETS_DATA_KEY = 'assets';
+
+    /**
+     * @var string
+     */
+    protected const ASSET_UUID_DATA_KEY = 'assetUuid';
+
+    /**
+     * @var string
+     */
+    protected const ASSET_CONTENT_DATA_KEY = 'assetContent';
+
+    /**
+     * @var string
+     */
+    protected const ASSET_ID_DATA_KEY = 'assetId';
+
+    /**
+     * @var string
+     */
+    protected const CMS_SLOT_KEY_DATA_KEY = 'cmsSlotKey';
 
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
@@ -69,7 +117,10 @@ class AssetExternalStorageCommunicationTester extends Actor
      */
     public function assertAssetExternalStorage(array $expectedStorageData): void
     {
-        $this->assertCountStorageRecords(count($expectedStorageData));
+        $count = (new SpyAssetExternalCmsSlotStorageQuery())
+            ->filterByCmsSlotKey(static::CMS_SLOT_KEY_DEFAULT)
+            ->count();
+        $this->assertSame(count($expectedStorageData), $count, 'qty of storage records is different from expected');
 
         foreach ($expectedStorageData as $expectedStorageKey => $expectedStorageDataItem) {
             $assetExternalCmsSlotStorage = SpyAssetExternalCmsSlotStorageQuery::create()
@@ -82,31 +133,48 @@ class AssetExternalStorageCommunicationTester extends Actor
     }
 
     /**
-     * @param int $expectedQty
-     *
-     * @return void
-     */
-    public function assertCountStorageRecords(int $expectedQty): void
-    {
-        $count = SpyAssetExternalCmsSlotStorageQuery::create()->count();
-        $this->assertSame($expectedQty, $count, 'qty of storage records is different from expected');
-    }
-
-    /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      *
      * @return void
      */
     public function haveAssetExternalCmsSlotStorageForAssetExternalTransfer(AssetExternalTransfer $assetExternalTransfer): void
     {
-        $assetExternalStorageEntityManager = new AssetExternalStorageEntityManager();
-
         foreach ($assetExternalTransfer->getStores() as $storeName) {
-            $assetExternalStorageEntityManager->createAssetExternalStorage(
-                $assetExternalTransfer,
-                $storeName,
-                []
-            );
+            $assetExternalCmsSlotStorage = (new SpyAssetExternalCmsSlotStorageQuery())
+                ->filterByCmsSlotKey($assetExternalTransfer->getCmsSlotKey())
+                ->filterByStore($storeName)
+                ->findOneOrCreate();
+
+            $data[static::CMS_SLOT_KEY_DATA_KEY] = $assetExternalTransfer->getCmsSlotKey();
+
+            $data[static::ASSETS_DATA_KEY] = [
+                [
+                    static::ASSET_ID_DATA_KEY => $assetExternalTransfer->getIdAssetExternal(),
+                    static::ASSET_UUID_DATA_KEY => $assetExternalTransfer->getAssetUuid(),
+                    static::ASSET_CONTENT_DATA_KEY => $assetExternalTransfer->getAssetContent(),
+                ],
+            ];
+
+            $assetExternalCmsSlotStorage->setStore($storeName)
+                ->setCmsSlotKey($assetExternalTransfer->getCmsSlotKey())
+                ->setData($data);
+
+            $assetExternalCmsSlotStorage->save();
         }
+    }
+
+    /**
+     * @param string $storeName
+     *
+     * @return string
+     */
+    public function getStorageKey(string $storeName): string
+    {
+        return sprintf(
+            '%s:%s:%s',
+            static::ASSET_EXTERNAL_STORAGE_KEY,
+            strtolower($storeName),
+            static::CMS_SLOT_KEY_DEFAULT
+        );
     }
 }

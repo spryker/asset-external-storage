@@ -47,6 +47,7 @@ class AssetExternalStoragePublishListenerTest extends Unit
 
         $this->assetExternalTransfer = $this->tester->haveAssetExternalTransfer([
             'idAssetExternal' => AssetExternalStorageCommunicationTester::ID_ASSET_EXTERNAL_DEFAULT,
+            'stores' => AssetExternalStorageCommunicationTester::STORE_NAMES_DEFAULT,
         ]);
         $this->tester->mockAssetExternalFacade($this->assetExternalTransfer);
     }
@@ -69,17 +70,22 @@ class AssetExternalStoragePublishListenerTest extends Unit
         );
 
         // Assert
+        $storageKeyDE = $this->tester
+            ->getStorageKey(AssetExternalStorageCommunicationTester::STORE_NAME_DE);
+        $storageKeyEN = $this->tester
+            ->getStorageKey(AssetExternalStorageCommunicationTester::STORE_NAME_EN);
+
         $this->tester->assertAssetExternalStorage([
-            'asset_external_cms_slot:de:external-asset-header' => [
-                'cmsSlotKey' => 'external-asset-header',
+            $storageKeyDE => [
+                'cmsSlotKey' => AssetExternalStorageCommunicationTester::CMS_SLOT_KEY_DEFAULT,
                 'assets' => [[
                     'assetId' => $this->assetExternalTransfer->getIdAssetExternal(),
                     'assetUuid' => $this->assetExternalTransfer->getAssetUuid(),
                     'assetContent' => $this->assetExternalTransfer->getAssetContent(),
                 ]],
             ],
-            'asset_external_cms_slot:en:external-asset-header' => [
-                'cmsSlotKey' => 'external-asset-header',
+            $storageKeyEN => [
+                'cmsSlotKey' => AssetExternalStorageCommunicationTester::CMS_SLOT_KEY_DEFAULT,
                 'assets' => [[
                     'assetId' => $this->assetExternalTransfer->getIdAssetExternal(),
                     'assetUuid' => $this->assetExternalTransfer->getAssetUuid(),

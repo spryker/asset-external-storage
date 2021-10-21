@@ -41,9 +41,9 @@ class AssetExternalStoreStorageUnpublishListenerTest extends Unit
     protected $assetExternalTransfer;
 
     /**
-     * @var \Generated\Shared\Transfer\StoreTransfer
+     * @var \Generated\Shared\Transfer\StoreTransfer[]
      */
-    protected $storeTransfer;
+    protected $storeTransfers = [];
 
     /**
      * @var \Spryker\Zed\AssetExternalStorage\Communication\Plugin\Event\Listener\AssetExternalStoreStoragePublishListener
@@ -59,12 +59,15 @@ class AssetExternalStoreStorageUnpublishListenerTest extends Unit
 
         $this->assetExternalTransfer = $this->tester->haveAssetExternalTransfer([
             'idAssetExternal' => AssetExternalStorageCommunicationTester::ID_ASSET_EXTERNAL_DEFAULT,
+            'stores' => AssetExternalStorageCommunicationTester::STORE_NAMES_DEFAULT,
         ]);
         $this->tester->mockAssetExternalFacade($this->assetExternalTransfer);
 
-        $this->storeTransfer = $this->tester->haveStore([
-            'name' => AssetExternalStorageCommunicationTester::STORE_NAME_DEFAULT,
-        ]);
+        foreach (AssetExternalStorageCommunicationTester::STORE_NAMES_DEFAULT as $storeName) {
+            $this->storeTransfers[$storeName] = $this->tester->haveStore([
+                'name' => $storeName,
+            ]);
+        }
 
         $this->assetExternalStoreStorageUnpublishListener = (new AssetExternalStoreStorageUnpublishListener())
             ->setFacade($this->tester->getFacade());
@@ -78,7 +81,9 @@ class AssetExternalStoreStorageUnpublishListenerTest extends Unit
         // Arrange
         $eventTransfer = (new EventEntityTransfer())
             ->setForeignKeys([
-            AssetExternalStorageConfig::COL_FK_STORE => $this->storeTransfer->getIdStore(),
+            AssetExternalStorageConfig::COL_FK_STORE => $this
+                ->storeTransfers[AssetExternalStorageCommunicationTester::STORE_NAME_DE]
+                ->getIdStore(),
             AssetExternalStorageConfig::COL_FK_ASSET_EXTERNAL => $this->assetExternalTransfer->getIdAssetExternal(),
         ]);
 
@@ -91,13 +96,18 @@ class AssetExternalStoreStorageUnpublishListenerTest extends Unit
         );
 
         // Assert
+        $storageKeyDE = $this->tester
+            ->getStorageKey(AssetExternalStorageCommunicationTester::STORE_NAME_DE);
+        $storageKeyEN = $this->tester
+            ->getStorageKey(AssetExternalStorageCommunicationTester::STORE_NAME_EN);
+
         $this->tester->assertAssetExternalStorage([
-            'asset_external_cms_slot:de:external-asset-header' => [
-                'cmsSlotKey' => 'external-asset-header',
+            $storageKeyDE => [
+                'cmsSlotKey' => AssetExternalStorageCommunicationTester::CMS_SLOT_KEY_DEFAULT,
                 'assets' => [],
             ],
-            'asset_external_cms_slot:en:external-asset-header' => [
-                'cmsSlotKey' => 'external-asset-header',
+            $storageKeyEN => [
+                'cmsSlotKey' => AssetExternalStorageCommunicationTester::CMS_SLOT_KEY_DEFAULT,
                 'assets' => [[
                     'assetId' => $this->assetExternalTransfer->getIdAssetExternal(),
                     'assetUuid' => $this->assetExternalTransfer->getAssetUuid(),
@@ -133,7 +143,9 @@ class AssetExternalStoreStorageUnpublishListenerTest extends Unit
     {
         // Arrange
         $eventTransfer = (new EventEntityTransfer())->setForeignKeys([
-            AssetExternalStorageConfig::COL_FK_STORE => $this->storeTransfer->getIdStore(),
+            AssetExternalStorageConfig::COL_FK_STORE => $this
+                ->storeTransfers[AssetExternalStorageCommunicationTester::STORE_NAME_DE]
+                ->getIdStore(),
         ]);
 
         $this->expectException(NoForeignKeyException::class);
