@@ -16,5 +16,5 @@ interface AssetExternalStorageToStoreFacadeInterface
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
-    public function getStoreById(int $idStore);
+    public function getStoreById($idStore);
 }

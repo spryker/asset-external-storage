@@ -1,5 +1,4 @@
 parameters:
     checkMissingIterableValueType: false
     ignoreErrors:
-        - '#Call to an undefined method Generated\\(Client|Zed)\\Ide\\AutoCompletion\|Spryker\\Shared\\Kernel\\LocatorLocatorInterface.*#'
         - '#Parameter .* of method .* expects .* given\.#'
