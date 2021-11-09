@@ -14,7 +14,7 @@ interface AssetExternalStorageMapperInterface
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\AssetExternalStorage\Persistence\SpyAssetExternalCmsSlotStorage[] $assetExternalCmsSlotStorageEntities
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function mapExternalCmsSlotStorageEntitiesToExternalCmsSlotStorageEntityTransfers(ObjectCollection $assetExternalCmsSlotStorageEntities): array;
 }

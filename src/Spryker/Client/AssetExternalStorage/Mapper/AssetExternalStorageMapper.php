@@ -24,7 +24,7 @@ class AssetExternalStorageMapper implements AssetExternalStorageMapperInterface
 
         foreach ($assetExternalStorageTransferData as $assetExtenal) {
             $assetExternalStorageCollectionTransfer->addAssetExternalStorage(
-                (new AssetExternalStorageTransfer())->fromArray($assetExtenal, true)
+                (new AssetExternalStorageTransfer())->fromArray($assetExtenal, true),
             );
         }
 

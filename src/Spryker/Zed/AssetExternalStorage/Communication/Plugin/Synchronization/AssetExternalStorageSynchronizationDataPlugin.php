@@ -51,9 +51,9 @@ class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin imple
      *
      * @param int $offset
      * @param int $limit
-     * @param int[] $ids
+     * @param array<int> $ids
      *
-     * @return \Generated\Shared\Transfer\SynchronizationDataTransfer[]
+     * @return array<\Generated\Shared\Transfer\SynchronizationDataTransfer>
      */
     public function getData(int $offset, int $limit, array $ids = []): array
     {
@@ -71,9 +71,9 @@ class AssetExternalStorageSynchronizationDataPlugin extends AbstractPlugin imple
     }
 
     /**
-     * @param int[] $ids
+     * @param array<int> $ids
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     protected function findAssetExternalStorage(array $ids): array
     {

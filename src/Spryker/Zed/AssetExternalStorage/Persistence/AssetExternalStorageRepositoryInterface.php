@@ -10,37 +10,37 @@ namespace Spryker\Zed\AssetExternalStorage\Persistence;
 interface AssetExternalStorageRepositoryInterface
 {
     /**
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStorages(): array;
 
     /**
-     * @param int[] $ids
+     * @param array<int> $ids
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStoragesByAssetExternalIds(array $ids): array;
 
     /**
      * @param string $cmsSlotKey
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStoragesByCmsSlotKey(string $cmsSlotKey): array;
 
     /**
      * @param string $cmsSlotKey
-     * @param string[] $storeNames
+     * @param array<string> $storeNames
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStoragesWithCmsSlotKeyNotEqualAndByStores(string $cmsSlotKey, array $storeNames): array;
 
     /**
      * @param string $cmsSlotKey
-     * @param string[] $storeNames
+     * @param array<string> $storeNames
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStoragesByCmsSlotKeyAndStores(string $cmsSlotKey, array $storeNames): array;
 }

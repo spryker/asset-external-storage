@@ -41,7 +41,7 @@ class AssetExternalStoreStoragePublishListenerTest extends Unit
     protected $assetExternalTransfer;
 
     /**
-     * @var \Generated\Shared\Transfer\StoreTransfer[]
+     * @var array<\Generated\Shared\Transfer\StoreTransfer>
      */
     protected $storeTransfers = [];
 
@@ -89,7 +89,7 @@ class AssetExternalStoreStoragePublishListenerTest extends Unit
         // Act
         $this->assetExternalStoreStoragePublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE,
         );
 
         // Assert
@@ -120,7 +120,7 @@ class AssetExternalStoreStoragePublishListenerTest extends Unit
         // Act
         $this->assetExternalStoreStoragePublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE,
         );
     }
 
@@ -141,7 +141,7 @@ class AssetExternalStoreStoragePublishListenerTest extends Unit
         // Act
         $this->assetExternalStoreStoragePublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_STORE_CREATE,
         );
     }
 }

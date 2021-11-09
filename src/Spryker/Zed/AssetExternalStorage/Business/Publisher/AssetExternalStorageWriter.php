@@ -72,7 +72,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             $this->assetExternalStorageEntityManager->updateAssetExternalStoragesData(
                 $assetExternalTransfer,
                 $assetExternalCmsSlotStorageToUpdate,
-                $assetExternalCmsSlotStorageToDelete
+                $assetExternalCmsSlotStorageToDelete,
             );
 
             return;
@@ -82,7 +82,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
             $this->assetExternalStorageEntityManager->createAssetExternalStorage(
                 $assetExternalTransfer,
                 $storeName,
-                $assetExternalCmsSlotStorageToDelete
+                $assetExternalCmsSlotStorageToDelete,
             );
         }
     }
@@ -105,7 +105,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
 
         $assetExternalCmsSlotStorageEntityTransfers = $this->assetExternalStorageRepository->findAssetExternalStoragesByCmsSlotKeyAndStores(
             $assetExternalTransfer->getCmsSlotKey(),
-            [$storeTransfer->getName()]
+            [$storeTransfer->getName()],
         );
 
         if (!count($assetExternalCmsSlotStorageEntityTransfers)) {
@@ -148,14 +148,14 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
 
         $assetExternalCmsSlotStorageEntityTransfers = $this->assetExternalStorageRepository->findAssetExternalStoragesByCmsSlotKeyAndStores(
             $assetExternalTransfer->getCmsSlotKey(),
-            [$storeTransfer->getName()]
+            [$storeTransfer->getName()],
         );
 
         $this->removeAssetExternalsFromStorageData($assetExternalCmsSlotStorageEntityTransfers, $idAssetExternal);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotsStorageEntityTransfers
+     * @param array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer> $assetExternalCmsSlotsStorageEntityTransfers
      * @param int $idAssetExternal
      *
      * @return void
@@ -166,7 +166,7 @@ class AssetExternalStorageWriter implements AssetExternalStorageWriterInterface
     ): void {
         $this->assetExternalStorageEntityManager->removeAssetFromDatasByIdAssetExternal(
             $assetExternalCmsSlotsStorageEntityTransfers,
-            $idAssetExternal
+            $idAssetExternal,
         );
     }
 }

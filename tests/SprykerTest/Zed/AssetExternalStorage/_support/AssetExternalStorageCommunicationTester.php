@@ -98,7 +98,7 @@ class AssetExternalStorageCommunicationTester extends Actor
             AssetExternalStorageToAssetExternalBridge::class,
             [
                 'findAssetById' => $assetExternalTransfer,
-            ]
+            ],
         );
         $this->mockFactoryMethod('getFacadeAssetExternal', $assetExternalFacadeMock);
         $this->mockFactoryMethod('getEntityManager', new AssetExternalStorageEntityManager());

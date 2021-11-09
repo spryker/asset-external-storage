@@ -16,7 +16,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class AssetExternalStorageRepository extends AbstractRepository implements AssetExternalStorageRepositoryInterface
 {
     /**
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStorages(): array
     {
@@ -30,9 +30,9 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     }
 
     /**
-     * @param int[] $ids
+     * @param array<int> $ids
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStoragesByAssetExternalIds(array $ids): array
     {
@@ -53,7 +53,7 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
     /**
      * @param string $cmsSlotKey
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStoragesByCmsSlotKey(string $cmsSlotKey): array
     {
@@ -69,9 +69,9 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
 
     /**
      * @param string $cmsSlotKey
-     * @param string[] $storeNames
+     * @param array<string> $storeNames
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStoragesWithCmsSlotKeyNotEqualAndByStores(string $cmsSlotKey, array $storeNames): array
     {
@@ -88,9 +88,9 @@ class AssetExternalStorageRepository extends AbstractRepository implements Asset
 
     /**
      * @param string $cmsSlotKey
-     * @param string[] $storeNames
+     * @param array<string> $storeNames
      *
-     * @return \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[]
+     * @return array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer>
      */
     public function findAssetExternalStoragesByCmsSlotKeyAndStores(string $cmsSlotKey, array $storeNames): array
     {

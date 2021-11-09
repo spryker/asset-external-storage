@@ -29,8 +29,8 @@ interface AssetExternalStorageEntityManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageToUpdate
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageToDelete
+     * @param array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer> $assetExternalCmsSlotStorageToUpdate
+     * @param array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer> $assetExternalCmsSlotStorageToDelete
      *
      * @return void
      */
@@ -41,7 +41,7 @@ interface AssetExternalStorageEntityManagerInterface
     ): void;
 
     /**
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotsStorageEntityTransfers
+     * @param array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer> $assetExternalCmsSlotsStorageEntityTransfers
      * @param int $idAssetExternal
      *
      * @return void

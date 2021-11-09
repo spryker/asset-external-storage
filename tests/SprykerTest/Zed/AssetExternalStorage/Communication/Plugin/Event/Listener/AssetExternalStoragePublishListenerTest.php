@@ -66,7 +66,7 @@ class AssetExternalStoragePublishListenerTest extends Unit
         // Act
         $assetExternalStoragePublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_CREATE
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_CREATE,
         );
 
         // Assert

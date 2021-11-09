@@ -25,7 +25,7 @@ class AssetExternalStorageFactory extends AbstractFactory
         return new AssetExternalStorageReader(
             $this->getStorageClient(),
             $this->getServiceSynchronization(),
-            $this->createAssetExternalStorageMapper()
+            $this->createAssetExternalStorageMapper(),
         );
     }
 

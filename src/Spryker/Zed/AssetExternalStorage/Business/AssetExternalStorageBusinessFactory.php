@@ -30,7 +30,7 @@ class AssetExternalStorageBusinessFactory extends AbstractBusinessFactory
             $this->getFacadeStore(),
             $this->getFacadeAssetExternal(),
             $this->getEntityManager(),
-            $this->getRepository()
+            $this->getRepository(),
         );
     }
 

@@ -51,7 +51,7 @@ class AssetExternalStorageDependencyProvider extends AbstractDependencyProvider
     {
         $container->set(static::SERVICE_SYNCHRONIZATION, function (Container $container) {
             return new AssetExternalStorageToSynchronizationServiceBridge(
-                $container->getLocator()->synchronization()->service()
+                $container->getLocator()->synchronization()->service(),
             );
         });
 

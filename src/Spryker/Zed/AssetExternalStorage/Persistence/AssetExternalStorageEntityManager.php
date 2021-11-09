@@ -76,18 +76,18 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
             $this->executePublishAssetExternalTransaction(
                 $assetExternalTransfer,
                 $storeName,
-                $data
+                $data,
             );
 
             $this->removeAssetFromDatasByIdAssetExternal(
                 $assetExternalCmsSlotStorageToDelete,
-                $assetExternalTransfer->getIdAssetExternal()
+                $assetExternalTransfer->getIdAssetExternal(),
             );
         });
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotsStorageEntityTransfers
+     * @param array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer> $assetExternalCmsSlotsStorageEntityTransfers
      * @param int $idAssetExternal
      *
      * @return void
@@ -101,8 +101,8 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
 
     /**
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageToUpdate
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageToDelete
+     * @param array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer> $assetExternalCmsSlotStorageToUpdate
+     * @param array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer> $assetExternalCmsSlotStorageToDelete
      *
      * @return void
      */
@@ -195,7 +195,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotsStorageEntityTransfers
+     * @param array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer> $assetExternalCmsSlotsStorageEntityTransfers
      * @param int $idAssetExternal
      *
      * @return void
@@ -212,7 +212,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
                 }
                 unset($data[static::ASSETS_DATA_KEY][$key]);
                 $assetExternalStorageEntity = $this->getAssetExternalStorageEntityById(
-                    $assetExternalCmsSlotsStorageEntityTransfer->getIdAssetExternalCmsSlotStorage()
+                    $assetExternalCmsSlotsStorageEntityTransfer->getIdAssetExternalCmsSlotStorage(),
                 );
 
                 $assetExternalStorageEntity->setData($data);
@@ -223,7 +223,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     }
 
     /**
-     * @param \Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer[] $assetExternalCmsSlotStorageEntityTransfers
+     * @param array<\Generated\Shared\Transfer\SpyAssetExternalCmsSlotStorageEntityTransfer> $assetExternalCmsSlotStorageEntityTransfers
      * @param \Generated\Shared\Transfer\AssetExternalTransfer $assetExternalTransfer
      *
      * @return void
@@ -234,7 +234,7 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
     ): void {
         foreach ($assetExternalCmsSlotStorageEntityTransfers as $assetExternalCmsSlotStorageEntityTransfer) {
             $assetExternalCmsSlotStorageEntity = $this->getAssetExternalStorageEntityById(
-                $assetExternalCmsSlotStorageEntityTransfer->getIdAssetExternalCmsSlotStorage()
+                $assetExternalCmsSlotStorageEntityTransfer->getIdAssetExternalCmsSlotStorage(),
             );
 
             $isUpdated = $this->updateData($assetExternalCmsSlotStorageEntity, $assetExternalTransfer);

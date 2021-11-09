@@ -62,7 +62,7 @@ class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
     ): AssetExternalStorageCollectionTransfer {
         $assetExternalStorageKey = $this->generateKey(
             $assetExternalStorageCriteriaTransfer->getSlotKeyOrFail(),
-            $assetExternalStorageCriteriaTransfer->getStoreNameOrFail()
+            $assetExternalStorageCriteriaTransfer->getStoreNameOrFail(),
         );
         $assetExternalStorageTransferData = $this->storageClient->get($assetExternalStorageKey);
 

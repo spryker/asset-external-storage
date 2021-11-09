@@ -79,7 +79,7 @@ class AssetExternalStorageUnpublishListenerTest extends Unit
         // Act
         $this->assetExternalStorageUnpublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_DELETE
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_DELETE,
         );
 
         // Assert
@@ -109,7 +109,7 @@ class AssetExternalStorageUnpublishListenerTest extends Unit
         // Act
         $this->assetExternalStorageUnpublishListener->handle(
             $eventTransfer,
-            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_DELETE
+            AssetExternalEvents::ENTITY_SPY_ASSET_EXTERNAL_DELETE,
         );
     }
 }
