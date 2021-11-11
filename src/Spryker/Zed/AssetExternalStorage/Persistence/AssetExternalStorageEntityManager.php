@@ -57,13 +57,14 @@ class AssetExternalStorageEntityManager extends AbstractEntityManager implements
         string $storeName,
         array $assetExternalCmsSlotStorageToDelete
     ): void {
-        $data[static::CMS_SLOT_KEY_DATA_KEY] = $assetExternalTransfer->getCmsSlotKey();
-
-        $data[static::ASSETS_DATA_KEY] = [
-            [
-                static::ASSET_ID_DATA_KEY => $assetExternalTransfer->getIdAssetExternal(),
-                static::ASSET_UUID_DATA_KEY => $assetExternalTransfer->getAssetUuid(),
-                static::ASSET_CONTENT_DATA_KEY => $assetExternalTransfer->getAssetContent(),
+        $data = [
+            static::CMS_SLOT_KEY_DATA_KEY => $assetExternalTransfer->getCmsSlotKey(),
+            static::ASSETS_DATA_KEY => [
+                [
+                    static::ASSET_ID_DATA_KEY => $assetExternalTransfer->getIdAssetExternal(),
+                    static::ASSET_UUID_DATA_KEY => $assetExternalTransfer->getAssetUuid(),
+                    static::ASSET_CONTENT_DATA_KEY => $assetExternalTransfer->getAssetContent(),
+                ],
             ],
         ];
 
