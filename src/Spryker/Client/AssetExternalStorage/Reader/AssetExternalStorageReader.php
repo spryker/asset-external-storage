@@ -66,7 +66,7 @@ class AssetExternalStorageReader implements AssetExternalStorageReaderInterface
         );
         $assetExternalStorageTransferData = $this->storageClient->get($assetExternalStorageKey);
 
-        if (!$assetExternalStorageTransferData || empty([$assetExternalStorageTransferData[static::ASSETS_STORAGE_KEY]])) {
+        if (!$assetExternalStorageTransferData || empty($assetExternalStorageTransferData[static::ASSETS_STORAGE_KEY])) {
             return new AssetExternalStorageCollectionTransfer();
         }
 
