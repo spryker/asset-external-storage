@@ -7,6 +7,8 @@
 
 namespace Spryker\Zed\AssetExternalStorage\Dependency\Facade;
 
+use Generated\Shared\Transfer\StoreTransfer;
+
 class AssetExternalStorageToStoreFacadeBridge implements AssetExternalStorageToStoreFacadeInterface
 {
     /**
@@ -27,7 +29,7 @@ class AssetExternalStorageToStoreFacadeBridge implements AssetExternalStorageToS
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
-    public function getStoreById($idStore)
+    public function getStoreById($idStore): StoreTransfer
     {
         return $this->storeFacade->getStoreById($idStore);
     }
