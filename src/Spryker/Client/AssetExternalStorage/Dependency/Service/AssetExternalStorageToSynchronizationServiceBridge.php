@@ -29,7 +29,7 @@ class AssetExternalStorageToSynchronizationServiceBridge implements AssetExterna
      *
      * @return \Spryker\Service\Synchronization\Dependency\Plugin\SynchronizationKeyGeneratorPluginInterface
      */
-    public function getStorageKeyBuilder($resourceName): SynchronizationKeyGeneratorPluginInterface
+    public function getStorageKeyBuilder(string $resourceName): SynchronizationKeyGeneratorPluginInterface
     {
         return $this->synchronizationService->getStorageKeyBuilder($resourceName);
     }
