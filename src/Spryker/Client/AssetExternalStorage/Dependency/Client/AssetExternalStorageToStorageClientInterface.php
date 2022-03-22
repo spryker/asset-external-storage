@@ -14,5 +14,5 @@ interface AssetExternalStorageToStorageClientInterface
      *
      * @return mixed
      */
-    public function get($key);
+    public function get(string $key);
 }

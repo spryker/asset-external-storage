@@ -1,8 +1,15 @@
 [
     {
-        "fileName": "src/Spryker/Client/AssetExternalStorage/Dependency/Client/AssetExternalStorageToStorageClientInterface.php",
-        "description": "Bridges: The bridge interface has incorrect method signature for `get()`. Missed return type. That violates the rule \"All bridge interface methods must have exactly the same or more strict signature as their parent\"",
-        "rule": "BridgeMethodsInterfaceRule",
+        "fileName": "src/Spryker/Zed/AssetExternalStorage/Dependency/Facade/AssetExternalStorageToAssetExternalBridge.php",
+        "description": "Bridges: Method `findAssetById()` must have `public function get<DomainEntity>Collection(<DomainEntity>CriteriaTransfer): <DomainEntity>CollectionTransfer` signature.",
+        "rule": "BridgeFacadeMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "2"
+    },
+    {
+        "fileName": "src/Spryker/Zed/AssetExternalStorage/Dependency/Facade/AssetExternalStorageToStoreFacadeBridge.php",
+        "description": "Bridges: Method `getStoreById()` must have `public function get<DomainEntity>Collection(<DomainEntity>CriteriaTransfer): <DomainEntity>CollectionTransfer` signature.",
+        "rule": "BridgeFacadeMethodsRule",
         "ruleset": "Spryker",
         "priority": "2"
     }
